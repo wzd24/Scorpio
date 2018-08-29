@@ -84,6 +84,6 @@ Task("Package")
 		}
     });
 
-Task("Default").IsDependentOn("Build").IsDependentOn("Test").IsDependentOn("Package");
+Task("Default").IsDependentOn("Build").IsDependentOn("Test").IsDependentOn("Package").IsDependentOn("Publish");
 
 RunTarget(target);

@@ -45,7 +45,7 @@ Task("Clean")
 Task("Build").IsDependentOn("Clean")
 	.Does(() =>
 {
-	var setting=new DotNetCoreBuildSettings{Configuration=configuration};
+	var setting=new DotNetCoreBuildSettings{Configuration=configuration,MSBuildSettings=new DotNetCoreMSBuildSettings().WithProperty("SourceLinkCreate","true")};
 	
 	DotNetCoreBuild( solution,setting);
 	
@@ -63,6 +63,7 @@ Task("Test")
 
 Task("Package")
     .IsDependentOn("Test")
+    .WithCriteria(() => branch == "master" && isRelease)
     .Does(()=>
     {
     	var files=GetFiles("./src/**/*.csproj");

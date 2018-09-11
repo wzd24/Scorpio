@@ -10,4 +10,8 @@
     <ProjectReference Include="..\Scorpio.TestBase\Scorpio.TestBase.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Scorpio\Modularity\" />
+  </ItemGroup>
+
 </Project>

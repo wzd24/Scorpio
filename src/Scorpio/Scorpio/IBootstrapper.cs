@@ -31,5 +31,10 @@ namespace Scorpio
         /// Used to gracefully shutdown the application and all modules.
         /// </summary>
         void Shutdown();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        void Initialize();
     }
 }

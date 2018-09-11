@@ -329,3 +329,8 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+/src/Scorpio/Scorpio/Modularity
+/src/Scorpio/Scorpio/IModuleContainer.cs
+/src/Scorpio/Scorpio/IBootstrapper.cs
+/src/Scorpio/Scorpio/BootstrapperFactory.cs
+/src/Scorpio/Scorpio/BootstrapperCreationOptions.cs

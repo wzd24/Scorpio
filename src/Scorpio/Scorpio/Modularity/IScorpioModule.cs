@@ -13,46 +13,46 @@ namespace Scorpio.Modularity
     /// </summary>
     public interface IScorpioModule
     {
+
         /// <summary>
-        /// 
+        /// Before adds services to the container. 
         /// </summary>
         /// <param name="context"></param>
-        void PreCOnfigureServices([NotNull]ConfigureServicesContext context);
+        void PreConfigureServices(ConfigureServicesContext context);
+
         /// <summary>
         /// Adds services to the container. 
         /// </summary>
         /// <param name="context"></param>
-        void ConfigureServices([NotNull]ConfigureServicesContext context);
+        void ConfigureServices(ConfigureServicesContext context);
+
+        /// <summary>
+        /// After adds services to the container. 
+        /// </summary>
+        /// <param name="context"></param>
+        void PostConfigureServices(ConfigureServicesContext context);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="context"></param>
-        void PostConfigureServices([NotNull]ConfigureServicesContext context);
+        void PreInitialize(ApplicationInitializationContext context);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        void Initialize(ApplicationInitializationContext context);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        void PostInitialize(ApplicationInitializationContext context);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="context"></param>
-        void OnPreApplicationInitialization([NotNull] ApplicationInitializationContext context);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="context"></param>
-        void OnApplicationInitialization([NotNull] ApplicationInitializationContext context);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="context"></param>
-        void OnPostApplicationInitialization([NotNull] ApplicationInitializationContext context);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="context"></param>
-        void OnApplicationShutdown([NotNull] ApplicationShutdownContext context);
+        void Shutdown(ApplicationShutdownContext context);
 
     }
 }

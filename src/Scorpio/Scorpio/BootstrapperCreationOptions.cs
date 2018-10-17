@@ -1,17 +1,31 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Scorpio.Modularity;
+using Scorpio.Modularity.Plugins;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Scorpio
 {
     /// <summary>
     /// 
     /// </summary>
-    public class BootstrapperCreationOptions
+    public sealed class BootstrapperCreationOptions
     {
-        private IServiceCollection services;
+        /// <summary>
+        /// 
+        /// </summary>
+        public IServiceCollection Services { get; }
 
-        public BootstrapperCreationOptions(IServiceCollection services)
+        /// <summary>
+        /// 
+        /// </summary>
+        public PlugInSourceList PlugInSources { get; }
+
+        internal BootstrapperCreationOptions(IServiceCollection services)
         {
-            this.services = services;
+            Services = Check.NotNull(services, nameof(services));
+            PlugInSources = new PlugInSourceList();
         }
     }
 }

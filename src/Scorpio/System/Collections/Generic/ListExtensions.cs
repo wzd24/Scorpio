@@ -12,6 +12,14 @@ namespace System.Collections.Generic
     /// </summary>
     public static class ListExtensions
     {
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="selector"></param>
+        /// <returns></returns>
         public static int FindIndex<T>(this IList<T> source, Predicate<T> selector)
         {
             for (var i = 0; i < source.Count; ++i)
@@ -25,16 +33,35 @@ namespace System.Collections.Generic
             return -1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="item"></param>
         public static void AddFirst<T>(this IList<T> source, T item)
         {
             source.Insert(0, item);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="item"></param>
         public static void AddLast<T>(this IList<T> source, T item)
         {
             source.Insert(source.Count, item);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="selector"></param>
+        /// <param name="item"></param>
         public static void InsertAfter<T>(this IList<T> source, Predicate<T> selector, T item)
         {
             var index = source.FindIndex(selector);
@@ -47,7 +74,13 @@ namespace System.Collections.Generic
             source.Insert(index + 1, item);
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="selector"></param>
+        /// <param name="item"></param>
         public static void InsertBefore<T>(this IList<T> source, Predicate<T> selector, T item)
         {
             var index = source.FindIndex(selector);
@@ -60,9 +93,16 @@ namespace System.Collections.Generic
             source.Insert(index, item);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="selector"></param>
+        /// <param name="item"></param>
         public static void ReplaceWhile<T>(this IList<T> source, Predicate<T> selector, T item)
         {
-            for (int i = 0; i < source.Count; i++)
+            for (var i = 0; i < source.Count; i++)
             {
                 if (selector(source[i]))
                 {
@@ -71,9 +111,16 @@ namespace System.Collections.Generic
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="selector"></param>
+        /// <param name="itemFactory"></param>
         public static void ReplaceWhile<T>(this IList<T> source, Predicate<T> selector, Func<T, T> itemFactory)
         {
-            for (int i = 0; i < source.Count; i++)
+            for (var i = 0; i < source.Count; i++)
             {
                 var item = source[i];
                 if (selector(item))
@@ -83,9 +130,16 @@ namespace System.Collections.Generic
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="selector"></param>
+        /// <param name="item"></param>
         public static void ReplaceOne<T>(this IList<T> source, Predicate<T> selector, T item)
         {
-            for (int i = 0; i < source.Count; i++)
+            for (var i = 0; i < source.Count; i++)
             {
                 if (selector(source[i]))
                 {
@@ -95,6 +149,13 @@ namespace System.Collections.Generic
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="selector"></param>
+        /// <param name="itemFactory"></param>
         public static void ReplaceOne<T>(this IList<T> source, Predicate<T> selector, Func<T, T> itemFactory)
         {
             for (int i = 0; i < source.Count; i++)
@@ -108,6 +169,13 @@ namespace System.Collections.Generic
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="item"></param>
+        /// <param name="replaceWith"></param>
         public static void ReplaceOne<T>(this IList<T> source, T item, T replaceWith)
         {
             for (int i = 0; i < source.Count; i++)
@@ -120,6 +188,13 @@ namespace System.Collections.Generic
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="selector"></param>
+        /// <param name="targetIndex"></param>
         public static void MoveItem<T>(this List<T> source, Predicate<T> selector, int targetIndex)
         {
             if (!targetIndex.IsBetween(0, source.Count - 1))
@@ -138,6 +213,14 @@ namespace System.Collections.Generic
             source.Insert(targetIndex, item);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="selector"></param>
+        /// <param name="factory"></param>
+        /// <returns></returns>
         [NotNull]
         public static T GetOrAdd<T>([NotNull] this IList<T> source, Func<T, bool> selector, Func<T> factory)
         {
@@ -161,7 +244,7 @@ namespace System.Collections.Generic
         /// <param name="source">A list of objects to sort</param>
         /// <param name="getDependencies">Function to resolve the dependencies</param>
         /// <returns></returns>
-        public static List<T> SortByDependencies<T>(this IEnumerable<T> source, Func<T, IEnumerable<T>> getDependencies)
+        internal static List<T> SortByDependencies<T>(this IEnumerable<T> source, Func<T, IEnumerable<T>> getDependencies)
         {
             /* See: http://www.codeproject.com/Articles/869059/Topological-sorting-in-Csharp
              *      http://en.wikipedia.org/wiki/Topological_sorting

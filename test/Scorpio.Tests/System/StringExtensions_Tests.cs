@@ -50,8 +50,8 @@ namespace System
             var str = "Scorpio project is great.";
             str.Left(7).ShouldBe("Scorpio");
             str.Left(8).ShouldBe("Scorpio ");
-            ((Action)(() => str.Left(0))).ShouldThrow<ArgumentException>();
-            ((Action)(() => str.Left(40))).ShouldThrow<ArgumentException>();
+            Should.Throw<ArgumentException>(() => str.Left(0));
+            Should.Throw<ArgumentException>(() => str.Left(40));
         }
         [Fact]
         public void Right()
@@ -59,8 +59,8 @@ namespace System
             var str = "Scorpio project is great.";
             str.Right(7).ShouldBe(" great.");
             str.Right(8).ShouldBe("s great.");
-            ((Action)(() => str.Right(0))).ShouldThrow<ArgumentException>();
-            ((Action)(() => str.Right(40))).ShouldThrow<ArgumentException>();
+            Should.Throw<ArgumentException>(() => str.Right(0));
+            Should.Throw<ArgumentException>(() => str.Right(40));
         }
 
         [Fact]
@@ -175,9 +175,9 @@ namespace System
         public void ToEnum()
         {
             "Monday".ToEnum<DayOfWeek>().ShouldBe(DayOfWeek.Monday);
-            ((Action)(() => "monday".ToEnum<DayOfWeek>())).ShouldThrow<ArgumentException>();
+            Should.Throw<ArgumentException>(() => "monday".ToEnum<DayOfWeek>());
             "monday".ToEnum<DayOfWeek>(true).ShouldBe(DayOfWeek.Monday);
-            ((Action)(() => "monday".ToEnum<DayOfWeek>(false))).ShouldThrow<ArgumentException>();
+            Should.Throw<ArgumentException>(() => "monday".ToEnum<DayOfWeek>(false));
         }
 
         [Fact]
@@ -196,6 +196,46 @@ namespace System
         public void ToPascalCase(string value, string expected)
         {
             value.ToPascalCase().ShouldBe(expected);
+        }
+
+        [Theory]
+        [InlineData("Scorpio", 2, "Sc")]
+        [InlineData("Scorpio", 10, "Scorpio")]
+        [InlineData(null, 10, null)]
+        public void Truncate(string value, int length, string expected)
+        {
+            value.Truncate(length).ShouldBe(expected);
+        }
+        [Theory]
+        [InlineData("Scorpio", 2, "io")]
+        [InlineData("Scorpio", 10, "Scorpio")]
+        [InlineData(null, 10, null)]
+        public void TruncateFromBeginning(string value, int length, string expected)
+        {
+            value.TruncateFromBeginning(length).ShouldBe(expected);
+        }
+
+        [Theory]
+        [InlineData("Scorpio", 1, "..", ".")]
+        [InlineData("Scorpio", 4, "..", "Sc..")]
+        [InlineData("Scorpio", 7, "..", "Scorpio")]
+        [InlineData("Scorpio", 12, "..", "Scorpio")]
+        [InlineData(null, 10, "..", null)]
+        [InlineData("", 10, "..", "")]
+        [InlineData("Scorpio", 0, "..", "")]
+        public void TruncateWithPostfix(string value, int length, string postfix, string expected)
+        {
+            value.TruncateWithPostfix(length, postfix).ShouldBe(expected);
+        }
+
+        [Theory]
+        [InlineData("Scorpio", 4, "S...")]
+        [InlineData("Scorpio", 7, "Scorpio")]
+        [InlineData("Scorpio", 12, "Scorpio")]
+        [InlineData(null, 10, null)]
+        public void TruncateWithPostfixDef(string value, int length, string expected)
+        {
+            value.TruncateWithPostfix(length).ShouldBe(expected);
         }
     }
 }

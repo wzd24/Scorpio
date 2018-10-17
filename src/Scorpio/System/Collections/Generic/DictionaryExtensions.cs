@@ -20,8 +20,7 @@ namespace System.Collections.Generic
         /// <returns>True if key does exists in the dictionary</returns>
         internal static bool TryGetValue<T>(this IDictionary<string, object> dictionary, string key, out T value)
         {
-            object valueObj;
-            if (dictionary.TryGetValue(key, out valueObj) && valueObj is T)
+            if (dictionary.TryGetValue(key, out var valueObj) && valueObj is T)
             {
                 value = (T)valueObj;
                 return true;
@@ -41,8 +40,7 @@ namespace System.Collections.Generic
         /// <returns>Value if found, default if can not found.</returns>
         public static TValue GetOrDefault<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key)
         {
-            TValue obj;
-            return dictionary.TryGetValue(key, out obj) ? obj : default;
+            return dictionary.TryGetValue(key, out var obj) ? obj : default;
         }
 
         /// <summary>
@@ -95,12 +93,10 @@ namespace System.Collections.Generic
         /// <returns>Value if found, default if can not found.</returns>
         public static TValue GetOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TKey, TValue> factory)
         {
-            TValue obj;
-            if (dictionary.TryGetValue(key, out obj))
+            if (dictionary.TryGetValue(key, out var obj))
             {
                 return obj;
             }
-
             return dictionary[key] = factory(key);
         }
 

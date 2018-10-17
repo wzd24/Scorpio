@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace System
@@ -18,6 +19,17 @@ namespace System
         public static bool IsBetween<T>(this T value, T minInclusiveValue, T maxInclusiveValue) where T : IComparable<T>
         {
             return value.CompareTo(minInclusiveValue) >= 0 && value.CompareTo(maxInclusiveValue) <= 0;
+        }
+
+        /// <summary>
+        /// Check if an item is in a list.
+        /// </summary>
+        /// <param name="item">Item to check</param>
+        /// <param name="list">List of items</param>
+        /// <typeparam name="T">Type of the items</typeparam>
+        public static bool IsIn<T>(this T item, params T[] list)
+        {
+            return list.Contains(item);
         }
     }
 }

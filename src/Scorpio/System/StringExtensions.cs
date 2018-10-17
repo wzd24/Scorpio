@@ -345,6 +345,11 @@ namespace System
             return (T)Enum.Parse(typeof(T), value, ignoreCase);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public static string ToMd5(this string str)
         {
             using (var md5 = MD5.Create())

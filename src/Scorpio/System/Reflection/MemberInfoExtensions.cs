@@ -125,6 +125,7 @@ namespace System.Reflection
         /// <returns>A collection of the custom attributes that are applied to element and that match T, or an empty collection if no such attributes exist.</returns>
         public static IEnumerable<TAttribute> GetAttributes<TAttribute>(this object @object, bool inherit = false) where TAttribute : System.Attribute
         {
+            Check.NotNull(@object,nameof(@object));
             return @object.GetType().GetAttributes<TAttribute>(inherit);
         }
 
@@ -177,5 +178,7 @@ namespace System.Reflection
         {
             return memberInfo.GetCustomAttributes<TAttribute>(inherit);
         }
+
+
     }
 }

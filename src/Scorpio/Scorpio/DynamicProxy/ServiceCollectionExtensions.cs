@@ -1,0 +1,37 @@
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Text;
+
+namespace Scorpio.DynamicProxy
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    public static class ServiceCollectionExtensions
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="registrar"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddConventionalRegistrar(this IServiceCollection services, IConventionaInterceptorRegistrar registrar)
+        {
+            InterceptorHelper.AddConventionalRegistrar(registrar);
+            return services;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection RegisterConventionalInterceptor(this IServiceCollection services)
+        {
+            InterceptorHelper.RegisterConventionalInterceptor(services);
+            return services;
+        }
+    }
+}

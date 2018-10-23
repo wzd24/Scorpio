@@ -5,7 +5,7 @@ using Xunit;
 using Shouldly;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-
+using System.Linq;
 namespace Scorpio.DependencyInjection
 {
    public class ServiceCollectionExtensions_Tests
@@ -14,9 +14,8 @@ namespace Scorpio.DependencyInjection
         public void AddConventionalRegistrar()
         {
             var services= new ServiceCollection();
-            var registrar = new EmptyConventionalDependencyRegistrar();
-            services.AddConventionalRegistrar(registrar);
-            services.GetSingletonInstance<ConventionalRegistrarList>().Contains(registrar).ShouldBeTrue();
+            services.AddConventionalRegistrar<EmptyConventionalDependencyRegistrar>();
+            services.GetSingletonInstance<ConventionalRegistrarList>().Any(c=>c.GetType()==typeof(EmptyConventionalDependencyRegistrar)).ShouldBeTrue();
         }
 
         [Fact]

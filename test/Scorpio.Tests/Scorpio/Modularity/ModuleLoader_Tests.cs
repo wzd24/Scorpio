@@ -32,7 +32,7 @@ namespace Scorpio.Modularity
     {
         public override void ConfigureServices(ConfigureServicesContext context)
         {
-            context.Services.RegisterAssemblyByConvention(typeof(MyStartupModule).Assembly);
+            context.Services.RegisterAssemblyByConventionOfType<MyStartupModule>();
         }
     }
 

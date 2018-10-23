@@ -25,7 +25,7 @@ namespace Microsoft.Extensions.DependencyInjection
             var types = assembly.GetTypes().Where(t => t.IsClass && !t.IsAbstract && !t.IsGenericTypeDefinition).ToList();
             config.Contexts.ForEach(
                 context => types.Where(context.TypePredicate).ForEach(
-                    t => context.ServiceSelectors.ForEach(selector=> selector.Select(t).ForEach(
+                    t => context.ServiceSelectors.ForEach(selector => selector.Select(t).ForEach(
                         s => services.Add(ServiceDescriptor.Describe(s, t, context.ServiceLifetime))))));
             return services;
         }
@@ -58,6 +58,50 @@ namespace Microsoft.Extensions.DependencyInjection
             }
 
             return service;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TService"></typeparam>
+        /// <typeparam name="TImplementation"></typeparam>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection ReplaceSingleton<TService, TImplementation>(this IServiceCollection services)
+            where TService : class
+            where TImplementation : class, TService
+        {
+            RemoveService<TService>(services);
+            return services.AddSingleton<TService, TImplementation>();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TService"></typeparam>
+        /// <param name="services"></param>
+        /// <param name="instance"></param>
+        /// <returns></returns>
+        public static IServiceCollection ReplaceSingleton<TService>(this IServiceCollection services,TService instance)
+            where TService:class
+        {
+            RemoveService<TService>(services);
+            return services.AddSingleton(instance);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TService"></typeparam>
+        /// <param name="services"></param>
+        public static IServiceCollection RemoveService<TService>(IServiceCollection services) where TService : class
+        {
+            var old = services.FirstOrDefault(s => s.ServiceType == typeof(TService));
+            if (old != null)
+            {
+                services.Remove(old);
+            }
+            return services;
         }
     }
 }

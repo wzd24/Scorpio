@@ -22,6 +22,16 @@ namespace Scorpio.DynamicProxy
             InterceptorHelper.AddConventionalRegistrar(registrar);
             return services;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddConventionalRegistrar<T>(this IServiceCollection services)
+            where T : IConventionaInterceptorRegistrar
+        {
+            return services.AddConventionalRegistrar(Activator.CreateInstance<T>());
+        }
 
         /// <summary>
         /// 

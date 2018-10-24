@@ -14,6 +14,7 @@ namespace Scorpio.DependencyInjection
                 config.Where(t => t.IsAssignableTo<ISingletonDependency>()).AsDefault().Lifetime(ServiceLifetime.Singleton);
                 config.Where(t => t.IsAssignableTo<ITransientDependency>()).AsDefault().Lifetime(ServiceLifetime.Transient);
                 config.Where(t => t.IsAssignableTo<IScopedDependency>()).AsDefault().Lifetime(ServiceLifetime.Scoped);
+                config.Where(t => t.AttributeExists<ExposeServicesAttribute>()).AsExposeService();
             });
         }
     }

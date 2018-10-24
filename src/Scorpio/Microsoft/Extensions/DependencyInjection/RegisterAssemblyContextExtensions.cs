@@ -17,7 +17,19 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static RegisterAssemblyContext Lifetime(this RegisterAssemblyContext context, ServiceLifetime serviceLifetime)
         {
-            context.ServiceLifetime = serviceLifetime;
+            context.LifetimeSelector = new LifetimeSelector(serviceLifetime);
+            return context;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="lifetimeSelector"></param>
+        /// <returns></returns>
+        public static RegisterAssemblyContext Lifetime(this RegisterAssemblyContext context, IRegisterAssemblyLifetimeSelector  lifetimeSelector)
+        {
+            context.LifetimeSelector =lifetimeSelector;
             return context;
         }
 
@@ -62,6 +74,17 @@ namespace Microsoft.Extensions.DependencyInjection
         public static RegisterAssemblyContext AsSelf(this RegisterAssemblyContext context)
         {
             context.As(new SelfSelector());
+            return context;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static RegisterAssemblyContext AsExposeService(this RegisterAssemblyContext context)
+        {
+            context.As(new ExposeServicesSelector()).Lifetime(new ExposeLifetimeSelector());
             return context;
         }
     }

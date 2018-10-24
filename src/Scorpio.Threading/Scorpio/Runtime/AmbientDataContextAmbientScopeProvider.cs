@@ -6,7 +6,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Scorpio.Threading
+namespace Scorpio.Runtime
 {
     internal class AmbientDataContextAmbientScopeProvider<T> : IAmbientScopeProvider<T>
     {

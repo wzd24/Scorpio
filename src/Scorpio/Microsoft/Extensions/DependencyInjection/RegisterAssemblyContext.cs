@@ -10,14 +10,13 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         internal Func<Type, bool> TypePredicate { get; set; }
 
-        internal ICollection<IRegisterAssemblyServiceSelector> ServiceSelectors { get; set; }
-
-        internal ServiceLifetime ServiceLifetime { get; set; }
+        internal ICollection<IRegisterAssemblyServiceSelector> ServiceSelectors { get;  }
+        internal IRegisterAssemblyLifetimeSelector LifetimeSelector { get; set; }
         
         internal RegisterAssemblyContext()
         {
             ServiceSelectors = new HashSet<IRegisterAssemblyServiceSelector>();
-            ServiceLifetime = ServiceLifetime.Transient;
+            LifetimeSelector =new LifetimeSelector( ServiceLifetime.Transient);
         }
     }
 }

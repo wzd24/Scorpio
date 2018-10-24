@@ -4,6 +4,8 @@ using System.Text;
 using System.Linq;
 using Xunit;
 using Shouldly;
+using Scorpio.DependencyInjection;
+
 namespace Microsoft.Extensions.DependencyInjection
 {
     public class ServiceCollectionExtensions_Tests
@@ -44,11 +46,23 @@ namespace Microsoft.Extensions.DependencyInjection
                 config.Where(t => t.Name == nameof(Service1)).As<IService1>().Lifetime(ServiceLifetime.Transient);
             });
             services.Where(s => s.ServiceType == typeof(IService1)).SingleOrDefault().ShouldNotBeNull();
-            services.Where(s => s.ServiceType == typeof(IService1)).SingleOrDefault().Lifetime.ShouldBe( ServiceLifetime.Transient);
+            services.Where(s => s.ServiceType == typeof(IService1)).SingleOrDefault().Lifetime.ShouldBe(ServiceLifetime.Transient);
             services.Where(s => s.ServiceType == typeof(Service1)).SingleOrDefault().ShouldBeNull();
             services.Where(s => s.ServiceType == typeof(IService2)).SingleOrDefault().ShouldNotBeNull();
             services.Where(s => s.ServiceType == typeof(IService2)).SingleOrDefault().Lifetime.ShouldBe(ServiceLifetime.Singleton);
             services.Where(s => s.ServiceType == typeof(IService3)).SingleOrDefault().ShouldBeNull();
+        }
+
+        [Fact]
+        public void RegisterAssembly_4()
+        {
+            var services = new ServiceCollection();
+            services.RegisterAssembly(typeof(ServiceCollectionExtensions_Tests).Assembly, config =>
+            {
+                config.Where(t => t.Name == nameof(ExposeService)).AsExposeService();
+            });
+            services.Where(s => s.ServiceType == typeof(IExposeService)).SingleOrDefault().ShouldNotBeNull();
+            services.Where(s => s.ServiceType == typeof(IExposeService)).SingleOrDefault().Lifetime.ShouldBe(ServiceLifetime.Singleton);
         }
 
         [Fact]
@@ -78,17 +92,29 @@ namespace Microsoft.Extensions.DependencyInjection
     {
 
     }
+
+    public interface IExposeService
+    {
+
+    }
+
     public interface IService3
     {
 
     }
 
-    class Service1 : IService1,IService2,IService3
+    class Service1 : IService1, IService2, IService3
     {
 
     }
 
-    class Service2 :IService1
+    class Service2 : IService1
+    {
+
+    }
+
+    [ExposeServices(typeof(IExposeService), ServiceLifetime = ServiceLifetime.Singleton)]
+    class ExposeService : IExposeService
     {
 
     }

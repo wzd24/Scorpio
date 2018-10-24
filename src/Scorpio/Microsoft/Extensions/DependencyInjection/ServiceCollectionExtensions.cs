@@ -26,7 +26,7 @@ namespace Microsoft.Extensions.DependencyInjection
             config.Contexts.ForEach(
                 context => types.Where(context.TypePredicate).ForEach(
                     t => context.ServiceSelectors.ForEach(selector => selector.Select(t).ForEach(
-                        s => services.Add(ServiceDescriptor.Describe(s, t, context.ServiceLifetime))))));
+                        s => services.Add(ServiceDescriptor.Describe(s, t, context.LifetimeSelector.Select(t)))))));
             return services;
         }
 

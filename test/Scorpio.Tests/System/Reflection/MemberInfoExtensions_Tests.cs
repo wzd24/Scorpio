@@ -54,6 +54,7 @@ namespace System.Reflection
         public void GetAttributesTest()
         {
             typeof(AttributeTestClassWithDisplayNameAttirbute).GetAttributes<DisplayNameAttribute>().ShouldNotBeEmpty();
+            typeof(AttributeTestClass2).GetAttribute<Attribute>().ShouldBeOfType<Scorpio.DependencyInjection.ExposeServicesAttribute>().ShouldNotBeNull();
             typeof(AttributeTestClass).GetAttributes<DisplayNameAttribute>().ShouldBeEmpty();
             new AttributeTestClassWithDisplayNameAttirbute().GetAttributes<DisplayNameAttribute>().ShouldNotBeEmpty();
             new AttributeTestClass().GetAttributes<DisplayNameAttribute>().ShouldBeEmpty();
@@ -92,6 +93,11 @@ namespace System.Reflection
 
     }
     class AttributeTestClass
+    {
+
+    }
+    [Scorpio.DependencyInjection.ExposeServices()]
+    class AttributeTestClass2
     {
 
     }

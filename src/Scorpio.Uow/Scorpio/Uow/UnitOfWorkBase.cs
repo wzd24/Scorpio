@@ -13,6 +13,8 @@ namespace Scorpio.Uow
     {
         private bool _isBeginCalledBefore;
         private bool _isCompleteCalledBefore;
+        private bool _succeed;
+        private Exception _exception;
         private readonly UnitOfWorkDefaultOptions _defaultOptions;
 
         /// <summary>
@@ -79,39 +81,81 @@ namespace Scorpio.Uow
             BeginUow();
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         public void Complete()
         {
-            throw new NotImplementedException();
+            PreventMultipleComplete();
+            try
+            {
+                CompleteUow();
+                _succeed = true;
+                OnCompleted();
+            }
+            catch (Exception ex)
+            {
+                _exception = ex;
+                throw;
+            }
         }
 
-        public Task CompleteAsync()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public async Task CompleteAsync()
         {
-            throw new NotImplementedException();
+            PreventMultipleComplete();
+            try
+            {
+                await CompleteAsync();
+                _succeed = true;
+                OnCompleted();
+            }
+            catch (Exception ex)
+            {
+                _exception = ex;
+                throw;
+            }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Dispose()
         {
-            throw new NotImplementedException();
+            if (!_isBeginCalledBefore || IsDisposed)
+            {
+                return;
+            }
+
+            IsDisposed = true;
+
+            if (!_succeed)
+            {
+                OnFailed(_exception);
+            }
+
+            DisposeUow();
+            OnDisposed();
         }
 
-        public void SaveChanges()
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public abstract void SaveChanges();
 
-        public Task SaveChangesAsync()
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public abstract Task SaveChangesAsync();
 
         /// <summary>
         /// Can be implemented by derived classes to start UOW.
         /// </summary>
-        protected virtual void BeginUow()
-        {
-
-        }
+        protected abstract void BeginUow();
 
         /// <summary>
         /// Should be implemented by derived classes to complete UOW.
@@ -127,6 +171,32 @@ namespace Scorpio.Uow
         /// Should be implemented by derived classes to dispose UOW.
         /// </summary>
         protected abstract void DisposeUow();
+
+        /// <summary>
+        /// Called to trigger <see cref="Completed"/> event.
+        /// </summary>
+        protected virtual void OnCompleted()
+        {
+            Completed?.Invoke(this, EventArgs.Empty);
+        }
+
+        /// <summary>
+        /// Called to trigger <see cref="Failed"/> event.
+        /// </summary>
+        /// <param name="exception">Exception that cause failure</param>
+        protected virtual void OnFailed(Exception exception)
+        {
+            Failed?.Invoke(this, new UnitOfWorkFailedEventArgs(exception));
+        }
+
+        /// <summary>
+        /// Called to trigger <see cref="Disposed"/> event.
+        /// </summary>
+        protected virtual void OnDisposed()
+        {
+            Disposed?.Invoke(this, EventArgs.Empty);
+        }
+
 
         private void PreventMultipleBegin()
         {

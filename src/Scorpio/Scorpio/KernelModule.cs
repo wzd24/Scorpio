@@ -24,6 +24,10 @@ namespace Scorpio
         public override void ConfigureServices(ConfigureServicesContext context)
         {
             context.Services.RegisterAssemblyByConvention(typeof(KernelModule).Assembly);
+        }
+
+        public override void PostConfigureServices(ConfigureServicesContext context)
+        {
             context.Services.RegisterConventionalInterceptor();
         }
     }

@@ -10,6 +10,7 @@ namespace Scorpio.DynamicProxy
         public string ServiceMethodName { get; private set; }
         public override async Task Invoke(AspectContext context, AspectDelegate next)
         {
+            
             ServiceMethodName = context.ServiceMethod.Name;
             if (context.ServiceMethod.Name == "Test")
             {

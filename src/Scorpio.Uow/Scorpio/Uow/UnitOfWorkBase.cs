@@ -109,7 +109,7 @@ namespace Scorpio.Uow
             PreventMultipleComplete();
             try
             {
-                await CompleteAsync();
+                await CompleteUowAsync();
                 _succeed = true;
                 OnCompleted();
             }

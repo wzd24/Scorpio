@@ -19,9 +19,9 @@ namespace Microsoft.Extensions.DependencyInjection
                 config.Where(t => t.Name == nameof(Service1)).AsDefault();
                 config.Where(t => t.Name == nameof(Service2)).AsDefault();
             });
-            services.Where(s => s.ServiceType == typeof(IService1)).SingleOrDefault().ShouldNotBeNull();
-            services.Where(s => s.ServiceType == typeof(Service1)).SingleOrDefault().ShouldNotBeNull();
-            services.Where(s => s.ServiceType == typeof(IService2)).SingleOrDefault().ShouldBeNull();
+            services.ShouldContainTransient(typeof(IService1), typeof(Service1));
+            services.ShouldContainTransient(typeof(Service1));
+            services.ShouldNotContainService(typeof(IService2));
         }
         [Fact]
         public void RegisterAssembly_2()
@@ -31,9 +31,9 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 config.Where(t => t.Name == nameof(Service1)).AsSelf();
             });
-            services.Where(s => s.ServiceType == typeof(IService1)).SingleOrDefault().ShouldBeNull();
-            services.Where(s => s.ServiceType == typeof(Service1)).SingleOrDefault().ShouldNotBeNull();
-            services.Where(s => s.ServiceType == typeof(IService2)).SingleOrDefault().ShouldBeNull();
+            services.ShouldNotContainService(typeof(IService1));
+            services.ShouldContainTransient(typeof(Service1));
+            services.ShouldNotContainService(typeof(IService2));
         }
 
         [Fact]
@@ -45,12 +45,10 @@ namespace Microsoft.Extensions.DependencyInjection
                 config.Where(t => t.Name == nameof(Service1)).As<IService2>().Lifetime(ServiceLifetime.Singleton);
                 config.Where(t => t.Name == nameof(Service1)).As<IService1>().Lifetime(ServiceLifetime.Transient);
             });
-            services.Where(s => s.ServiceType == typeof(IService1)).SingleOrDefault().ShouldNotBeNull();
-            services.Where(s => s.ServiceType == typeof(IService1)).SingleOrDefault().Lifetime.ShouldBe(ServiceLifetime.Transient);
-            services.Where(s => s.ServiceType == typeof(Service1)).SingleOrDefault().ShouldBeNull();
-            services.Where(s => s.ServiceType == typeof(IService2)).SingleOrDefault().ShouldNotBeNull();
-            services.Where(s => s.ServiceType == typeof(IService2)).SingleOrDefault().Lifetime.ShouldBe(ServiceLifetime.Singleton);
-            services.Where(s => s.ServiceType == typeof(IService3)).SingleOrDefault().ShouldBeNull();
+            services.ShouldContainTransient(typeof(IService1), typeof(Service1));
+            services.ShouldNotContainService(typeof(Service1));
+            services.ShouldContainSingleton(typeof(IService2), typeof(Service1));
+            services.ShouldNotContainService(typeof(IService3));
         }
 
         [Fact]
@@ -61,8 +59,7 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 config.Where(t => t.Name == nameof(ExposeService)).AsExposeService();
             });
-            services.Where(s => s.ServiceType == typeof(IExposeService)).SingleOrDefault().ShouldNotBeNull();
-            services.Where(s => s.ServiceType == typeof(IExposeService)).SingleOrDefault().Lifetime.ShouldBe(ServiceLifetime.Singleton);
+            services.ShouldContainSingleton(typeof(IExposeService), typeof(ExposeService));
         }
 
         [Fact]

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Scorpio.Modularity;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Scorpio.DependencyInjection;
 namespace Scorpio.Threading
 {
@@ -17,7 +18,7 @@ namespace Scorpio.Threading
         /// <param name="context"></param>
         public override void ConfigureServices(ConfigureServicesContext context)
         {
-            context.Services.AddSingleton<ICancellationTokenProvider>(NullCancellationTokenProvider.Instance);
+            context.Services.TryAddSingleton<ICancellationTokenProvider>(NullCancellationTokenProvider.Instance);
             context.Services.RegisterAssemblyByConventionOfType<ThreadingModule>();
         }
     }

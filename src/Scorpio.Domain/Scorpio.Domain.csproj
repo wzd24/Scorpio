@@ -6,6 +6,7 @@
   <Import Project="../../common.props" />
   <ItemGroup>
     <ProjectReference Include="../Scorpio/Scorpio.csproj" />
+    <ProjectReference Include="../Scorpio.Uow/Scorpio.Uow.csproj" />
     <ProjectReference Include="..\Scorpio.Threading\Scorpio.Threading.csproj" />
   </ItemGroup>
 

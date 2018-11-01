@@ -91,7 +91,7 @@ namespace Scorpio
         /// 
         /// </summary>
         /// <param name="serviceProvider"></param>
-        protected void SetServiceProvider(IServiceProvider serviceProvider)
+        internal  void SetServiceProvider(IServiceProvider serviceProvider)
         {
             ServiceProvider = serviceProvider;
         }

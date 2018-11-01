@@ -93,6 +93,34 @@ namespace Microsoft.Extensions.DependencyInjection
         /// 
         /// </summary>
         /// <typeparam name="TService"></typeparam>
+        /// <typeparam name="TImplementation"></typeparam>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection ReplaceTransient<TService, TImplementation>(this IServiceCollection services)
+            where TService : class
+            where TImplementation : class, TService
+        {
+            RemoveService<TService>(services);
+            return services.AddTransient<TService, TImplementation>();
+        }        /// <summary>
+                 /// 
+                 /// </summary>
+                 /// <typeparam name="TService"></typeparam>
+                 /// <typeparam name="TImplementation"></typeparam>
+                 /// <param name="services"></param>
+                 /// <returns></returns>
+        public static IServiceCollection ReplaceScoped<TService, TImplementation>(this IServiceCollection services)
+            where TService : class
+            where TImplementation : class, TService
+        {
+            RemoveService<TService>(services);
+            return services.AddScoped<TService, TImplementation>();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TService"></typeparam>
         /// <param name="services"></param>
         public static IServiceCollection RemoveService<TService>(IServiceCollection services) where TService : class
         {

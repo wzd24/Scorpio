@@ -17,7 +17,7 @@ namespace Scorpio.DynamicProxy
             InterceptorHelper.Registrars.Count.ShouldBe(1);
             services.RegisterConventionalInterceptor();
             services.AddTransient<IInterceptorTestService, InterceptorTestService>();
-            services.ShouldContain(d => d.ServiceType == typeof(TestInterceptor) && d.Lifetime == ServiceLifetime.Transient);
+            services.ShouldContainTransient(typeof(TestInterceptor));
             var serviceProvider = services.BuildDynamicProxyServiceProvider();
             var service = serviceProvider.GetService<IInterceptorTestService>();
             service.InterceptorInvoked.ShouldBeFalse();

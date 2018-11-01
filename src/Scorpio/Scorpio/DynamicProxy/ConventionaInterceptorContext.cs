@@ -11,7 +11,6 @@ namespace Scorpio.DynamicProxy
     internal class ConventionaInterceptorContext : IConventionaInterceptorContext
     {
         private readonly IDictionary<Type, TypeInterceptorMap> _maps;
-        private readonly IServiceCollection _services;
         public ConventionaInterceptorContext(IDictionary<Type, TypeInterceptorMap> maps)
         {
             _maps = maps;

@@ -6,6 +6,9 @@ using AspectCore.Extensions.DependencyInjection;
 using AspectCore.Configuration;
 using System.Linq;
 using System.Reflection;
+using AspectCore.DynamicProxy;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+
 namespace Scorpio.DynamicProxy
 {
     /// <summary>
@@ -32,7 +35,7 @@ namespace Scorpio.DynamicProxy
             {
                 maps.Values.ForEach(m =>
                 {
-                    services.AddTransient(m.InterceptorType);
+                    services.TryAddTransient(m.InterceptorType);
                     c.Interceptors.AddServiced(m.InterceptorType, GetPredicate(m.ServiceTypes));
                 });
             });
@@ -41,7 +44,7 @@ namespace Scorpio.DynamicProxy
 
         public static AspectPredicate GetPredicate(IList<Type> types)
         {
-            return m => types.Any(t => m.DeclaringType.IsAssignableTo(t));
+            return m => !m.AttributeExists<NonAspectAttribute>() && types.Any(t => m.DeclaringType.IsAssignableTo(t));
         }
 
     }

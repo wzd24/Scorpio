@@ -22,4 +22,6 @@ namespace Scorpio.DynamicProxy
             TestInvoked = true;
         }
     }
+
+    
 }

@@ -13,6 +13,21 @@ namespace Scorpio.Uow
     public interface IUnitOfWorkCompleteHandle : IDisposable
     {
         /// <summary>
+        /// This event is raised when this UOW is successfully completed.
+        /// </summary>
+        event EventHandler Completed;
+
+        /// <summary>
+        /// This event is raised when this UOW is failed.
+        /// </summary>
+        event EventHandler<UnitOfWorkFailedEventArgs> Failed;
+
+        /// <summary>
+        /// This event is raised when this UOW is disposed.
+        /// </summary>
+        event EventHandler Disposed;
+
+        /// <summary>
         /// Completes this unit of work.
         /// It saves all changes and commit transaction if exists.
         /// </summary>

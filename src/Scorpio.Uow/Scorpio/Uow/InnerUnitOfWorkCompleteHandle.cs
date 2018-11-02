@@ -17,14 +17,20 @@ namespace Scorpio.Uow
         private volatile bool _isCompleteCalled;
         private volatile bool _isDisposed;
 
+        public event EventHandler Completed;
+        public event EventHandler<UnitOfWorkFailedEventArgs> Failed;
+        public event EventHandler Disposed;
+
         public void Complete()
         {
             _isCompleteCalled = true;
+            OnCompleted();
         }
 
         public Task CompleteAsync()
         {
             _isCompleteCalled = true;
+            OnCompleted();
             return Task.FromResult(0);
         }
 
@@ -36,16 +42,33 @@ namespace Scorpio.Uow
             }
 
             _isDisposed = true;
-
             if (!_isCompleteCalled)
             {
-                if (HasException())
-                {
-                    return;
-                }
-
-                throw new ScorpioException(DidNotCallCompleteMethodExceptionMessage);
+                OnFailed(null);
             }
+            OnDisposed();
+        }
+
+        protected virtual void OnCompleted()
+        {
+            Completed?.Invoke(this, EventArgs.Empty);
+        }
+
+        /// <summary>
+        /// Called to trigger <see cref="Failed"/> event.
+        /// </summary>
+        /// <param name="exception">Exception that cause failure</param>
+        protected virtual void OnFailed(Exception exception)
+        {
+            Failed?.Invoke(this, new UnitOfWorkFailedEventArgs(exception));
+        }
+
+        /// <summary>
+        /// Called to trigger <see cref="Disposed"/> event.
+        /// </summary>
+        protected virtual void OnDisposed()
+        {
+            Disposed?.Invoke(this, EventArgs.Empty);
         }
 
         private static bool HasException()

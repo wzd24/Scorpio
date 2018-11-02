@@ -14,7 +14,14 @@ namespace Scorpio.DynamicProxy
             ServiceMethodName = context.ServiceMethod.Name;
             if (context.ServiceMethod.Name == "Test")
             {
-                (context.Implementation as InterceptorTestService).InterceptorInvoked = true;
+                if (context.Implementation is InterceptorTestService service)
+                {
+                    service.InterceptorInvoked = true;
+                }
+                if (context.Implementation is InterceptorTestService2 service2)
+                {
+                    service2.InterceptorInvoked = true;
+                }
             }
             await next(context);
         }

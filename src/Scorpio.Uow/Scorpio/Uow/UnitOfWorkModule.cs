@@ -27,7 +27,6 @@ namespace Scorpio.Uow
         /// <param name="context"></param>
         public override void PostConfigureServices(ConfigureServicesContext context)
         {
-
             base.PostConfigureServices(context);
         }
     }

@@ -8,8 +8,7 @@ namespace Scorpio.DynamicProxy
     {
         public void Register(IConventionaInterceptorContext context)
         {
-            context.Add<IInterceptorTestService, TestInterceptor>();
-            context.Add<IInterceptorTestService2, TestInterceptor>();
+            context.Add<IInterceptorable, TestInterceptor>();
         }
     }
 }

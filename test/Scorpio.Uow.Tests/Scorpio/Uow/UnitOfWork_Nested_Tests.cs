@@ -1,25 +1,25 @@
-﻿using Scorpio.TestBase;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Scorpio.TestBase;
+using Shouldly;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Extensions.DependencyInjection;
-using Xunit;
 using System.Threading.Tasks;
-using Shouldly;
+using Xunit;
 
 namespace Scorpio.Uow
 {
-    public class UnitOfWork_Ambient_Scope_Tests : IntegratedTest<UnitOfWorkModule>
+    public class UnitOfWork_Nested_Tests : IntegratedTest<UnitOfWorkModule>
     {
         private readonly IUnitOfWorkManager _unitOfWorkManager;
 
-        public UnitOfWork_Ambient_Scope_Tests()
+        public UnitOfWork_Nested_Tests()
         {
             _unitOfWorkManager = ServiceProvider.GetRequiredService<IUnitOfWorkManager>();
         }
 
         [Fact]
-        public async Task UnitOfWorkManager_Current_Should_Set_Correctly()
+        public async Task Should_Create_Nested_UnitOfWorks()
         {
             _unitOfWorkManager.Current.ShouldBeNull();
 
@@ -28,11 +28,11 @@ namespace Scorpio.Uow
                 _unitOfWorkManager.Current.ShouldNotBeNull();
                 _unitOfWorkManager.Current.ShouldBeOfType<NullUnitOfWork>().ShouldBe(uow1);
 
-                using (var uow2 = _unitOfWorkManager.Begin())
+                using (var uow2 = _unitOfWorkManager.Begin(System.Transactions.TransactionScopeOption.RequiresNew))
                 {
                     _unitOfWorkManager.Current.ShouldNotBeNull();
-                    _unitOfWorkManager.Current.ShouldBeOfType<NullUnitOfWork>().ShouldBe(uow1);
-                    uow2.ShouldBeOfType<InnerUnitOfWorkCompleteHandle>().ShouldNotBeNull();
+                    _unitOfWorkManager.Current.ShouldBeOfType<NullUnitOfWork>().ShouldNotBe(uow1);
+
                     await uow2.CompleteAsync();
                 }
 
@@ -44,6 +44,5 @@ namespace Scorpio.Uow
 
             _unitOfWorkManager.Current.ShouldBeNull();
         }
-
     }
 }

@@ -14,6 +14,21 @@ namespace Scorpio.Uow
     public interface IUnitOfWork : IActiveUnitOfWork, IUnitOfWorkCompleteHandle
     {
         /// <summary>
+        /// This event is raised when this UOW is successfully completed.
+        /// </summary>
+        event EventHandler Completed;
+
+        /// <summary>
+        /// This event is raised when this UOW is failed.
+        /// </summary>
+        event EventHandler<UnitOfWorkFailedEventArgs> Failed;
+
+        /// <summary>
+        /// This event is raised when this UOW is disposed.
+        /// </summary>
+        event EventHandler Disposed;
+
+        /// <summary>
         /// Unique id of this UOW.
         /// </summary>
         string Id { get; }

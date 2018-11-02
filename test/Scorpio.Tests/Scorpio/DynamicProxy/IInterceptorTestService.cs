@@ -5,7 +5,11 @@ using System.Text;
 
 namespace Scorpio.DynamicProxy
 {
-    public interface IInterceptorTestService
+    public interface IInterceptorable
+    {
+
+    }
+    public interface IInterceptorTestService: IInterceptorable
     {
         [NonAspect]
         bool InterceptorInvoked { get; }

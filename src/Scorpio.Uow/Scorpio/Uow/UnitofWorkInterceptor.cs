@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AspectCore.DynamicProxy;
 using Microsoft.Extensions.Options;
-
+using System.Reflection;
 namespace Scorpio.Uow
 {
     /// <summary>
@@ -57,7 +57,7 @@ namespace Scorpio.Uow
         {
             var options = new UnitOfWorkOptions();
             _defaultOptions.Normalize(options);
-            _optionsAttribute.Normalize(options);
+            _optionsAttribute?.Normalize(options);
             options.IsTransactional = options.IsTransactional ?? !context.ImplementationMethod.Name.StartsWith("Get", StringComparison.InvariantCultureIgnoreCase);
             return options;
         }

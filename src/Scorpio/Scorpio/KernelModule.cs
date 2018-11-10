@@ -4,6 +4,8 @@ using System.Text;
 using Scorpio.Modularity;
 using Scorpio.DependencyInjection;
 using Scorpio.DynamicProxy;
+using Microsoft.Extensions.DependencyInjection;
+
 namespace Scorpio
 {
     /// <summary>

@@ -1,4 +1,5 @@
 ﻿using Scorpio.Domain.Entities;
+using Scorpio.Uow;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,6 +21,7 @@ namespace Scorpio.Domain.Repositories
         /// </summary>
         /// <param name="includeDetails">Set true to include all children of this entity</param>
         /// <returns>Entity</returns>
+        [DisableUnitOfWork]
         IEnumerable<TEntity> GetList(bool includeDetails = false);
 
         /// <summary>
@@ -28,16 +30,19 @@ namespace Scorpio.Domain.Repositories
         /// <param name="includeDetails">Set true to include all children of this entity</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <returns>Entity</returns>
+        [DisableUnitOfWork]
         Task<IEnumerable<TEntity>> GetListAsync(bool includeDetails = false, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets total count of all entities.
         /// </summary>
+        [DisableUnitOfWork]
         long GetCount();
 
         /// <summary>
         /// Gets total count of all entities.
         /// </summary>
+        [DisableUnitOfWork]
         Task<long> GetCountAsync(CancellationToken cancellationToken = default);
     }
 
@@ -56,6 +61,7 @@ namespace Scorpio.Domain.Repositories
         /// <param name="id">Primary key of the entity to get</param>
         /// <param name="includeDetails">Set true to include all children of this entity</param>
         /// <returns>Entity</returns>
+        [DisableUnitOfWork]
         TEntity Get(TKey id, bool includeDetails = true);
 
         /// <summary>
@@ -66,6 +72,7 @@ namespace Scorpio.Domain.Repositories
         /// <param name="includeDetails">Set true to include all children of this entity</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <returns>Entity</returns>
+        [DisableUnitOfWork]
         Task<TEntity> GetAsync(TKey id, bool includeDetails = true, CancellationToken cancellationToken = default);
 
         /// <summary>
@@ -74,6 +81,7 @@ namespace Scorpio.Domain.Repositories
         /// <param name="id">Primary key of the entity to get</param>
         /// <param name="includeDetails">Set true to include all children of this entity</param>
         /// <returns>Entity or null</returns>
+        [DisableUnitOfWork]
         TEntity Find(TKey id, bool includeDetails = true);
 
         /// <summary>
@@ -83,6 +91,7 @@ namespace Scorpio.Domain.Repositories
         /// <param name="includeDetails">Set true to include all children of this entity</param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <returns>Entity or null</returns>
+        [DisableUnitOfWork]
         Task<TEntity> FindAsync(TKey id, bool includeDetails = true, CancellationToken cancellationToken = default);
     }
 

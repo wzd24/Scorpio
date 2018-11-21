@@ -6,8 +6,18 @@ using System.Text;
 
 namespace Scorpio.Modularity
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IModuleLoader
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="startupModuleType"></param>
+        /// <param name="plugInSources"></param>
+        /// <returns></returns>
         IModuleDescriptor[] LoadModules(
             IServiceCollection services,
             Type startupModuleType,

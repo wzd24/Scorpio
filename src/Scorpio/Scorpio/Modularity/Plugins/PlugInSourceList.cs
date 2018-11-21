@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace Scorpio.Modularity.Plugins
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class PlugInSourceList:List<IPlugInSource>
     {
         internal Type[] GetAllModules()

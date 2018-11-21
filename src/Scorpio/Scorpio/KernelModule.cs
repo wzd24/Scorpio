@@ -25,7 +25,7 @@ namespace Scorpio
         /// <param name="context"></param>
         public override void ConfigureServices(ConfigureServicesContext context)
         {
-            context.Services.RegisterAssemblyByConvention(typeof(KernelModule).Assembly);
+            context.Services.RegisterAssemblyByConventionOfType<KernelModule>();
         }
 
         public override void PostConfigureServices(ConfigureServicesContext context)

@@ -22,7 +22,7 @@ namespace Scorpio.Uow
         public void Should_Create_Nested_UnitOfWorks()
         {
             _unitOfWorkManager.Current.ShouldBeNull();
-            var service = ServiceProvider.GetRequiredService<IUnitOfWorkTestService>();
+            var service = ServiceProvider.GetRequiredService<IUnitOfWorkConventionalTestService>();
             service.ShouldNotBeNull();
             service.Current.ShouldBeNull();
             service.TestMothodWithUnitOfWork();

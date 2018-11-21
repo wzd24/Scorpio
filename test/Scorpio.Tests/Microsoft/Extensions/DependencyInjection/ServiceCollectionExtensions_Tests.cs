@@ -5,6 +5,8 @@ using System.Linq;
 using Xunit;
 using Shouldly;
 using Scorpio.DependencyInjection;
+using Scorpio.Conventional;
+using Scorpio.DependencyInjection.Conventional;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

@@ -12,7 +12,7 @@ namespace Scorpio.Uow
         public override void ConfigureServices(ConfigureServicesContext context)
         {
             context.Services.AddConventionalRegistrar<UnitOfWorkConventionaInterceptorRegistrar>();
-            context.Services.AddTransient<IUnitOfWorkTestService, UnitOfWorkTestService>();
+            context.Services.AddTransient<IUnitOfWorkConventionalTestService, UnitOfWorkConventionalTestService>();
             base.ConfigureServices(context);
         }
     }
@@ -21,7 +21,7 @@ namespace Scorpio.Uow
     {
         public void Register(IConventionaInterceptorContext context)
         {
-            context.Add<IUnitOfWorkTestService, UnitOfWorkInterceptor>();
+            context.Add<IUnitOfWorkConventionalTestService, UnitOfWorkInterceptor>();
         }
     }
 }

@@ -13,6 +13,7 @@ namespace Scorpio.Uow
     /// </summary>
     public interface IUnitOfWork : IActiveUnitOfWork, IUnitOfWorkCompleteHandle
     {
+#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
         /// <summary>
         /// This event is raised when this UOW is successfully completed.
         /// </summary>
@@ -27,6 +28,7 @@ namespace Scorpio.Uow
         /// This event is raised when this UOW is disposed.
         /// </summary>
         event EventHandler Disposed;
+#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
 
         /// <summary>
         /// Unique id of this UOW.

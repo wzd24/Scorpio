@@ -11,11 +11,22 @@ namespace Scorpio.Domain.Entities
     /// </summary>
     public static class EntityHelper
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static bool IsEntity( Type type)
         {
             return typeof(IEntity).IsAssignableFrom(type);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public static bool HasDefaultId<TKey>(IEntity<TKey> entity)
         {
             if (EqualityComparer<TKey>.Default.Equals(entity.Id, default))
@@ -69,6 +80,13 @@ namespace Scorpio.Domain.Entities
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static Expression<Func<TEntity, bool>> CreateEqualityExpressionForId<TEntity, TKey>(TKey id)
             where TEntity : IEntity<TKey>
         {

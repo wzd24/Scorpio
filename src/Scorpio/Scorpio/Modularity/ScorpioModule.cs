@@ -66,18 +66,34 @@ namespace Scorpio.Modularity
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
         public virtual void PreInitialize(ApplicationInitializationContext context)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
         public virtual void Initialize(ApplicationInitializationContext context)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
         public virtual void PostInitialize(ApplicationInitializationContext context)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
         public virtual void Shutdown(ApplicationShutdownContext context)
         {
         }

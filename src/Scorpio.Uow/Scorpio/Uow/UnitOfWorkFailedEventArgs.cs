@@ -11,8 +11,8 @@ namespace Scorpio.Uow
     {
 
         /// <summary>
-        /// Exception that caused failure. This is set only if an error occured during <see cref="IUnitOfWork.Complete"/>.
-        /// Can be null if there is no exception, but <see cref="IUnitOfWork.Complete"/> is not called. 
+        /// Exception that caused failure. This is set only if an error occured during <see cref="IUnitOfWorkCompleteHandle.Complete"/>.
+        /// Can be null if there is no exception, but <see cref="IUnitOfWorkCompleteHandle.Complete"/> is not called. 
         /// Can be null if another exception occurred during the UOW.
         /// </summary>
         public Exception Exception { get; }

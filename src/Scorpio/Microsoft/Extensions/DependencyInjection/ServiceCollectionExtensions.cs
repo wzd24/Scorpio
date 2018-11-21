@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Scorpio.Conventional;
+using Scorpio.DependencyInjection.Conventional;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -18,15 +20,24 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="assembly"></param>
         /// <param name="configureAction"></param>
         /// <returns></returns>
-        public static IServiceCollection RegisterAssembly(this IServiceCollection services, Assembly assembly, Action<RegisterAssemblyConfiguration> configureAction)
+        public static IServiceCollection RegisterAssembly(this IServiceCollection services, Assembly assembly, Action<IConventionalConfiguration> configureAction)
         {
-            var config = new RegisterAssemblyConfiguration();
+            return DoConventionalAction<ConventionalDependencyAction>(services, assembly, configureAction);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="assembly"></param>
+        /// <param name="configureAction"></param>
+        /// <returns></returns>
+        public static IServiceCollection DoConventionalAction<TAction>(this IServiceCollection services, Assembly assembly, Action<IConventionalConfiguration> configureAction) where TAction:ConventionalActionBase
+        {
+            var config = new ConventionalConfiguration(services);
             configureAction(config);
-            var types = assembly.GetTypes().Where(t => t.IsClass && !t.IsAbstract && !t.IsGenericTypeDefinition).ToList();
-            config.Contexts.ForEach(
-                context => types.Where(context.TypePredicate).ForEach(
-                    t => context.ServiceSelectors.ForEach(selector => selector.Select(t).ForEach(
-                        s => services.Add(ServiceDescriptor.Describe(s, t, context.LifetimeSelector.Select(t)))))));
+            var action= Activator.CreateInstance(typeof(TAction), config, assembly) as TAction;
+            action.Action();
             return services;
         }
 
@@ -82,8 +93,8 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="services"></param>
         /// <param name="instance"></param>
         /// <returns></returns>
-        public static IServiceCollection ReplaceSingleton<TService>(this IServiceCollection services,TService instance)
-            where TService:class
+        public static IServiceCollection ReplaceSingleton<TService>(this IServiceCollection services, TService instance)
+            where TService : class
         {
             RemoveService<TService>(services);
             return services.AddSingleton(instance);
@@ -102,13 +113,15 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             RemoveService<TService>(services);
             return services.AddTransient<TService, TImplementation>();
-        }        /// <summary>
-                 /// 
-                 /// </summary>
-                 /// <typeparam name="TService"></typeparam>
-                 /// <typeparam name="TImplementation"></typeparam>
-                 /// <param name="services"></param>
-                 /// <returns></returns>
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TService"></typeparam>
+        /// <typeparam name="TImplementation"></typeparam>
+        /// <param name="services"></param>
+        /// <returns></returns>
         public static IServiceCollection ReplaceScoped<TService, TImplementation>(this IServiceCollection services)
             where TService : class
             where TImplementation : class, TService

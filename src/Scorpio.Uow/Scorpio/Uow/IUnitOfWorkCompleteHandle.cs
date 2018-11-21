@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace Scorpio.Uow
 {
+
     /// <summary>
     /// Used to complete a unit of work.
     /// This interface can not be injected or directly used.

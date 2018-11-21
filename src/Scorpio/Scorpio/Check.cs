@@ -6,9 +6,19 @@ using System.Text;
 
 namespace Scorpio
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [DebuggerStepThrough]
     public static class Check
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="parameterName"></param>
+        /// <returns></returns>
         [ContractAnnotation("value:null => halt")]
         public static T NotNull<T>(T value, [InvokerParameterName] [NotNull] string parameterName)
         {
@@ -20,6 +30,14 @@ namespace Scorpio
             return value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
         [ContractAnnotation("value:null => halt")]
         public static T NotNull<T>(T value, [InvokerParameterName] [NotNull] string parameterName, string message)
         {
@@ -31,6 +49,12 @@ namespace Scorpio
             return value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="parameterName"></param>
+        /// <returns></returns>
         [ContractAnnotation("value:null => halt")]
         public static string NotNullOrWhiteSpace(string value, [InvokerParameterName] [NotNull] string parameterName)
         {
@@ -42,6 +66,12 @@ namespace Scorpio
             return value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="parameterName"></param>
+        /// <returns></returns>
         [ContractAnnotation("value:null => halt")]
         public static string NotNullOrEmpty(string value, [InvokerParameterName] [NotNull] string parameterName)
         {
@@ -53,6 +83,13 @@ namespace Scorpio
             return value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="parameterName"></param>
+        /// <returns></returns>
         [ContractAnnotation("value:null => halt")]
         public static ICollection<T> NotNullOrEmpty<T>(ICollection<T> value, [InvokerParameterName] [NotNull] string parameterName)
         {

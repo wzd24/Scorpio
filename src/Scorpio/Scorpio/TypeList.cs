@@ -60,6 +60,10 @@ namespace Scorpio
             _typeList.Add(typeof(T));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
         public void TryAdd<T>() where T : TBaseType
         {
             if (Contains<T>())

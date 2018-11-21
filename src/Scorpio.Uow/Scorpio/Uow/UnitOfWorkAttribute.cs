@@ -7,6 +7,9 @@ using AspectCore.DynamicProxy;
 using Microsoft.Extensions.DependencyInjection;
 namespace Scorpio.Uow
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public sealed class UnitOfWorkAttribute : AbstractInterceptorAttribute
     {
         /// <summary>

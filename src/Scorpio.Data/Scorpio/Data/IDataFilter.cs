@@ -59,5 +59,12 @@ namespace Scorpio.Data
         /// <returns></returns>
         bool IsEnabled<TFilter>()
             where TFilter : class;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        bool IsEnabled(Type type);
     }
 }

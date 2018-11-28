@@ -4,6 +4,8 @@ using Scorpio.DependencyInjection;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 
@@ -18,6 +20,7 @@ namespace Scorpio.Data
 
         private readonly IServiceProvider _serviceProvider;
 
+        private static MethodInfo _isEnabledMethodInfo = typeof(DataFilter).GetMethods().Single(m => m.Name == nameof(IsEnabled) && m.IsGenericMethodDefinition);
         /// <summary>
         /// 
         /// </summary>
@@ -59,6 +62,16 @@ namespace Scorpio.Data
             where TFilter : class
         {
             return GetFilter<TFilter>().IsEnabled;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public bool IsEnabled(Type type)
+        {
+            return (bool)_isEnabledMethodInfo.MakeGenericMethod(type).Invoke(this,null);
         }
 
         private IDataFilter<TFilter> GetFilter<TFilter>()
@@ -143,7 +156,7 @@ namespace Scorpio.Data
                 return;
             }
 
-            _filter.Value = _options.DefaultStates.GetOrDefault(typeof(TFilter))?.Clone() ?? new DataFilterState(true);
+            _filter.Value = _options.Descriptors.GetOrDefault(typeof(TFilter))?.GetState() ?? new DataFilterState(true);
         }
     }
 }

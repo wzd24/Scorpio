@@ -12,14 +12,14 @@ namespace Scorpio.Data
         /// <summary>
         /// 
         /// </summary>
-        public Dictionary<Type, DataFilterState> DefaultStates { get; }
+        internal Dictionary<Type, DataFilterDescriptor>  Descriptors { get; }
 
         /// <summary>
         /// 
         /// </summary>
         public DataFilterOptions()
         {
-            DefaultStates = new Dictionary<Type, DataFilterState>();
+            Descriptors = new Dictionary<Type, DataFilterDescriptor>();
         }
     }
 }

@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Scorpio.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
+
 namespace Scorpio.Timing
 {
     /// <summary>

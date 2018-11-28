@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Scorpio.Domain;
 using Scorpio.Modularity;
-using Scorpio.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace Scorpio.Guids
+using System.Linq;
+namespace Scorpio.EntityFrameworkCore
 {
     /// <summary>
     /// 
     /// </summary>
-    public sealed class GuidsModule: ScorpioModule
+    [DependsOn(typeof(DomainModule))]
+    public sealed class EntityFrameworkCoreModule: ScorpioModule
     {
         /// <summary>
         /// 
@@ -18,7 +18,6 @@ namespace Scorpio.Guids
         /// <param name="context"></param>
         public override void ConfigureServices(ConfigureServicesContext context)
         {
-            context.Services.RegisterAssemblyByConvention();
             base.ConfigureServices(context);
         }
     }

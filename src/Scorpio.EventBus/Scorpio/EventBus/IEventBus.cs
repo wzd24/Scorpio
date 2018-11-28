@@ -67,7 +67,7 @@ namespace Scorpio.EventBus
         /// </summary>
         /// <typeparam name="TEvent">Event type</typeparam>
         /// <param name="action"></param>
-        void AsyncUnregister<TEvent>(Func<TEvent, Task> action)
+        void Unregister<TEvent>(Func<TEvent, Task> action)
             where TEvent : class;
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Scorpio.EventBus
         /// </summary>
         /// <typeparam name="TEvent">Event type</typeparam>
         /// <param name="handler">Handler object that is registered before</param>
-        void AsyncUnregister<TEvent>(IEventHandler<TEvent> handler)
+        void Unregister<TEvent>(IEventHandler<TEvent> handler)
             where TEvent : class;
 
         /// <summary>

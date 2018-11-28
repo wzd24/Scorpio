@@ -32,7 +32,7 @@ namespace Scorpio.EventBus
         /// Key: Type of the event
         /// Value: List of handler factories
         /// </summary>
-        protected ConcurrentDictionary<Type, List<IEventHandlerFactory>> HandlerFactories { get; }
+        internal protected ConcurrentDictionary<Type, List<IEventHandlerFactory>> HandlerFactories { get; }
 
         /// <summary>
         /// 
@@ -120,7 +120,7 @@ namespace Scorpio.EventBus
         }
 
         /// <inheritdoc/>
-        public void AsyncUnregister<TEvent>(Func<TEvent, Task> action) where TEvent : class
+        public void Unregister<TEvent>(Func<TEvent, Task> action) where TEvent : class
         {
             Check.NotNull(action, nameof(action));
 
@@ -146,7 +146,7 @@ namespace Scorpio.EventBus
         }
 
         /// <inheritdoc/>
-        public void AsyncUnregister<TEvent>(IEventHandler<TEvent> handler) where TEvent : class
+        public void Unregister<TEvent>(IEventHandler<TEvent> handler) where TEvent : class
         {
             Unregister(typeof(TEvent), handler);
         }

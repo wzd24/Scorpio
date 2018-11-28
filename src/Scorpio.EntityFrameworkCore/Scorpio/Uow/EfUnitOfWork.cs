@@ -14,6 +14,8 @@ namespace Scorpio.Uow
     /// </summary>
     public class EfUnitOfWork : UnitOfWorkBase
     {
+        private readonly IEfTransactionStrategy _transactionStrategy;
+
         /// <summary>
         /// 
         /// </summary>
@@ -23,9 +25,11 @@ namespace Scorpio.Uow
         /// 
         /// </summary>
         /// <param name="serviceProvider"></param>
+        /// <param name="transactionStrategy"></param>
         /// <param name="options"></param>
-        public EfUnitOfWork(IServiceProvider serviceProvider, IOptions<UnitOfWorkDefaultOptions> options) : base(serviceProvider, options)
+        public EfUnitOfWork(IServiceProvider serviceProvider, IEfTransactionStrategy transactionStrategy, IOptions<UnitOfWorkDefaultOptions> options) : base(serviceProvider, options)
         {
+            _transactionStrategy = transactionStrategy;
         }
 
         /// <summary>
@@ -47,7 +51,7 @@ namespace Scorpio.Uow
         {
             foreach (var item in GetAllActiveDbContexts())
             {
-               await item.SaveChangesAsync();
+                await item.SaveChangesAsync();
             }
         }
 
@@ -56,6 +60,10 @@ namespace Scorpio.Uow
         /// </summary>
         protected override void BeginUow()
         {
+            if (Options.IsTransactional==true)
+            {
+                _transactionStrategy.InitOptions(Options);
+            }
         }
 
         /// <summary>
@@ -99,8 +107,8 @@ namespace Scorpio.Uow
         /// <param name="connectionString"></param>
         /// <param name="factory"></param>
         /// <returns></returns>
-        public virtual TDbContext GetOrCreateDbContext<TDbContext>(string connectionString,Func<TDbContext> factory)
-            where TDbContext:ScorpioDbContext
+        public virtual TDbContext GetOrCreateDbContext<TDbContext>(string connectionString, Func<TDbContext> factory)
+            where TDbContext : ScorpioDbContext
         {
             var connectionKey = $"DbContext_{typeof(TDbContext).FullName}_{connectionString}";
             return ActiveDbContexts.GetOrAdd(connectionKey, factory) as TDbContext;

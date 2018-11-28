@@ -53,7 +53,7 @@ namespace Scorpio.Uow
 
         private TDbContext CreateDbContextWithTransactional(IUnitOfWork uow, string connectionString)
         {
-            return _transactionStrategy.CreateDbContext<TDbContext>(connectionString,uow.Options);
+            return _transactionStrategy.CreateDbContext<TDbContext>(connectionString);
         }
     }
 }

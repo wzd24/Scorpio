@@ -27,6 +27,7 @@ namespace Scorpio.EntityFrameworkCore
         /// <param name="filterOptions"></param>
         protected ScorpioDbContext(DbContextOptions<TDbContext> contextOptions, DataFilterOptions filterOptions) : base(contextOptions, filterOptions)
         {
+
         }
     }
     /// <summary>

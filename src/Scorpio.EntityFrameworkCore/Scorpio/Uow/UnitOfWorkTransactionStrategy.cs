@@ -1,30 +1,73 @@
-﻿using Scorpio.EntityFrameworkCore;
+﻿using Scorpio.DependencyInjection;
+using Scorpio.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Scorpio.Uow
 {
-    class UnitOfWorkTransactionStrategy : IEfTransactionStrategy
+    internal class UnitOfWorkTransactionStrategy : IEfTransactionStrategy, IScopedDependency
     {
+        private readonly IServiceProvider _serviceProvider;
+
+        public UnitOfWorkOptions Options { get; private set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        protected IDictionary<string, TransactionDescriptor> ActiveTransactions { get; } = new Dictionary<string, TransactionDescriptor>();
+
         public void Commit()
         {
-            throw new NotImplementedException();
+            ActiveTransactions.Values.ForEach(tran => tran.Commit());
         }
 
-        public TDbContext CreateDbContext<TDbContext>(string connectionString, UnitOfWorkOptions options) where TDbContext : ScorpioDbContext
+        public UnitOfWorkTransactionStrategy(IServiceProvider serviceProvider)
         {
-            throw new NotImplementedException();
+            _serviceProvider = serviceProvider;
+        }
+
+        public TDbContext CreateDbContext<TDbContext>(string connectionString) where TDbContext : ScorpioDbContext
+        {
+            TDbContext dbContext = null;
+            var key = $"Transaction_{connectionString}";
+            var descriptor = ActiveTransactions.GetOrDefault(key);
+            if (descriptor == null)
+            {
+                dbContext = _serviceProvider.GetRequiredService<TDbContext>();
+                var transaction = Options.IsolationLevel.HasValue
+                    ? dbContext.Database.BeginTransaction(Options.IsolationLevel.Value.ToSystemDataIsolationLevel())
+                    : dbContext.Database.BeginTransaction();
+                descriptor = ActiveTransactions[key] = new TransactionDescriptor(transaction);
+            }
+            else
+            {
+                var connection = descriptor.Transaction.GetDbTransaction().Connection;
+                dbContext = _serviceProvider.GetRequiredService<TDbContext>();
+                if (dbContext.HasRelationalTransactionManager())
+                {
+                    dbContext.Database.UseTransaction(descriptor.Transaction.GetDbTransaction());
+                }
+                else
+                {
+                    dbContext.Database.BeginTransaction();
+                }
+            }
+            descriptor.AddContext(dbContext);
+            return dbContext;
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            ActiveTransactions.Values.ForEach(tran => tran.Dispose());
+            ActiveTransactions.Clear();
         }
 
         public void InitOptions(UnitOfWorkOptions options)
         {
-            throw new NotImplementedException();
+            Options = options;
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Scorpio.EntityFrameworkCore
         /// <param name="connectionString"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        TDbContext CreateDbContext<TDbContext>(string connectionString, UnitOfWorkOptions options)
+        TDbContext CreateDbContext<TDbContext>(string connectionString)
             where TDbContext : ScorpioDbContext;
 
         /// <summary>

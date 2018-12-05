@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Scorpio.EntityFrameworkCore;
-
+using Microsoft.Extensions.DependencyInjection;
 namespace Scorpio.Uow
 {
     /// <summary>
@@ -60,7 +60,7 @@ namespace Scorpio.Uow
         /// </summary>
         protected override void BeginUow()
         {
-            if (Options.IsTransactional==true)
+            if (Options.IsTransactional == true)
             {
                 _transactionStrategy.InitOptions(Options);
             }
@@ -71,16 +71,24 @@ namespace Scorpio.Uow
         /// </summary>
         protected override void CompleteUow()
         {
-            throw new NotImplementedException();
+            SaveChanges();
+            if (Options.IsTransactional == true)
+            {
+                _transactionStrategy.Commit();
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        protected override Task CompleteUowAsync()
+        protected override async Task CompleteUowAsync()
         {
-            throw new NotImplementedException();
+            await SaveChangesAsync();
+            if (Options.IsTransactional==true)
+            {
+                _transactionStrategy.Commit();
+            }
         }
 
         /// <summary>
@@ -88,7 +96,15 @@ namespace Scorpio.Uow
         /// </summary>
         protected override void DisposeUow()
         {
-            throw new NotImplementedException();
+            if (Options.IsTransactional==true)
+            {
+                _transactionStrategy.Dispose();
+            }
+            else
+            {
+                GetAllActiveDbContexts().ForEach(context => context.Dispose());
+            }
+            ActiveDbContexts.Clear();
         }
 
         /// <summary>
@@ -105,13 +121,33 @@ namespace Scorpio.Uow
         /// </summary>
         /// <typeparam name="TDbContext"></typeparam>
         /// <param name="connectionString"></param>
-        /// <param name="factory"></param>
         /// <returns></returns>
-        public virtual TDbContext GetOrCreateDbContext<TDbContext>(string connectionString, Func<TDbContext> factory)
-            where TDbContext : ScorpioDbContext
+        public virtual TDbContext GetOrCreateDbContext<TDbContext>(string connectionString)
+            where TDbContext : ScorpioDbContext<TDbContext>
         {
             var connectionKey = $"DbContext_{typeof(TDbContext).FullName}_{connectionString}";
-            return ActiveDbContexts.GetOrAdd(connectionKey, factory) as TDbContext;
+            return ActiveDbContexts.GetOrAdd(connectionKey, key => CreateDbContext<TDbContext>(connectionString)) as TDbContext;
+        }
+
+        private TDbContext CreateDbContext<TDbContext>(string connectionString)
+            where TDbContext : ScorpioDbContext<TDbContext>
+        {
+            var context = Options.IsTransactional ?? true ?
+                CreateDbContextWithTransactional<TDbContext>(connectionString) :
+                ServiceProvider.GetService<TDbContext>();
+            if (Options.Timeout.HasValue &&
+                context.Database.IsRelational() &&
+                context.Database.GetCommandTimeout().HasValue)
+            {
+                context.Database.SetCommandTimeout(Options.Timeout.Value);
+            }
+            return context;
+        }
+
+        private TDbContext CreateDbContextWithTransactional<TDbContext>(string connectionString)
+            where TDbContext : ScorpioDbContext<TDbContext>
+        {
+            return _transactionStrategy.CreateDbContext<TDbContext>(connectionString);
         }
     }
 }

@@ -6,10 +6,11 @@ using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using System.Threading.Tasks;
 
 namespace Scorpio.Uow
 {
-    internal class UnitOfWorkTransactionStrategy : IEfTransactionStrategy, IScopedDependency
+    internal class UnitOfWorkTransactionStrategy : IEfTransactionStrategy,ITransientDependency
     {
         private readonly IServiceProvider _serviceProvider;
 
@@ -19,17 +20,14 @@ namespace Scorpio.Uow
         /// </summary>
         protected IDictionary<string, TransactionDescriptor> ActiveTransactions { get; } = new Dictionary<string, TransactionDescriptor>();
 
-        public void Commit()
-        {
-            ActiveTransactions.Values.ForEach(tran => tran.Commit());
-        }
+
 
         public UnitOfWorkTransactionStrategy(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
         }
 
-        public TDbContext CreateDbContext<TDbContext>(string connectionString) where TDbContext : ScorpioDbContext
+        public TDbContext CreateDbContext<TDbContext>(string connectionString) where TDbContext : ScorpioDbContext<TDbContext>
         {
             TDbContext dbContext = null;
             var key = $"Transaction_{connectionString}";
@@ -59,6 +57,12 @@ namespace Scorpio.Uow
             return dbContext;
         }
 
+        public void Commit()
+        {
+            ActiveTransactions.Values.ForEach(tran => tran.Commit());
+        }
+
+
         public void Dispose()
         {
             ActiveTransactions.Values.ForEach(tran => tran.Dispose());
@@ -69,5 +73,7 @@ namespace Scorpio.Uow
         {
             Options = options;
         }
+
+
     }
 }

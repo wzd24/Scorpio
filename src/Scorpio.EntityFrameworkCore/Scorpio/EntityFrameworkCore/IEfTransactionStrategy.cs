@@ -3,6 +3,7 @@ using Scorpio.Uow;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Scorpio.EntityFrameworkCore
 {
@@ -25,7 +26,7 @@ namespace Scorpio.EntityFrameworkCore
         /// <param name="options"></param>
         /// <returns></returns>
         TDbContext CreateDbContext<TDbContext>(string connectionString)
-            where TDbContext : ScorpioDbContext;
+            where TDbContext : ScorpioDbContext<TDbContext>;
 
         /// <summary>
         /// 

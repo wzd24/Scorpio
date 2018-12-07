@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E1A4E891-22ED-4AB6-B1E7-3B1CC4D5BB35}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio", "src\Scorpio\Scorpio.csproj", "{27EB2F67-0434-401D-AB23-336C56A66EAC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio", "src\Scorpio\Scorpio.csproj", "{27EB2F67-0434-401D-AB23-336C56A66EAC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{C57152EE-7CEB-4FD2-A26B-9B8852795752}"
 EndProject
@@ -24,13 +24,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		test.props = test.props
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.TestBase", "test\Scorpio.TestBase\Scorpio.TestBase.csproj", "{D9B79816-60E7-4C6F-AF71-55925689F61B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.TestBase", "test\Scorpio.TestBase\Scorpio.TestBase.csproj", "{D9B79816-60E7-4C6F-AF71-55925689F61B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Domain", "src\Scorpio.Domain\Scorpio.Domain.csproj", "{1DC06CE8-BD3A-4090-9DB3-B229CA56C593}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Threading", "src\Scorpio.Threading\Scorpio.Threading.csproj", "{9B43A67D-98AF-48F5-A38F-990DC0EA3472}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Domain.Tests", "test\Scorpio.Domain.Tests\Scorpio.Domain.Tests.csproj", "{4D7EA643-7730-4208-B775-AFE6F7E1C8A2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.Domain.Tests", "test\Scorpio.Domain.Tests\Scorpio.Domain.Tests.csproj", "{4D7EA643-7730-4208-B775-AFE6F7E1C8A2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Threading.Tests", "test\Scorpio.Threading.Tests\Scorpio.Threading.Tests.csproj", "{AAD1EC87-959F-49D3-B9F7-B7B2B525CC5D}"
 EndProject

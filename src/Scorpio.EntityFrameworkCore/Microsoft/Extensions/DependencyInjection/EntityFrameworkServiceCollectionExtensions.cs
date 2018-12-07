@@ -6,6 +6,9 @@ using System.Text;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
+    /// <summary>
+    /// Entity framework service collection extensions.
+    /// </summary>
     public static class EntityFrameworkServiceCollectionExtensions
     {
         /// <summary>

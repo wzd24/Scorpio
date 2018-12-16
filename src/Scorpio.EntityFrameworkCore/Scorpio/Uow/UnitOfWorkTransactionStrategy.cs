@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Threading.Tasks;
+using Scorpio.EntityFrameworkCore.DependencyInjection;
 
 namespace Scorpio.Uow
 {
@@ -43,6 +44,7 @@ namespace Scorpio.Uow
             else
             {
                 var connection = descriptor.Transaction.GetDbTransaction().Connection;
+                DbContextCreationContext.Current.ExistingConnection = connection;
                 dbContext = _serviceProvider.GetRequiredService<TDbContext>();
                 if (dbContext.HasRelationalTransactionManager())
                 {

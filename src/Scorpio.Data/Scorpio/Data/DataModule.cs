@@ -20,9 +20,10 @@ namespace Scorpio.Data
         {
             context.Services.Configure<DataFilterOptions>(options =>
             {
-                options.ConfigureFilter<ISoftDelete>(descriptor => descriptor.Expression(e => e.IsDeleted == false));
+                options.RegiesterFilter(new SoftDeleteDataFilterDescriptor());
             });
-            context.Services.RegisterAssemblyByConvention();
+            context.Services.AddSingleton(typeof(IDataFilter<>), typeof(DataFilter<>));
+            context.Services.RegisterAssemblyByConventionOfType<DataModule>();
         }
     }
 }

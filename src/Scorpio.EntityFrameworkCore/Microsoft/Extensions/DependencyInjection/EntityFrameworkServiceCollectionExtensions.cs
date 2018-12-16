@@ -1,4 +1,5 @@
-﻿using Scorpio.EntityFrameworkCore;
+﻿using Microsoft.Extensions.DependencyInjection.Extensions;
+using Scorpio.EntityFrameworkCore;
 using Scorpio.EntityFrameworkCore.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Text;
 namespace Microsoft.Extensions.DependencyInjection
 {
     /// <summary>
-    /// Entity framework service collection extensions.
+    /// 
     /// </summary>
     public static class EntityFrameworkServiceCollectionExtensions
     {
@@ -18,12 +19,15 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="builderAction"></param>
         /// <returns></returns>
         public static IServiceCollection AddScorpioDbContext<TDbContext>(this IServiceCollection services,
-            Action<IScorpioDbContextOptionsBuilder> builderAction)
+            Action<IScorpioDbContextOptionsBuilder<TDbContext>> builderAction)
             where TDbContext:ScorpioDbContext<TDbContext>
         {
             services.AddMemoryCache().AddLogging();
-            var options = new ScorpioDbContextOptionsBuilder();
+            var options = new ScorpioDbContextOptionsBuilder<TDbContext>(services);
             builderAction?.Invoke(options);
+            services.TryAddTransient(serviceProvider=> DbContextOptionsFactory.Create(serviceProvider,options));
+            services.AddTransient<TDbContext>();
+            new EfCoreRepositoryRegistrar<TDbContext>(options).RegisterRepositories();
             return services;
         }
     }

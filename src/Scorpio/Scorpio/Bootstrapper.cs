@@ -163,7 +163,7 @@ namespace Scorpio
             }
             var services = new ServiceCollection();
             var bootstrapper = new InternalBootstrapper(startupModuleType, services, optionsAction);
-            bootstrapper.SetServiceProvider(services.BuildDynamicProxyServiceProvider());
+            bootstrapper.SetServiceProvider(services.BuildAspectInjectorProvider());
             return bootstrapper;
         }
 

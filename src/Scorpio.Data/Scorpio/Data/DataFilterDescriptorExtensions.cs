@@ -32,17 +32,5 @@ namespace Scorpio.Data
             return descriptor;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="TFilter"></typeparam>
-        /// <param name="descriptor"></param>
-        /// <param name="expression"></param>
-        /// <returns></returns>
-        public static DataFilterDescriptor Expression<TFilter>(this DataFilterDescriptor<TFilter> descriptor, Expression<Func<TFilter, bool>> expression)
-        {
-            descriptor.FilterExpression = expression;
-            return descriptor;
-        }
     }
 }

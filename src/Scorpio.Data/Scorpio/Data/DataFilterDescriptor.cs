@@ -23,7 +23,7 @@ namespace Scorpio.Data
         /// <summary>
         /// 
         /// </summary>
-        public Expression FilterExpression { get;  set; }
+        public Expression FilterExpression { get; set; }
 
         /// <summary>
         /// 
@@ -42,20 +42,45 @@ namespace Scorpio.Data
         {
             return new DataFilterState(IsEnabled);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <returns></returns>
+        internal protected virtual Expression<Func<TEntity, bool>> BuildFilterExpression<TEntity>() where TEntity : class
+        {
+            return e => e == null;
+        }
     }
 
     /// <summary>
     /// 
     /// </summary>
     /// <typeparam name="TFilter"></typeparam>
-    public sealed class DataFilterDescriptor<TFilter> : DataFilterDescriptor
+    public abstract class DataFilterDescriptor<TFilter> : DataFilterDescriptor
     {
+        protected DataFilterDescriptor() : base(typeof(TFilter))
+        {
+            IsEnabled = true;
+        }
+    }
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public sealed class SoftDeleteDataFilterDescriptor : DataFilterDescriptor<ISoftDelete>
+    {
+
         /// <summary>
         /// 
         /// </summary>
-        internal DataFilterDescriptor():base(typeof(TFilter))
+        /// <typeparam name="TEntity"></typeparam>
+        /// <returns></returns>
+        protected internal override Expression<Func<TEntity, bool>> BuildFilterExpression<TEntity>()
         {
-
+            return e => ((ISoftDelete)e).IsDeleted == false;
         }
     }
 }

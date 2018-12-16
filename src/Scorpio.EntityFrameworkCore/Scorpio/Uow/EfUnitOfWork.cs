@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Scorpio.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Scorpio.EntityFrameworkCore.DependencyInjection;
+
 namespace Scorpio.Uow
 {
     /// <summary>
@@ -85,7 +87,7 @@ namespace Scorpio.Uow
         protected override async Task CompleteUowAsync()
         {
             await SaveChangesAsync();
-            if (Options.IsTransactional==true)
+            if (Options.IsTransactional == true)
             {
                 _transactionStrategy.Commit();
             }
@@ -96,7 +98,7 @@ namespace Scorpio.Uow
         /// </summary>
         protected override void DisposeUow()
         {
-            if (Options.IsTransactional==true)
+            if (Options.IsTransactional == true)
             {
                 _transactionStrategy.Dispose();
             }
@@ -132,16 +134,19 @@ namespace Scorpio.Uow
         private TDbContext CreateDbContext<TDbContext>(string connectionString)
             where TDbContext : ScorpioDbContext<TDbContext>
         {
-            var context = Options.IsTransactional ?? true ?
-                CreateDbContextWithTransactional<TDbContext>(connectionString) :
-                ServiceProvider.GetService<TDbContext>();
-            if (Options.Timeout.HasValue &&
-                context.Database.IsRelational() &&
-                context.Database.GetCommandTimeout().HasValue)
+            using (DbContextCreationContext.Use(new DbContextCreationContext(connectionString)))
             {
-                context.Database.SetCommandTimeout(Options.Timeout.Value);
+                var context = Options.IsTransactional ?? true ?
+                    CreateDbContextWithTransactional<TDbContext>(connectionString) :
+                    ServiceProvider.GetService<TDbContext>();
+                if (Options.Timeout.HasValue &&
+                    context.Database.IsRelational() &&
+                    context.Database.GetCommandTimeout().HasValue)
+                {
+                    context.Database.SetCommandTimeout(Options.Timeout.Value);
+                }
+                return context;
             }
-            return context;
         }
 
         private TDbContext CreateDbContextWithTransactional<TDbContext>(string connectionString)

@@ -32,19 +32,6 @@ namespace Scorpio.Domain.Repositories
         /// <typeparam name="TKey"></typeparam>
         /// <param name="repository"></param>
         /// <returns></returns>
-        public static DbSet<TEntity> GetDbSet<TEntity, TKey>(this IBasicRepository<TEntity, TKey> repository)
-            where TEntity : class, IEntity<TKey>
-        {
-            return repository.ToEfCoreRepository().DbSet;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="TEntity"></typeparam>
-        /// <typeparam name="TKey"></typeparam>
-        /// <param name="repository"></param>
-        /// <returns></returns>
         public static IEfCoreRepository<TEntity, TKey> ToEfCoreRepository<TEntity, TKey>(this IBasicRepository<TEntity, TKey> repository)
             where TEntity : class, IEntity<TKey>
         {

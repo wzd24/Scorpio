@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\src\Scorpio.EntityFrameworkCore\Scorpio.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\..\..\src\Scorpio.HostedService\Scorpio.HostedService.csproj" />
+  </ItemGroup>
+
+</Project>

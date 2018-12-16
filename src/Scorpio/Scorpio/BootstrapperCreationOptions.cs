@@ -22,6 +22,7 @@ namespace Scorpio
         /// </summary>
         public PlugInSourceList PlugInSources { get; }
 
+
         internal BootstrapperCreationOptions(IServiceCollection services)
         {
             Services = Check.NotNull(services, nameof(services));

@@ -18,10 +18,6 @@ namespace Scorpio.Domain.Repositories.EntityFrameworkCore
         /// </summary>
         DbContext DbContext { get; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        DbSet<TEntity> DbSet { get; }
 
     }
 

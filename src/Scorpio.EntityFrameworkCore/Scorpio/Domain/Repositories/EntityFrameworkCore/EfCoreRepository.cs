@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Scorpio.Domain.Entities;
 using Scorpio.EntityFrameworkCore;
 using System;
@@ -20,6 +21,8 @@ namespace Scorpio.Domain.Repositories.EntityFrameworkCore
         where TDbContext : DbContext
         where TEntity : class, IEntity
     {
+
+
         private readonly IDbContextProvider<TDbContext> _contextProvider;
 
         /// <summary>
@@ -30,7 +33,12 @@ namespace Scorpio.Domain.Repositories.EntityFrameworkCore
         /// <summary>
         /// 
         /// </summary>
-        public DbSet<TEntity> DbSet => DbContext.Set<TEntity>();
+        internal protected DbSet<TEntity> DbSet => DbContext.Set<TEntity>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        internal protected IQueryable<TEntity> Queryable => DbSet;
 
         DbContext IEfCoreRepository<TEntity>.DbContext => DbContext;
 
@@ -197,7 +205,7 @@ namespace Scorpio.Domain.Repositories.EntityFrameworkCore
         /// <returns></returns>
         public override long GetCount()
         {
-            return DbSet.LongCount();
+            return GetQueryable().LongCount();
         }
 
         /// <summary>

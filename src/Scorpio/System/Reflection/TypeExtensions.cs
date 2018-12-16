@@ -67,6 +67,37 @@ namespace System.Reflection
             return type.GetTypeInfo().IsAssignableFrom(@this.GetTypeInfo());
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="genericType"></param>
+        /// <returns></returns>
+        public static bool IsAssignableToGenericType(this Type @this, Type genericType)
+        {
+            var givenTypeInfo = @this.GetTypeInfo();
+
+            if (givenTypeInfo.IsGenericType && @this.GetGenericTypeDefinition() == genericType)
+            {
+                return true;
+            }
+
+            foreach (var interfaceType in givenTypeInfo.GetInterfaces())
+            {
+                if (interfaceType.GetTypeInfo().IsGenericType && interfaceType.GetGenericTypeDefinition() == genericType)
+                {
+                    return true;
+                }
+            }
+
+            if (givenTypeInfo.BaseType == null)
+            {
+                return false;
+            }
+
+            return IsAssignableToGenericType(givenTypeInfo.BaseType, genericType);
+        }
+
     }
 }
 

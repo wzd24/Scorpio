@@ -1,7 +1,10 @@
 ﻿using AspectCore.Injector;
+using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Scorpio.Data;
 using Scorpio.Guids;
 using System;
@@ -25,7 +28,7 @@ namespace Scorpio.EntityFrameworkCore
         /// </summary>
         /// <param name="contextOptions"></param>
         /// <param name="filterOptions"></param>
-        protected ScorpioDbContext(DbContextOptions<TDbContext> contextOptions, DataFilterOptions filterOptions) : base(contextOptions, filterOptions)
+        protected ScorpioDbContext(DbContextOptions<TDbContext> contextOptions, IOptions<DataFilterOptions> filterOptions) : base(contextOptions, filterOptions)
         {
 
         }
@@ -66,10 +69,10 @@ namespace Scorpio.EntityFrameworkCore
         /// </summary>
         /// <param name="contextOptions"></param>
         /// <param name="filterOptions"></param>
-        protected ScorpioDbContext(DbContextOptions contextOptions, DataFilterOptions filterOptions)
+        protected ScorpioDbContext(DbContextOptions contextOptions, IOptions<DataFilterOptions> filterOptions)
             : base(contextOptions)
         {
-            _filterOptions = filterOptions;
+            _filterOptions = filterOptions.Value;
         }
 
         /// <summary>
@@ -78,6 +81,7 @@ namespace Scorpio.EntityFrameworkCore
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
             base.OnModelCreating(modelBuilder);
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
@@ -126,17 +130,19 @@ namespace Scorpio.EntityFrameworkCore
             where TEntity : class
         {
             Expression<Func<TEntity, bool>> expression = null;
-
             _filterOptions.Descriptors.ForEach(item =>
             {
                 if (item.Key.IsAssignableFrom(typeof(TEntity)))
                 {
-                    var filterexpression = item.Value.FilterExpression as Expression<Func<TEntity, bool>>;
-                    filterexpression = filterexpression.Or(filterexpression.Equal(expr2 => DataFilter.IsEnabled(item.Key)));
+                    var filterexpression = item.Value.BuildFilterExpression<TEntity>();
+                    filterexpression = filterexpression.Or( filterexpression.Equal(expr2 => DataFilter.IsEnabled(item.Key)));
                     expression = expression == null ? filterexpression : expression.And(filterexpression);
                 }
             });
+
             return expression;
         }
+
+
     }
 }

@@ -20,10 +20,6 @@ namespace Scorpio.Data
         /// </summary>
         public Type FilterType { get; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public Expression FilterExpression { get; set; }
 
         /// <summary>
         /// 
@@ -48,10 +44,19 @@ namespace Scorpio.Data
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
-        internal protected virtual Expression<Func<TEntity, bool>> BuildFilterExpression<TEntity>() where TEntity : class
+        internal  Expression<Func<TEntity, bool>> BuildFilterExpression<TEntity>(IDataFilter dataFilter) where TEntity : class
         {
-            return e => e == null;
+            var filterexpression = BuildFilterExpressionCore<TEntity>();
+            filterexpression = filterexpression.Or(filterexpression.Equal(expr2 => dataFilter.IsEnabled(FilterType)));
+            return filterexpression;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <returns></returns>
+        protected abstract Expression<Func<TEntity, bool>> BuildFilterExpressionCore<TEntity>() where TEntity : class;
     }
 
     /// <summary>
@@ -60,6 +65,9 @@ namespace Scorpio.Data
     /// <typeparam name="TFilter"></typeparam>
     public abstract class DataFilterDescriptor<TFilter> : DataFilterDescriptor
     {
+        /// <summary>
+        /// 
+        /// </summary>
         protected DataFilterDescriptor() : base(typeof(TFilter))
         {
             IsEnabled = true;
@@ -78,7 +86,7 @@ namespace Scorpio.Data
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
-        protected internal override Expression<Func<TEntity, bool>> BuildFilterExpression<TEntity>()
+        protected  override Expression<Func<TEntity, bool>> BuildFilterExpressionCore<TEntity>()
         {
             return e => ((ISoftDelete)e).IsDeleted == false;
         }

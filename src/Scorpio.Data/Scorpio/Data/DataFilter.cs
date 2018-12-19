@@ -88,7 +88,7 @@ namespace Scorpio.Data
     /// 
     /// </summary>
     /// <typeparam name="TFilter"></typeparam>
-    public class DataFilter<TFilter> : IDataFilter<TFilter>
+    internal class DataFilter<TFilter> : IDataFilter<TFilter>
         where TFilter : class
     {
         /// <summary>
@@ -107,14 +107,24 @@ namespace Scorpio.Data
 
         private readonly AsyncLocal<DataFilterState> _filter;
 
+        public DataFilter()
+        {
+            _filter = new AsyncLocal<DataFilterState>();
+
+        }
+
+        public DataFilter(bool isEnabled):this()
+        {
+            EnsureInitialized();
+            _filter.Value.IsEnabled = isEnabled;
+        }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="options"></param>
-        public DataFilter(IOptions<DataFilterOptions> options)
+        public DataFilter(IOptions<DataFilterOptions> options):this()
         {
             _options = options.Value;
-            _filter = new AsyncLocal<DataFilterState>();
         }
 
         /// <summary>
@@ -156,7 +166,7 @@ namespace Scorpio.Data
                 return;
             }
 
-            _filter.Value = _options.Descriptors.GetOrDefault(typeof(TFilter))?.GetState() ?? new DataFilterState(true);
+            _filter.Value = _options?.Descriptors?.GetOrDefault(typeof(TFilter))?.GetState() ?? new DataFilterState(true);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Scorpio.Data
     /// <summary>
     /// 
     /// </summary>
-    public sealed class DataModule: ScorpioModule
+    public sealed class DataModule : ScorpioModule
     {
         /// <summary>
         /// 
@@ -20,7 +20,7 @@ namespace Scorpio.Data
         {
             context.Services.Configure<DataFilterOptions>(options =>
             {
-                options.RegiesterFilter(new SoftDeleteDataFilterDescriptor());
+                options.RegiesterFilter<ISoftDelete, SoftDeleteDataFilterDescriptor>();
             });
             context.Services.AddSingleton(typeof(IDataFilter<>), typeof(DataFilter<>));
             context.Services.RegisterAssemblyByConventionOfType<DataModule>();

@@ -16,10 +16,11 @@ namespace Scorpio.Data
         /// </summary>
         /// <typeparam name="TFilter"></typeparam>
         /// <param name="options"></param>
+        /// <param name="descriptor"></param>
         /// <returns></returns>
         public static DataFilterDescriptor<TFilter> RegiesterFilter<TFilter>(this DataFilterOptions options, DataFilterDescriptor<TFilter> descriptor)
         {
-            return options.Descriptors.GetOrAdd(typeof(TFilter), f => descriptor) as DataFilterDescriptor<TFilter>;
+            return options.Descriptors.GetOrAdd(typeof(TFilter), t => descriptor) as DataFilterDescriptor<TFilter>;
         }
 
         /// <summary>
@@ -28,7 +29,6 @@ namespace Scorpio.Data
         /// <typeparam name="TFilter"></typeparam>
         /// <typeparam name="TFilterDescriptor"></typeparam>
         /// <param name="options"></param>
-        /// <param name="descriptor"></param>
         /// <returns></returns>
         public static DataFilterDescriptor<TFilter> RegiesterFilter<TFilter, TFilterDescriptor>(this DataFilterOptions options)
             where TFilterDescriptor : DataFilterDescriptor<TFilter>

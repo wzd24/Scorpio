@@ -12,5 +12,10 @@ namespace Scorpio.EFConsoleApplication
         public int Age { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public User()
+        {
+            IsDeleted = true;
+        }
     }
 }

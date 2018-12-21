@@ -10,7 +10,7 @@ using Scorpio.Data;
 using Scorpio.EntityFrameworkCore;
 namespace Scorpio.EFConsoleApplication
 {
-    [DependsOn(typeof(EntityFrameworkCore.EntityFrameworkCoreModule))]
+    [DependsOn(typeof(EntityFrameworkCoreModule))]
     public sealed class ApplicationModule: ScorpioModule
     {
         public override void ConfigureServices(ConfigureServicesContext context)
@@ -22,6 +22,7 @@ namespace Scorpio.EFConsoleApplication
             {
                 o.Configure(c => c.UseSqlServer());
             });
+            context.Services.AddSaveChangeHandler<DemoOnSaveChangeHandler>();
             context.Services.Configure<DbConnectionOptions>(options =>
             {
                 options.ConnectionStrings.Default = @"Data Source=(localdb)\ProjectsV13;Initial Catalog=Demo;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";

@@ -84,6 +84,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.EFConsoleApplicatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.EntityFrameworkCore.SqlServer", "src\Scorpio.EntityFrameworkCore.SqlServer\Scorpio.EntityFrameworkCore.SqlServer.csproj", "{478B6F02-E086-4963-9DAD-2BA943197126}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.EntityFrameworkCore.EventBus", "src\Scorpio.EntityFrameworkCore.EventBus\Scorpio.EntityFrameworkCore.EventBus.csproj", "{6C136C99-40CC-4877-A9DF-7AA0A210BFE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.EntityFrameworkCore.EventBus.Tests", "test\Scorpio.EntityFrameworkCore.EventBus.Tests\Scorpio.EntityFrameworkCore.EventBus.Tests.csproj", "{9EA90E84-37A9-4EF0-8FDC-24BC76319D3B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -394,6 +398,30 @@ Global
 		{478B6F02-E086-4963-9DAD-2BA943197126}.Release|x64.Build.0 = Release|Any CPU
 		{478B6F02-E086-4963-9DAD-2BA943197126}.Release|x86.ActiveCfg = Release|Any CPU
 		{478B6F02-E086-4963-9DAD-2BA943197126}.Release|x86.Build.0 = Release|Any CPU
+		{6C136C99-40CC-4877-A9DF-7AA0A210BFE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C136C99-40CC-4877-A9DF-7AA0A210BFE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C136C99-40CC-4877-A9DF-7AA0A210BFE9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6C136C99-40CC-4877-A9DF-7AA0A210BFE9}.Debug|x64.Build.0 = Debug|Any CPU
+		{6C136C99-40CC-4877-A9DF-7AA0A210BFE9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6C136C99-40CC-4877-A9DF-7AA0A210BFE9}.Debug|x86.Build.0 = Debug|Any CPU
+		{6C136C99-40CC-4877-A9DF-7AA0A210BFE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C136C99-40CC-4877-A9DF-7AA0A210BFE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C136C99-40CC-4877-A9DF-7AA0A210BFE9}.Release|x64.ActiveCfg = Release|Any CPU
+		{6C136C99-40CC-4877-A9DF-7AA0A210BFE9}.Release|x64.Build.0 = Release|Any CPU
+		{6C136C99-40CC-4877-A9DF-7AA0A210BFE9}.Release|x86.ActiveCfg = Release|Any CPU
+		{6C136C99-40CC-4877-A9DF-7AA0A210BFE9}.Release|x86.Build.0 = Release|Any CPU
+		{9EA90E84-37A9-4EF0-8FDC-24BC76319D3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EA90E84-37A9-4EF0-8FDC-24BC76319D3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EA90E84-37A9-4EF0-8FDC-24BC76319D3B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9EA90E84-37A9-4EF0-8FDC-24BC76319D3B}.Debug|x64.Build.0 = Debug|Any CPU
+		{9EA90E84-37A9-4EF0-8FDC-24BC76319D3B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9EA90E84-37A9-4EF0-8FDC-24BC76319D3B}.Debug|x86.Build.0 = Debug|Any CPU
+		{9EA90E84-37A9-4EF0-8FDC-24BC76319D3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EA90E84-37A9-4EF0-8FDC-24BC76319D3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EA90E84-37A9-4EF0-8FDC-24BC76319D3B}.Release|x64.ActiveCfg = Release|Any CPU
+		{9EA90E84-37A9-4EF0-8FDC-24BC76319D3B}.Release|x64.Build.0 = Release|Any CPU
+		{9EA90E84-37A9-4EF0-8FDC-24BC76319D3B}.Release|x86.ActiveCfg = Release|Any CPU
+		{9EA90E84-37A9-4EF0-8FDC-24BC76319D3B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -430,6 +458,8 @@ Global
 		{DE0DF855-15C5-43F1-8120-5B6BA7844093} = {8D47DC65-29F1-4E38-98F9-0A4EB5145DFB}
 		{04E2AD43-A54B-465E-AE57-958784F71AD2} = {DE0DF855-15C5-43F1-8120-5B6BA7844093}
 		{478B6F02-E086-4963-9DAD-2BA943197126} = {E1A4E891-22ED-4AB6-B1E7-3B1CC4D5BB35}
+		{6C136C99-40CC-4877-A9DF-7AA0A210BFE9} = {E1A4E891-22ED-4AB6-B1E7-3B1CC4D5BB35}
+		{9EA90E84-37A9-4EF0-8FDC-24BC76319D3B} = {C57152EE-7CEB-4FD2-A26B-9B8852795752}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D2AFD460-8F30-4611-A635-17D59DE0DE4B}

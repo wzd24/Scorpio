@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace System.Collections.Generic
 {
@@ -88,5 +89,24 @@ namespace System.Collections.Generic
                 action(item);
             }
         }
+
+        /// <summary>
+        /// Performs the specified action on each element of the <see cref="IEnumerable{T}"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the enumerable.</typeparam>
+        /// <param name="source">An <see cref="IEnumerable{T}"/> to apply action.</param>
+        /// <param name="action">The <see cref="Action{T}"/> delegate to perform on each element of the <see cref="IEnumerable{T}"/>.</param>
+        public static async Task ForEachAsync<T>(this IEnumerable<T> source, Func<T, Task> action)
+        {
+            if (source.IsNullOrEmpty() || action == null)
+            {
+                return;
+            }
+            foreach (var item in source)
+            {
+                await action(item);
+            }
+        }
+
     }
 }

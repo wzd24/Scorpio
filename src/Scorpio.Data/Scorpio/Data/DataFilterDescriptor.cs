@@ -44,12 +44,24 @@ namespace Scorpio.Data
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
-        internal  Expression<Func<TEntity, bool>> BuildFilterExpression<TEntity>(IDataFilter dataFilter) where TEntity : class
+        internal Expression<Func<TEntity, bool>> BuildFilterExpression<TEntity>(IDataFilter dataFilter) where TEntity : class
+        {
+            var filterexpression = BuildFilterExpression<TEntity>();
+            var expression = filterexpression.Or(filterexpression.Equal(expr2 => dataFilter.IsEnabled(FilterType)));
+            return expression;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <returns></returns>
+        internal Expression<Func<TEntity, bool>> BuildFilterExpression<TEntity>() where TEntity : class
         {
             var filterexpression = BuildFilterExpressionCore<TEntity>();
-            filterexpression = filterexpression.Or(filterexpression.Equal(expr2 => dataFilter.IsEnabled(FilterType)));
             return filterexpression;
         }
+
 
         /// <summary>
         /// 
@@ -86,7 +98,7 @@ namespace Scorpio.Data
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
-        protected  override Expression<Func<TEntity, bool>> BuildFilterExpressionCore<TEntity>()
+        protected override Expression<Func<TEntity, bool>> BuildFilterExpressionCore<TEntity>()
         {
             return e => ((ISoftDelete)e).IsDeleted == false;
         }

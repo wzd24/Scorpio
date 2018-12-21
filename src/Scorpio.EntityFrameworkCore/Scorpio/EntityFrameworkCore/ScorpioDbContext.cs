@@ -7,13 +7,16 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Scorpio.Data;
 using Scorpio.Guids;
+using Scorpio.Threading;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
-
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 namespace Scorpio.EntityFrameworkCore
 {
     /// <summary>
@@ -28,7 +31,7 @@ namespace Scorpio.EntityFrameworkCore
         /// </summary>
         /// <param name="contextOptions"></param>
         /// <param name="filterOptions"></param>
-        protected ScorpioDbContext(DbContextOptions<TDbContext> contextOptions, IOptions<DataFilterOptions> filterOptions) : base(contextOptions, filterOptions)
+        protected ScorpioDbContext(IServiceProvider serviceProvider, DbContextOptions<TDbContext> contextOptions, IOptions<DataFilterOptions> filterOptions) : base(serviceProvider, contextOptions, filterOptions)
         {
 
         }
@@ -50,6 +53,10 @@ namespace Scorpio.EntityFrameworkCore
         /// 
         /// </summary>
         [FromContainer]
+        public IOnSaveChangeHandlersFactory OnSaveChangeHandlersFactory { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public IDataFilter DataFilter { get; set; }
 
         /// <summary>
@@ -58,21 +65,31 @@ namespace Scorpio.EntityFrameworkCore
         [FromContainer]
         public ILogger<ScorpioDbContext> Logger { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        protected IServiceProvider ServiceProvider { get; }
+
         private static readonly MethodInfo _configureGlobalFiltersMethodInfo
     = typeof(ScorpioDbContext)
         .GetMethod(
             nameof(ConfigureGlobalFilters),
             BindingFlags.Instance | BindingFlags.NonPublic
         );
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="contextOptions"></param>
         /// <param name="filterOptions"></param>
-        protected ScorpioDbContext(DbContextOptions contextOptions, IOptions<DataFilterOptions> filterOptions)
+        /// <param name="serviceProvider"></param>
+        protected ScorpioDbContext(IServiceProvider serviceProvider, DbContextOptions contextOptions, IOptions<DataFilterOptions> filterOptions)
             : base(contextOptions)
         {
+
             _filterOptions = filterOptions.Value;
+            ServiceProvider = serviceProvider;
+            DataFilter = ServiceProvider.GetService<IDataFilter>();
         }
 
         /// <summary>
@@ -81,7 +98,7 @@ namespace Scorpio.EntityFrameworkCore
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+
             base.OnModelCreating(modelBuilder);
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
@@ -89,6 +106,50 @@ namespace Scorpio.EntityFrameworkCore
                    .MakeGenericMethod(entityType.ClrType)
                    .Invoke(this, new object[] { modelBuilder, entityType });
             }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="acceptAllChangesOnSuccess"></param>
+        /// <returns></returns>
+        public override int SaveChanges(bool acceptAllChangesOnSuccess)
+        {
+            var entityChangeList = ChangeTracker.Entries().Where(e => e.State != EntityState.Unchanged).ToList();
+            var saveChangeHandlers = OnSaveChangeHandlersFactory.CreateHandlers();
+            if (entityChangeList.Count > 0)
+            {
+                saveChangeHandlers.ForEach(handler => AsyncHelper.RunSync(() => handler.PreSaveChangeAsync(entityChangeList)));
+            }
+            var result = base.SaveChanges(acceptAllChangesOnSuccess);
+            if (entityChangeList.Count > 0)
+            {
+                saveChangeHandlers.ForEach(handler => AsyncHelper.RunSync(() => handler.PostSaveChangeAsync(entityChangeList)));
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="acceptAllChangesOnSuccess"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        {
+            var entityChangeList = ChangeTracker.Entries().ToList();
+            var saveChangeHandlers = OnSaveChangeHandlersFactory.CreateHandlers();
+            if (entityChangeList.Count > 0)
+            {
+                await saveChangeHandlers.ForEachAsync(async handler => await handler.PreSaveChangeAsync(entityChangeList));
+            }
+            var result = await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+            if (entityChangeList.Count > 0)
+            {
+                await saveChangeHandlers.ForEachAsync(async handler => await handler.PostSaveChangeAsync(entityChangeList));
+            }
+            return result;
         }
 
         /// <summary>
@@ -134,14 +195,12 @@ namespace Scorpio.EntityFrameworkCore
             {
                 if (item.Key.IsAssignableFrom(typeof(TEntity)))
                 {
-                    var filterexpression = item.Value.BuildFilterExpression<TEntity>(DataFilter);
+                    var filterexpression = item.Value.BuildFilterExpression<TEntity>();
+                    filterexpression = filterexpression.Or(filterexpression.Equal(expr2 => DataFilter.IsEnabled(item.Key)));
                     expression = expression == null ? filterexpression : expression.And(filterexpression);
                 }
             });
-
             return expression;
         }
-
-
     }
 }

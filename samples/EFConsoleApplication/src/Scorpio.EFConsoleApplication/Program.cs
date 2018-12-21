@@ -15,22 +15,22 @@ namespace Scorpio.EFConsoleApplication
                 {
                     var repo = bootstrapper.ServiceProvider.GetService<Domain.Repositories.IRepository<User>>();
                     Console.WriteLine(repo.GetCount());
-                    using (var dis = bootstrapper.ServiceProvider.GetService<Data.DataFilter>().Enable<Data.ISoftDelete>())
+                    using (var dis = bootstrapper.ServiceProvider.GetService<Data.IDataFilter>().Enable<Data.ISoftDelete>())
                     {
                         Console.WriteLine(repo.GetCount());
-                        Console.WriteLine(repo.GetList().First().Name);
-                        Console.WriteLine(repo.GetList().Last().Name);
+                        //Console.WriteLine(repo.GetList().FirstOrDefault()?.Name);
+                        //Console.WriteLine(repo.GetList().LastOrDefault()?.Name);
 
                     }
                     //repo.Insert(new User
                     //{
                     //    Name = "李四",
-                    //    Age = 45,
+                    //    Age = 48,
                     //    IsDeleted = false,
                     //});
                     Console.WriteLine(repo.GetCount());
-                    Console.WriteLine(repo.GetList().First().Name);
-                    Console.WriteLine(repo.GetList().Last().Name);
+                    //Console.WriteLine(repo.GetList().FirstOrDefault()?.Name);
+                    //Console.WriteLine(repo.GetList().LastOrDefault()?.Name);
                     uow.Complete();
                 }
                 Console.ReadLine();

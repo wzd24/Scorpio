@@ -38,6 +38,7 @@ namespace Scorpio.EntityFrameworkCore
         public override void ConfigureServices(ConfigureServicesContext context)
         {
             context.Services.ReplaceTransient<IUnitOfWork, EfUnitOfWork>();
+            context.Services.AddTransient<IOnSaveChangeHandlersFactory, OnSaveChangeHandlersFactory>();
             context.Services.AddTransient<IEfTransactionStrategy, UnitOfWorkTransactionStrategy>();
             context.Services.AddTransient(typeof(IDbContextProvider<>), typeof(UnitOfWorkDbContextProvider<>));
             context.Services.RegisterAssemblyByConventionOfType<EntityFrameworkCoreModule>();

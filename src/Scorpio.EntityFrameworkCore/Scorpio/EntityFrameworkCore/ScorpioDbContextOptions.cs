@@ -6,6 +6,9 @@ using System.Text;
 
 namespace Scorpio.EntityFrameworkCore
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ScorpioDbContextOptions
     {
         internal List<Action<DbContextConfigurationContext>> DefaultPreConfigureActions { get; set; }

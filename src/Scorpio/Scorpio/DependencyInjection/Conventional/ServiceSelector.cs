@@ -20,7 +20,7 @@ namespace Scorpio.DependencyInjection.Conventional
 
         public IEnumerable<Type> Select(Type componentType)
         {
-            var services = componentType.GetInterfaces().Where(s => !ExcludeServicePredicates.Any(p=>p(s)) && componentType.Name.EndsWith(s.Name.RemovePreFix("I"))).ToList();
+            var services = componentType.GetInterfaces().Where(s => !ExcludeServicePredicates.Any(p=>p(s))).ToList();
             services.Add(componentType);
             return services;
         }

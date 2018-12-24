@@ -12,7 +12,7 @@ namespace Scorpio.Threading
     /// <summary>
     /// 
     /// </summary>
-    public class ThreadingModule: ScorpioModule
+    public class ThreadingModule : ScorpioModule
     {
         /// <summary>
         /// 
@@ -21,6 +21,7 @@ namespace Scorpio.Threading
         public override void ConfigureServices(ConfigureServicesContext context)
         {
             context.Services.TryAddSingleton<ICancellationTokenProvider>(NullCancellationTokenProvider.Instance);
+            context.Services.AddTransient<IRunnable, ScorpioTimer>();
             context.Services.TryAddSingleton(typeof(IAmbientScopeProvider<>), typeof(AmbientDataContextAmbientScopeProvider<>));
             context.Services.RegisterAssemblyByConvention();
         }

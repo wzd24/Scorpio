@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Scorpio.Data;
+using Scorpio.DependencyInjection;
 using Scorpio.Domain.Entities;
 using Scorpio.EventBus;
 
@@ -14,14 +15,24 @@ namespace Scorpio.EntityFrameworkCore.EventBus
     class EventBusSaveChangeHandler : IOnSaveChangeHandler
     {
         private EntityChangeReport _entityChangeReport;
+        private readonly IEntityChangeEventHelper _changeEventHelper;
 
-        public async Task PreSaveChangeAsync(IEnumerable<EntityEntry> entries) => await Task.Run(() => _entityChangeReport = ApplyAbpConcepts(entries));
-
-        public Task PostSaveChangeAsync(IEnumerable<EntityEntry> entries)
+        public EventBusSaveChangeHandler(IEntityChangeEventHelper changeEventHelper)
         {
-            en
+            _changeEventHelper = changeEventHelper;
         }
 
+        public async Task PreSaveChangeAsync(IEnumerable<EntityEntry> entries) =>
+            await Task.Run(() =>
+            {
+                _entityChangeReport = ApplyAbpConcepts(entries);
+                _changeEventHelper.TriggerChangingEventsAsync(_entityChangeReport);
+            });
+
+        public async Task PostSaveChangeAsync(IEnumerable<EntityEntry> entries)
+        {
+            await _changeEventHelper.TriggerChangedEventsAsync(_entityChangeReport);
+        }
 
         protected virtual EntityChangeReport ApplyAbpConcepts(IEnumerable<EntityEntry> entries)
         {
@@ -31,7 +42,6 @@ namespace Scorpio.EntityFrameworkCore.EventBus
             {
                 ApplyAbpConcepts(entry, changeReport);
             }
-
             return changeReport;
         }
 
@@ -76,8 +86,7 @@ namespace Scorpio.EntityFrameworkCore.EventBus
 
         protected virtual void AddDomainEvents(EntityChangeReport changeReport, object entityAsObj)
         {
-            var generatesDomainEventsEntity = entityAsObj as IGeneratesDomainEvents;
-            if (generatesDomainEventsEntity == null)
+            if (!(entityAsObj is IGeneratesDomainEvents generatesDomainEventsEntity))
             {
                 return;
             }

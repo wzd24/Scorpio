@@ -23,7 +23,7 @@ namespace Microsoft.Extensions.DependencyInjection
             });
             services.ShouldContainTransient(typeof(IService1), typeof(Service1));
             services.ShouldContainTransient(typeof(Service1));
-            services.ShouldNotContainService(typeof(IService2));
+            services.ShouldContainTransient(typeof(IService2),typeof(Service1));
         }
         [Fact]
         public void RegisterAssembly_2()

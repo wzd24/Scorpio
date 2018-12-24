@@ -11,7 +11,7 @@ using Scorpio.EntityFrameworkCore.DependencyInjection;
 
 namespace Scorpio.Uow
 {
-    internal class UnitOfWorkTransactionStrategy : IEfTransactionStrategy,ITransientDependency
+    internal class UnitOfWorkEfTransactionStrategy : IEfTransactionStrategy,ITransientDependency
     {
         private readonly IServiceProvider _serviceProvider;
 
@@ -23,7 +23,7 @@ namespace Scorpio.Uow
 
 
 
-        public UnitOfWorkTransactionStrategy(IServiceProvider serviceProvider)
+        public UnitOfWorkEfTransactionStrategy(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
         }

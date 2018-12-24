@@ -10,10 +10,9 @@ namespace Scorpio.HostService
 {
     public class DemoDbContext : ScorpioDbContext<DemoDbContext>
     {
-        public DemoDbContext(DbContextOptions<DemoDbContext> contextOptions, IOptions<DataFilterOptions> filterOptions) : base(contextOptions, filterOptions)
+
+        public DemoDbContext(IServiceProvider serviceProvider, DbContextOptions<DemoDbContext> contextOptions, IOptions<DataFilterOptions> filterOptions) : base(serviceProvider, contextOptions, filterOptions)
         {
         }
-
-        
     }
 }

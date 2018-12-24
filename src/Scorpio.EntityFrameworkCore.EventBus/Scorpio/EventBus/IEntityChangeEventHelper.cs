@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Scorpio.EntityFrameworkCore.EventBus
+namespace Scorpio.EventBus
 {
     /// <summary>
     /// Used to trigger entity change events.
@@ -16,7 +16,14 @@ namespace Scorpio.EntityFrameworkCore.EventBus
         /// </summary>
         /// <param name="changeReport"></param>
         /// <returns></returns>
-        Task TriggerEventsAsync(EntityChangeReport changeReport);
+        Task TriggerChangingEventsAsync(EntityChangeReport changeReport);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="changeReport"></param>
+        /// <returns></returns>
+        Task TriggerChangedEventsAsync(EntityChangeReport changeReport);
 
         /// <summary>
         /// 
@@ -30,7 +37,7 @@ namespace Scorpio.EntityFrameworkCore.EventBus
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        Task TriggerEntityCreatedEventOnUowCompletedAsync(object entity);
+        Task TriggerEntityCreatedEventAsync(object entity);
 
         /// <summary>
         /// 
@@ -44,7 +51,7 @@ namespace Scorpio.EntityFrameworkCore.EventBus
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        Task TriggerEntityUpdatedEventOnUowCompletedAsync(object entity);
+        Task TriggerEntityUpdatedEventAsync(object entity);
 
         /// <summary>
         /// 
@@ -58,6 +65,6 @@ namespace Scorpio.EntityFrameworkCore.EventBus
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        Task TriggerEntityDeletedEventOnUowCompletedAsync(object entity);
+        Task TriggerEntityDeletedEventAsync(object entity);
     }
 }

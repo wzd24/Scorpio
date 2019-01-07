@@ -9,8 +9,6 @@ namespace Scorpio.Data
     /// </summary>
     public static class DataFilterOptionsExtensions
     {
-
-
         /// <summary>
         /// 
         /// </summary>
@@ -18,9 +16,9 @@ namespace Scorpio.Data
         /// <param name="options"></param>
         /// <param name="descriptor"></param>
         /// <returns></returns>
-        public static DataFilterDescriptor<TFilter> RegiesterFilter<TFilter>(this DataFilterOptions options, DataFilterDescriptor<TFilter> descriptor)
+        public static void RegiesterFilter<TFilter>(this DataFilterOptions options, DataFilterDescriptor<TFilter> descriptor)
         {
-            return options.Descriptors.GetOrAdd(typeof(TFilter), t => descriptor) as DataFilterDescriptor<TFilter>;
+            options.Descriptors[typeof(TFilter)] = descriptor;
         }
 
         /// <summary>
@@ -30,10 +28,10 @@ namespace Scorpio.Data
         /// <typeparam name="TFilterDescriptor"></typeparam>
         /// <param name="options"></param>
         /// <returns></returns>
-        public static DataFilterDescriptor<TFilter> RegiesterFilter<TFilter, TFilterDescriptor>(this DataFilterOptions options)
+        public static void RegiesterFilter<TFilter, TFilterDescriptor>(this DataFilterOptions options)
             where TFilterDescriptor : DataFilterDescriptor<TFilter>
         {
-            return options.Descriptors.GetOrAdd(typeof(TFilter), f => Activator.CreateInstance<TFilterDescriptor>()) as TFilterDescriptor;
+             RegiesterFilter(options, Activator.CreateInstance<TFilterDescriptor>());
         }
 
 
@@ -46,7 +44,6 @@ namespace Scorpio.Data
         /// <param name="configureAction"></param>
         /// <returns></returns>
         public static DataFilterOptions ConfigureFilter<TFilter>(this DataFilterOptions options, Action<DataFilterDescriptor<TFilter>> configureAction)
-
         {
             var descriptor = options.Descriptors.GetOrDefault(typeof(TFilter)) as DataFilterDescriptor<TFilter>;
             configureAction(descriptor);

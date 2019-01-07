@@ -15,7 +15,6 @@ namespace Scorpio.EFConsoleApplication
 
         public User()
         {
-            IsDeleted = true;
         }
     }
 }

@@ -24,6 +24,11 @@ namespace Scorpio.EFConsoleApplication
         /// <returns></returns>
         public async Task PostSaveChangeAsync(IEnumerable<EntityEntry> entries)
         {
+            foreach (var item in entries)
+            {
+                Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(item.Entity));
+            }
+
         }
 
         /// <summary>

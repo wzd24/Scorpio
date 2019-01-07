@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Scorpio.Uow
@@ -27,7 +28,7 @@ namespace Scorpio.Uow
             OnCompleted();
         }
 
-        public Task CompleteAsync()
+        public Task CompleteAsync(CancellationToken cancellationToken=default)
         {
             _isCompleteCalled = true;
             OnCompleted();

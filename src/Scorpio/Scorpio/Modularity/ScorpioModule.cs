@@ -30,7 +30,7 @@ namespace Scorpio.Modularity
         /// <param name="context"></param>
         public virtual void ConfigureServices(ConfigureServicesContext context)
         {
-
+            
         }
 
 

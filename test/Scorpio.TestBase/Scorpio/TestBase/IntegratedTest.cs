@@ -24,7 +24,7 @@ namespace Scorpio.TestBase
 
             BeforeAddBootstrapper(services);
 
-        var bootstrapper=    new InternalBootstrapper(typeof(TStartupModule),services,SetBootstrapperCreationOptions);
+        var bootstrapper=    new InternalBootstrapper(typeof(TStartupModule),services,null,SetBootstrapperCreationOptions);
             Bootstrapper = bootstrapper;
 
             AfterAddBootstrapper(services);

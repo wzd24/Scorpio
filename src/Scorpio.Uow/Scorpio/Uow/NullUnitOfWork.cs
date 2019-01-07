@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 
@@ -16,7 +17,7 @@ namespace Scorpio.Uow
         {
         }
 
-        public override Task SaveChangesAsync()
+        public override Task SaveChangesAsync( CancellationToken cancellationToken)
         {
             return Task.CompletedTask;
         }
@@ -29,7 +30,7 @@ namespace Scorpio.Uow
         {
         }
 
-        protected override Task CompleteUowAsync()
+        protected override Task CompleteUowAsync( CancellationToken cancellationToken)
         {
             return Task.CompletedTask;
         }

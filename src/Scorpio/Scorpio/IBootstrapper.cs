@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,6 +22,15 @@ namespace Scorpio
         /// </summary>
         IServiceCollection Services { get; }
 
+        /// <summary>
+        /// The <see cref="IConfiguration" /> containing the merged configuration of the application.
+        /// </summary>
+        IConfiguration Configuration { get; }
+
+        /// <summary>
+        /// A central location for sharing state between components during the host building process.
+        /// </summary>
+        IDictionary<string,object> Properties { get; }
 
         /// <summary>
         /// Reference to the root service provider used by the application.
@@ -36,6 +46,6 @@ namespace Scorpio
         /// <summary>
         /// 
         /// </summary>
-        void Initialize();
+        void Initialize(params object[] initializeParams);
     }
 }

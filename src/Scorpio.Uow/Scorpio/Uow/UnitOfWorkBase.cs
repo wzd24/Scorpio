@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Scorpio.Uow
@@ -104,12 +105,12 @@ namespace Scorpio.Uow
         /// 
         /// </summary>
         /// <returns></returns>
-        public async Task CompleteAsync()
+        public async Task CompleteAsync(CancellationToken cancellationToken=default)
         {
             PreventMultipleComplete();
             try
             {
-                await CompleteUowAsync();
+                await CompleteUowAsync(cancellationToken);
                 _succeed = true;
                 OnCompleted();
             }
@@ -150,7 +151,7 @@ namespace Scorpio.Uow
         /// 
         /// </summary>
         /// <returns></returns>
-        public abstract Task SaveChangesAsync();
+        public abstract Task SaveChangesAsync(CancellationToken cancellationToken=default);
 
         /// <summary>
         /// Can be implemented by derived classes to start UOW.
@@ -165,7 +166,7 @@ namespace Scorpio.Uow
         /// <summary>
         /// Should be implemented by derived classes to complete UOW.
         /// </summary>
-        protected abstract Task CompleteUowAsync();
+        protected abstract Task CompleteUowAsync(CancellationToken cancellationToken=default);
 
         /// <summary>
         /// Should be implemented by derived classes to dispose UOW.

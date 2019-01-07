@@ -90,9 +90,8 @@ namespace Scorpio.Data
     /// <summary>
     /// 
     /// </summary>
-    public sealed class SoftDeleteDataFilterDescriptor : DataFilterDescriptor<ISoftDelete>
+    internal sealed class SoftDeleteDataFilterDescriptor : DataFilterDescriptor<ISoftDelete>
     {
-
         /// <summary>
         /// 
         /// </summary>

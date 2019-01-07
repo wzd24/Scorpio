@@ -8,6 +8,7 @@ using Microsoft.Extensions.Options;
 using Scorpio.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Scorpio.EntityFrameworkCore.DependencyInjection;
+using System.Threading;
 
 namespace Scorpio.Uow
 {
@@ -49,11 +50,11 @@ namespace Scorpio.Uow
         /// 
         /// </summary>
         /// <returns></returns>
-        public override async Task SaveChangesAsync()
+        public override async Task SaveChangesAsync(CancellationToken cancellationToken=default)
         {
             foreach (var item in GetAllActiveDbContexts())
             {
-                await item.SaveChangesAsync();
+                await item.SaveChangesAsync(cancellationToken);
             }
         }
 
@@ -84,9 +85,9 @@ namespace Scorpio.Uow
         /// 
         /// </summary>
         /// <returns></returns>
-        protected override async Task CompleteUowAsync()
+        protected override async Task CompleteUowAsync(CancellationToken cancellationToken=default)
         {
-            await SaveChangesAsync();
+            await SaveChangesAsync(cancellationToken);
             if (Options.IsTransactional == true)
             {
                 _transactionStrategy.Commit();

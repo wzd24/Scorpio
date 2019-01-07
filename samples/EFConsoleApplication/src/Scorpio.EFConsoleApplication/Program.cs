@@ -14,26 +14,49 @@ namespace Scorpio.EFConsoleApplication
                 using (var uow = uowm.Begin())
                 {
                     var repo = bootstrapper.ServiceProvider.GetService<Domain.Repositories.IRepository<User>>();
-                    Console.WriteLine(repo.GetCount());
-                    using (var dis = bootstrapper.ServiceProvider.GetService<Data.IDataFilter>().Enable<Data.ISoftDelete>())
+                    using (var uow2 = uowm.Begin(System.Transactions.TransactionScopeOption.RequiresNew))
                     {
-                        Console.WriteLine(repo.GetCount());
-                        //Console.WriteLine(repo.GetList().FirstOrDefault()?.Name);
-                        //Console.WriteLine(repo.GetList().LastOrDefault()?.Name);
-
+                        repo.Insert(new User
+                        {
+                            Name = "李四",
+                            Age = 48,
+                        });
+                        uow2.Complete();
                     }
-                    //repo.Insert(new User
+                    using (var uow2 = uowm.Begin(System.Transactions.TransactionScopeOption.RequiresNew))
+                    {
+                        repo.Insert(new User
+                        {
+                            Name = "王五",
+                            Age = 24,
+                        });
+                    }
+                    repo.Insert(new User
+                    {
+                        Name = "张三",
+                        Age = 22,
+                    });
+                    uow.Complete();
+
+                    //Console.WriteLine(repo.GetCount());
+                    //using (var dis = bootstrapper.ServiceProvider.GetService<Data.IDataFilter>().Disable<Data.ISoftDelete>())
                     //{
-                    //    Name = "李四",
-                    //    Age = 48,
-                    //    IsDeleted = false,
-                    //});
-                    Console.WriteLine(repo.GetCount());
+                    //    Console.WriteLine(repo.GetCount());
+                    //    //Console.WriteLine(repo.GetList().FirstOrDefault()?.Name);
+                    //    //Console.WriteLine(repo.GetList().LastOrDefault()?.Name);
+
+                    //}
+                    ////repo.Insert(new User
+                    ////{
+                    ////    Name = "李四",
+                    ////    Age = 48,
+                    ////    IsDeleted = false,
+                    ////});
+                    //Console.WriteLine(repo.GetCount());
                     //Console.WriteLine(repo.GetList().FirstOrDefault()?.Name);
                     //Console.WriteLine(repo.GetList().LastOrDefault()?.Name);
-                    uow.Complete();
+                    //uow.Complete();
                 }
-                Console.ReadLine();
             }
         }
     }

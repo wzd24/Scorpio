@@ -5,7 +5,7 @@
   </PropertyGroup>
   <Import Project="../../common.props" />
   <ItemGroup>
-    <PackageReference Include="AspectCore.Extensions.DependencyInjection" Version="1.0.1" />
+    <PackageReference Include="AspectCore.Extensions.DependencyInjection" Version="1.1.0" />
     <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />

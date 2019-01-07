@@ -14,8 +14,14 @@ namespace Scorpio.Modularity
         /// </summary>
         public IServiceProvider ServiceProvider { get; }
 
-        internal ApplicationInitializationContext(IServiceProvider serviceProvider)
+        /// <summary>
+        /// 
+        /// </summary>
+        public IEnumerable<object> Parameters { get; }
+
+        internal ApplicationInitializationContext(IServiceProvider serviceProvider, params object[] initializeParams)
         {
+            Parameters = initializeParams;
             ServiceProvider = serviceProvider;
         }
     }

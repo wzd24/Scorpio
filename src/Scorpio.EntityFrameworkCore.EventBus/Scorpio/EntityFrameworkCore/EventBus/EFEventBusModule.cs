@@ -20,6 +20,7 @@ namespace Scorpio.EntityFrameworkCore.EventBus
         public override void ConfigureServices(ConfigureServicesContext context)
         {
             context.Services.RegisterAssemblyByConventionOfType<EFEventBusModule>();
+            context.Services.AddSaveChangeHandler<EventBusSaveChangeHandler>();
             base.ConfigureServices(context);
         }
     }

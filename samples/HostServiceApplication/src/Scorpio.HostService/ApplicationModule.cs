@@ -4,7 +4,6 @@ using System.Text;
 using Scorpio.Modularity;
 using Microsoft.Extensions.DependencyInjection;
 using Scorpio.DependencyInjection;
-using Scorpio.EntityFrameworkCore.DependencyInjection;
 namespace Scorpio.HostService
 {
     public sealed class ApplicationModule: ScorpioModule
@@ -20,6 +19,11 @@ namespace Scorpio.HostService
         {
             Console.WriteLine($"Module {nameof(ApplicationModule)} is initialized.");
             base.Initialize(context);
+        }
+
+        public override void Shutdown(ApplicationShutdownContext context)
+        {
+            base.Shutdown(context);
         }
     }
 }

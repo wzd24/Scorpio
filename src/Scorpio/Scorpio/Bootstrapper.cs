@@ -10,6 +10,7 @@ using AspectCore.Extensions.DependencyInjection;
 using System.Reflection;
 using AspectCore.DynamicProxy;
 using AspectCore.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace Scorpio
 {
@@ -32,6 +33,17 @@ namespace Scorpio
         public IServiceCollection Services { get; }
 
         /// <summary>
+        /// The <see cref="IConfiguration" /> containing the merged configuration of the application.
+        /// </summary>
+        public IConfiguration Configuration { get;}
+
+        /// <summary>
+        /// A central location for sharing state between components during the host building process.
+        /// </summary>
+        public IDictionary<string, object> Properties { get; }
+
+
+        /// <summary>
         /// 
         /// </summary>
         public IServiceProvider ServiceProvider { get; private set; }
@@ -51,11 +63,14 @@ namespace Scorpio
         /// </summary>
         /// <param name="startupModuleType"></param>
         /// <param name="services"></param>
+        /// <param name="configuration"></param>
         /// <param name="optionsAction"></param>
-        protected Bootstrapper(Type startupModuleType, IServiceCollection services, Action<BootstrapperCreationOptions> optionsAction)
+        protected Bootstrapper(Type startupModuleType, IServiceCollection services,IConfiguration configuration, Action<BootstrapperCreationOptions> optionsAction)
         {
             Services = services;
+            Configuration = configuration;
             StartupModuleType = startupModuleType;
+            Properties = new Dictionary<string, object>();
             _options = new BootstrapperCreationOptions(services);
             ModuleLoader = new ModuleLoader();
             optionsAction(_options);
@@ -75,7 +90,7 @@ namespace Scorpio
 
         private void ConfigureServices()
         {
-            var context = new ConfigureServicesContext(Services);
+            var context = new ConfigureServicesContext(Services) { Configuration=Configuration};
             Services.AddSingleton(context);
             Modules.ForEach(m => m.Instance.PreConfigureServices(context));
             Modules.ForEach(m => m.Instance.ConfigureServices(context));
@@ -96,32 +111,26 @@ namespace Scorpio
             ServiceProvider = serviceProvider;
         }
 
+
+
         /// <summary>
         /// 
         /// </summary>
-        public virtual void Dispose()
+        public virtual void Initialize(params object[] initializeParams)
         {
-            Shutdown();
+            InitializeModules(initializeParams);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual void Initialize()
-        {
-            InitializeModules();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        protected virtual void InitializeModules()
+        protected virtual void InitializeModules(params object[] initializeParams)
         {
             using (var scope = ServiceProvider.CreateScope())
             {
                 scope.ServiceProvider
                     .GetRequiredService<IModuleManager>()
-                    .InitializeModules(new ApplicationInitializationContext(scope.ServiceProvider));
+                    .InitializeModules(new ApplicationInitializationContext(scope.ServiceProvider,initializeParams));
             }
         }
 
@@ -162,7 +171,7 @@ namespace Scorpio
                 throw new ArgumentException($"{nameof(startupModuleType)} should be derived from {typeof(IScorpioModule)}");
             }
             var services = new ServiceCollection();
-            var bootstrapper = new InternalBootstrapper(startupModuleType, services, optionsAction);
+            var bootstrapper = new InternalBootstrapper(startupModuleType, services,null, optionsAction);
             bootstrapper.SetServiceProvider(services.BuildAspectInjectorProvider());
             return bootstrapper;
         }
@@ -186,5 +195,46 @@ namespace Scorpio
         {
             return Create(typeof(TStartupModule));
         }
+
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    Shutdown();
+                    // TODO: dispose managed state (managed objects).
+                }
+
+                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+                // TODO: set large fields to null.
+
+                disposedValue = true;
+            }
+        }
+
+        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
+        // ~Bootstrapper() {
+        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+        //   Dispose(false);
+        // }
+
+        // This code added to correctly implement the disposable pattern.
+        void IDisposable.Dispose()
+        {
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(true);
+            // TODO: uncomment the following line if the finalizer is overridden above.
+            // GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 }

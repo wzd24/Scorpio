@@ -5,7 +5,6 @@
   </PropertyGroup>
   <Import Project="../../test.props" />
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Scorpio.HostedService\Scorpio.HostedService.csproj" />
     <ProjectReference Include="..\Scorpio.TestBase\Scorpio.TestBase.csproj" />
   </ItemGroup>
 

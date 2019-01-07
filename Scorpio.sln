@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28407.52
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E1A4E891-22ED-4AB6-B1E7-3B1CC4D5BB35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio", "src\Scorpio\Scorpio.csproj", "{27EB2F67-0434-401D-AB23-336C56A66EAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio", "src\Scorpio\Scorpio.csproj", "{27EB2F67-0434-401D-AB23-336C56A66EAC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{C57152EE-7CEB-4FD2-A26B-9B8852795752}"
 EndProject
@@ -24,39 +24,39 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		test.props = test.props
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.TestBase", "test\Scorpio.TestBase\Scorpio.TestBase.csproj", "{D9B79816-60E7-4C6F-AF71-55925689F61B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.TestBase", "test\Scorpio.TestBase\Scorpio.TestBase.csproj", "{D9B79816-60E7-4C6F-AF71-55925689F61B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Domain", "src\Scorpio.Domain\Scorpio.Domain.csproj", "{1DC06CE8-BD3A-4090-9DB3-B229CA56C593}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Threading", "src\Scorpio.Threading\Scorpio.Threading.csproj", "{9B43A67D-98AF-48F5-A38F-990DC0EA3472}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.Domain.Tests", "test\Scorpio.Domain.Tests\Scorpio.Domain.Tests.csproj", "{4D7EA643-7730-4208-B775-AFE6F7E1C8A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Domain.Tests", "test\Scorpio.Domain.Tests\Scorpio.Domain.Tests.csproj", "{4D7EA643-7730-4208-B775-AFE6F7E1C8A2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Threading.Tests", "test\Scorpio.Threading.Tests\Scorpio.Threading.Tests.csproj", "{AAD1EC87-959F-49D3-B9F7-B7B2B525CC5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.Uow.Tests", "test\Scorpio.Uow.Tests\Scorpio.Uow.Tests.csproj", "{14AE44AB-FAC3-478E-B9AC-BB80F7741A21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Uow.Tests", "test\Scorpio.Uow.Tests\Scorpio.Uow.Tests.csproj", "{14AE44AB-FAC3-478E-B9AC-BB80F7741A21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.Uow", "src\Scorpio.Uow\Scorpio.Uow.csproj", "{18E7FE03-6255-436F-B50E-85415ABB3880}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Uow", "src\Scorpio.Uow\Scorpio.Uow.csproj", "{18E7FE03-6255-436F-B50E-85415ABB3880}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.EntityFrameworkCore", "src\Scorpio.EntityFrameworkCore\Scorpio.EntityFrameworkCore.csproj", "{98B5D0AC-7B86-439F-A097-E3E1CEFC9373}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.EntityFrameworkCore", "src\Scorpio.EntityFrameworkCore\Scorpio.EntityFrameworkCore.csproj", "{98B5D0AC-7B86-439F-A097-E3E1CEFC9373}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.EntityFrameworkCore.Tests", "test\Scorpio.EntityFrameworkCore.Tests\Scorpio.EntityFrameworkCore.Tests.csproj", "{542BB2B8-BED3-4E82-98D1-2F3206CFE9AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.EntityFrameworkCore.Tests", "test\Scorpio.EntityFrameworkCore.Tests\Scorpio.EntityFrameworkCore.Tests.csproj", "{542BB2B8-BED3-4E82-98D1-2F3206CFE9AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.Timing", "src\Scorpio.Timing\Scorpio.Timing.csproj", "{70A71631-7D0C-4B94-84A4-F8CF1D594B5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Timing", "src\Scorpio.Timing\Scorpio.Timing.csproj", "{70A71631-7D0C-4B94-84A4-F8CF1D594B5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.Timing.Tests", "test\Scorpio.Timing.Tests\Scorpio.Timing.Tests.csproj", "{2AE5FB66-5182-4728-BE7A-33A50AA877EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Timing.Tests", "test\Scorpio.Timing.Tests\Scorpio.Timing.Tests.csproj", "{2AE5FB66-5182-4728-BE7A-33A50AA877EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.Guids", "src\Scorpio.Guids\Scorpio.Guids.csproj", "{A64EA202-8178-4338-BD8F-D4DD2CB958DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Guids", "src\Scorpio.Guids\Scorpio.Guids.csproj", "{A64EA202-8178-4338-BD8F-D4DD2CB958DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.Guids.Tests", "test\Scorpio.Guids.Tests\Scorpio.Guids.Tests.csproj", "{7D33BB39-070B-4818-80B2-260D72F02A50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Guids.Tests", "test\Scorpio.Guids.Tests\Scorpio.Guids.Tests.csproj", "{7D33BB39-070B-4818-80B2-260D72F02A50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.Data.Tests", "test\Scorpio.Data.Tests\Scorpio.Data.Tests.csproj", "{7101A89A-94D6-4509-BA25-DC4CFB220EC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Data.Tests", "test\Scorpio.Data.Tests\Scorpio.Data.Tests.csproj", "{7101A89A-94D6-4509-BA25-DC4CFB220EC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.Data", "src\Scorpio.Data\Scorpio.Data.csproj", "{A2C30949-A443-496E-B88F-953EA1C9F890}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Data", "src\Scorpio.Data\Scorpio.Data.csproj", "{A2C30949-A443-496E-B88F-953EA1C9F890}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.EventBus", "src\Scorpio.EventBus\Scorpio.EventBus.csproj", "{B2BFB7E6-4ADB-441E-86E1-0AD30F326250}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.EventBus", "src\Scorpio.EventBus\Scorpio.EventBus.csproj", "{B2BFB7E6-4ADB-441E-86E1-0AD30F326250}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.EventBus.Tests", "test\Scorpio.EventBus.Tests\Scorpio.EventBus.Tests.csproj", "{F9CA2321-F477-4B1C-B5DB-A90365EE5C19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.EventBus.Tests", "test\Scorpio.EventBus.Tests\Scorpio.EventBus.Tests.csproj", "{F9CA2321-F477-4B1C-B5DB-A90365EE5C19}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{82E07191-A2E9-4488-831E-BC56D5AC7469}"
 EndProject
@@ -64,29 +64,43 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BasicConsoleApplication", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2501FE8C-E819-4BC4-AB92-E92E1E5EC5FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.ConsoleApplication", "samples\BasicConsoleApplication\src\Scorpio.ConsoleApplication\Scorpio.ConsoleApplication.csproj", "{A134CD63-886B-45A1-8AE0-31725AF9129D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.ConsoleApplication", "samples\BasicConsoleApplication\src\Scorpio.ConsoleApplication\Scorpio.ConsoleApplication.csproj", "{A134CD63-886B-45A1-8AE0-31725AF9129D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HostServiceApplication", "HostServiceApplication", "{E2D034B4-D978-4252-ACFB-717D9878328D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6C0A01BB-23D6-446E-BC06-B5FAE1C2033B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.HostService", "samples\HostServiceApplication\src\Scorpio.HostService\Scorpio.HostService.csproj", "{391C6336-DECE-4F1B-BCF2-E445CB054072}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.HostedService", "src\Scorpio.HostedService\Scorpio.HostedService.csproj", "{070FE8F9-B0AD-4A20-A1FE-65959717433D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.HostedService.Tests", "test\Scorpio.HostedService.Tests\Scorpio.HostedService.Tests.csproj", "{70213031-4BEA-441F-9A5B-36975C9A8BD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.HostService", "samples\HostServiceApplication\src\Scorpio.HostService\Scorpio.HostService.csproj", "{391C6336-DECE-4F1B-BCF2-E445CB054072}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EFConsoleApplication", "EFConsoleApplication", "{8D47DC65-29F1-4E38-98F9-0A4EB5145DFB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DE0DF855-15C5-43F1-8120-5B6BA7844093}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.EFConsoleApplication", "samples\EFConsoleApplication\src\Scorpio.EFConsoleApplication\Scorpio.EFConsoleApplication.csproj", "{04E2AD43-A54B-465E-AE57-958784F71AD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.EFConsoleApplication", "samples\EFConsoleApplication\src\Scorpio.EFConsoleApplication\Scorpio.EFConsoleApplication.csproj", "{04E2AD43-A54B-465E-AE57-958784F71AD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.EntityFrameworkCore.SqlServer", "src\Scorpio.EntityFrameworkCore.SqlServer\Scorpio.EntityFrameworkCore.SqlServer.csproj", "{478B6F02-E086-4963-9DAD-2BA943197126}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.EntityFrameworkCore.SqlServer", "src\Scorpio.EntityFrameworkCore.SqlServer\Scorpio.EntityFrameworkCore.SqlServer.csproj", "{478B6F02-E086-4963-9DAD-2BA943197126}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.EntityFrameworkCore.EventBus", "src\Scorpio.EntityFrameworkCore.EventBus\Scorpio.EntityFrameworkCore.EventBus.csproj", "{6C136C99-40CC-4877-A9DF-7AA0A210BFE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.EntityFrameworkCore.EventBus", "src\Scorpio.EntityFrameworkCore.EventBus\Scorpio.EntityFrameworkCore.EventBus.csproj", "{6C136C99-40CC-4877-A9DF-7AA0A210BFE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.EntityFrameworkCore.EventBus.Tests", "test\Scorpio.EntityFrameworkCore.EventBus.Tests\Scorpio.EntityFrameworkCore.EventBus.Tests.csproj", "{9EA90E84-37A9-4EF0-8FDC-24BC76319D3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.EntityFrameworkCore.EventBus.Tests", "test\Scorpio.EntityFrameworkCore.EventBus.Tests\Scorpio.EntityFrameworkCore.EventBus.Tests.csproj", "{9EA90E84-37A9-4EF0-8FDC-24BC76319D3B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.AspNetCore", "src\Scorpio.AspNetCore\Scorpio.AspNetCore.csproj", "{571527D2-F27B-4F6E-9969-9A747E891F16}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.AspNetCore.Tests", "test\Scorpio.AspNetCore.Tests\Scorpio.AspNetCore.Tests.csproj", "{6D1355BA-AE3A-4D3B-A6DC-7E3E71DCCC7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.Hosting", "src\Scorpio.Hosting\Scorpio.Hosting.csproj", "{5AA077D1-FF0E-4307-B974-FD34C98FF4D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.Hosting.Tests", "test\Scorpio.Hosting.Tests\Scorpio.Hosting.Tests.csproj", "{89DFCA77-D2DF-4D80-9046-E58BECF3DE7E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.AspNetCore.Hosting", "src\Scorpio.AspNetCore.Hosting\Scorpio.AspNetCore.Hosting.csproj", "{35449831-00F7-4118-8D51-9CD2C2D5AAA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.AspNetCore.Hosting.Tests", "test\Scorpio.AspNetCore.Hosting.Tests\Scorpio.AspNetCore.Hosting.Tests.csproj", "{F1BD62BD-4233-4089-AFA3-DBE51491E9A3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BasicWebApplication", "BasicWebApplication", "{8B65864F-AA6D-41C7-A898-9481DEE14175}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DF1358A2-C3D0-4095-8EE7-D569BFFF70AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.WebApplication", "samples\BasicWebApplication\src\Scorpio.WebApplication\Scorpio.WebApplication.csproj", "{E5B035C9-F7B5-4399-B73A-0C1357989A12}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -350,30 +364,6 @@ Global
 		{391C6336-DECE-4F1B-BCF2-E445CB054072}.Release|x64.Build.0 = Release|Any CPU
 		{391C6336-DECE-4F1B-BCF2-E445CB054072}.Release|x86.ActiveCfg = Release|Any CPU
 		{391C6336-DECE-4F1B-BCF2-E445CB054072}.Release|x86.Build.0 = Release|Any CPU
-		{070FE8F9-B0AD-4A20-A1FE-65959717433D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{070FE8F9-B0AD-4A20-A1FE-65959717433D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{070FE8F9-B0AD-4A20-A1FE-65959717433D}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{070FE8F9-B0AD-4A20-A1FE-65959717433D}.Debug|x64.Build.0 = Debug|Any CPU
-		{070FE8F9-B0AD-4A20-A1FE-65959717433D}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{070FE8F9-B0AD-4A20-A1FE-65959717433D}.Debug|x86.Build.0 = Debug|Any CPU
-		{070FE8F9-B0AD-4A20-A1FE-65959717433D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{070FE8F9-B0AD-4A20-A1FE-65959717433D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{070FE8F9-B0AD-4A20-A1FE-65959717433D}.Release|x64.ActiveCfg = Release|Any CPU
-		{070FE8F9-B0AD-4A20-A1FE-65959717433D}.Release|x64.Build.0 = Release|Any CPU
-		{070FE8F9-B0AD-4A20-A1FE-65959717433D}.Release|x86.ActiveCfg = Release|Any CPU
-		{070FE8F9-B0AD-4A20-A1FE-65959717433D}.Release|x86.Build.0 = Release|Any CPU
-		{70213031-4BEA-441F-9A5B-36975C9A8BD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{70213031-4BEA-441F-9A5B-36975C9A8BD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{70213031-4BEA-441F-9A5B-36975C9A8BD5}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{70213031-4BEA-441F-9A5B-36975C9A8BD5}.Debug|x64.Build.0 = Debug|Any CPU
-		{70213031-4BEA-441F-9A5B-36975C9A8BD5}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{70213031-4BEA-441F-9A5B-36975C9A8BD5}.Debug|x86.Build.0 = Debug|Any CPU
-		{70213031-4BEA-441F-9A5B-36975C9A8BD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{70213031-4BEA-441F-9A5B-36975C9A8BD5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{70213031-4BEA-441F-9A5B-36975C9A8BD5}.Release|x64.ActiveCfg = Release|Any CPU
-		{70213031-4BEA-441F-9A5B-36975C9A8BD5}.Release|x64.Build.0 = Release|Any CPU
-		{70213031-4BEA-441F-9A5B-36975C9A8BD5}.Release|x86.ActiveCfg = Release|Any CPU
-		{70213031-4BEA-441F-9A5B-36975C9A8BD5}.Release|x86.Build.0 = Release|Any CPU
 		{04E2AD43-A54B-465E-AE57-958784F71AD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{04E2AD43-A54B-465E-AE57-958784F71AD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04E2AD43-A54B-465E-AE57-958784F71AD2}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -422,6 +412,90 @@ Global
 		{9EA90E84-37A9-4EF0-8FDC-24BC76319D3B}.Release|x64.Build.0 = Release|Any CPU
 		{9EA90E84-37A9-4EF0-8FDC-24BC76319D3B}.Release|x86.ActiveCfg = Release|Any CPU
 		{9EA90E84-37A9-4EF0-8FDC-24BC76319D3B}.Release|x86.Build.0 = Release|Any CPU
+		{571527D2-F27B-4F6E-9969-9A747E891F16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{571527D2-F27B-4F6E-9969-9A747E891F16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{571527D2-F27B-4F6E-9969-9A747E891F16}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{571527D2-F27B-4F6E-9969-9A747E891F16}.Debug|x64.Build.0 = Debug|Any CPU
+		{571527D2-F27B-4F6E-9969-9A747E891F16}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{571527D2-F27B-4F6E-9969-9A747E891F16}.Debug|x86.Build.0 = Debug|Any CPU
+		{571527D2-F27B-4F6E-9969-9A747E891F16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{571527D2-F27B-4F6E-9969-9A747E891F16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{571527D2-F27B-4F6E-9969-9A747E891F16}.Release|x64.ActiveCfg = Release|Any CPU
+		{571527D2-F27B-4F6E-9969-9A747E891F16}.Release|x64.Build.0 = Release|Any CPU
+		{571527D2-F27B-4F6E-9969-9A747E891F16}.Release|x86.ActiveCfg = Release|Any CPU
+		{571527D2-F27B-4F6E-9969-9A747E891F16}.Release|x86.Build.0 = Release|Any CPU
+		{6D1355BA-AE3A-4D3B-A6DC-7E3E71DCCC7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D1355BA-AE3A-4D3B-A6DC-7E3E71DCCC7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D1355BA-AE3A-4D3B-A6DC-7E3E71DCCC7A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6D1355BA-AE3A-4D3B-A6DC-7E3E71DCCC7A}.Debug|x64.Build.0 = Debug|Any CPU
+		{6D1355BA-AE3A-4D3B-A6DC-7E3E71DCCC7A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6D1355BA-AE3A-4D3B-A6DC-7E3E71DCCC7A}.Debug|x86.Build.0 = Debug|Any CPU
+		{6D1355BA-AE3A-4D3B-A6DC-7E3E71DCCC7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D1355BA-AE3A-4D3B-A6DC-7E3E71DCCC7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D1355BA-AE3A-4D3B-A6DC-7E3E71DCCC7A}.Release|x64.ActiveCfg = Release|Any CPU
+		{6D1355BA-AE3A-4D3B-A6DC-7E3E71DCCC7A}.Release|x64.Build.0 = Release|Any CPU
+		{6D1355BA-AE3A-4D3B-A6DC-7E3E71DCCC7A}.Release|x86.ActiveCfg = Release|Any CPU
+		{6D1355BA-AE3A-4D3B-A6DC-7E3E71DCCC7A}.Release|x86.Build.0 = Release|Any CPU
+		{5AA077D1-FF0E-4307-B974-FD34C98FF4D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AA077D1-FF0E-4307-B974-FD34C98FF4D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AA077D1-FF0E-4307-B974-FD34C98FF4D4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5AA077D1-FF0E-4307-B974-FD34C98FF4D4}.Debug|x64.Build.0 = Debug|Any CPU
+		{5AA077D1-FF0E-4307-B974-FD34C98FF4D4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5AA077D1-FF0E-4307-B974-FD34C98FF4D4}.Debug|x86.Build.0 = Debug|Any CPU
+		{5AA077D1-FF0E-4307-B974-FD34C98FF4D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AA077D1-FF0E-4307-B974-FD34C98FF4D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AA077D1-FF0E-4307-B974-FD34C98FF4D4}.Release|x64.ActiveCfg = Release|Any CPU
+		{5AA077D1-FF0E-4307-B974-FD34C98FF4D4}.Release|x64.Build.0 = Release|Any CPU
+		{5AA077D1-FF0E-4307-B974-FD34C98FF4D4}.Release|x86.ActiveCfg = Release|Any CPU
+		{5AA077D1-FF0E-4307-B974-FD34C98FF4D4}.Release|x86.Build.0 = Release|Any CPU
+		{89DFCA77-D2DF-4D80-9046-E58BECF3DE7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89DFCA77-D2DF-4D80-9046-E58BECF3DE7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89DFCA77-D2DF-4D80-9046-E58BECF3DE7E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{89DFCA77-D2DF-4D80-9046-E58BECF3DE7E}.Debug|x64.Build.0 = Debug|Any CPU
+		{89DFCA77-D2DF-4D80-9046-E58BECF3DE7E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{89DFCA77-D2DF-4D80-9046-E58BECF3DE7E}.Debug|x86.Build.0 = Debug|Any CPU
+		{89DFCA77-D2DF-4D80-9046-E58BECF3DE7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89DFCA77-D2DF-4D80-9046-E58BECF3DE7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89DFCA77-D2DF-4D80-9046-E58BECF3DE7E}.Release|x64.ActiveCfg = Release|Any CPU
+		{89DFCA77-D2DF-4D80-9046-E58BECF3DE7E}.Release|x64.Build.0 = Release|Any CPU
+		{89DFCA77-D2DF-4D80-9046-E58BECF3DE7E}.Release|x86.ActiveCfg = Release|Any CPU
+		{89DFCA77-D2DF-4D80-9046-E58BECF3DE7E}.Release|x86.Build.0 = Release|Any CPU
+		{35449831-00F7-4118-8D51-9CD2C2D5AAA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35449831-00F7-4118-8D51-9CD2C2D5AAA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35449831-00F7-4118-8D51-9CD2C2D5AAA3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{35449831-00F7-4118-8D51-9CD2C2D5AAA3}.Debug|x64.Build.0 = Debug|Any CPU
+		{35449831-00F7-4118-8D51-9CD2C2D5AAA3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{35449831-00F7-4118-8D51-9CD2C2D5AAA3}.Debug|x86.Build.0 = Debug|Any CPU
+		{35449831-00F7-4118-8D51-9CD2C2D5AAA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35449831-00F7-4118-8D51-9CD2C2D5AAA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35449831-00F7-4118-8D51-9CD2C2D5AAA3}.Release|x64.ActiveCfg = Release|Any CPU
+		{35449831-00F7-4118-8D51-9CD2C2D5AAA3}.Release|x64.Build.0 = Release|Any CPU
+		{35449831-00F7-4118-8D51-9CD2C2D5AAA3}.Release|x86.ActiveCfg = Release|Any CPU
+		{35449831-00F7-4118-8D51-9CD2C2D5AAA3}.Release|x86.Build.0 = Release|Any CPU
+		{F1BD62BD-4233-4089-AFA3-DBE51491E9A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1BD62BD-4233-4089-AFA3-DBE51491E9A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1BD62BD-4233-4089-AFA3-DBE51491E9A3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F1BD62BD-4233-4089-AFA3-DBE51491E9A3}.Debug|x64.Build.0 = Debug|Any CPU
+		{F1BD62BD-4233-4089-AFA3-DBE51491E9A3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F1BD62BD-4233-4089-AFA3-DBE51491E9A3}.Debug|x86.Build.0 = Debug|Any CPU
+		{F1BD62BD-4233-4089-AFA3-DBE51491E9A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1BD62BD-4233-4089-AFA3-DBE51491E9A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1BD62BD-4233-4089-AFA3-DBE51491E9A3}.Release|x64.ActiveCfg = Release|Any CPU
+		{F1BD62BD-4233-4089-AFA3-DBE51491E9A3}.Release|x64.Build.0 = Release|Any CPU
+		{F1BD62BD-4233-4089-AFA3-DBE51491E9A3}.Release|x86.ActiveCfg = Release|Any CPU
+		{F1BD62BD-4233-4089-AFA3-DBE51491E9A3}.Release|x86.Build.0 = Release|Any CPU
+		{E5B035C9-F7B5-4399-B73A-0C1357989A12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5B035C9-F7B5-4399-B73A-0C1357989A12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5B035C9-F7B5-4399-B73A-0C1357989A12}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E5B035C9-F7B5-4399-B73A-0C1357989A12}.Debug|x64.Build.0 = Debug|Any CPU
+		{E5B035C9-F7B5-4399-B73A-0C1357989A12}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E5B035C9-F7B5-4399-B73A-0C1357989A12}.Debug|x86.Build.0 = Debug|Any CPU
+		{E5B035C9-F7B5-4399-B73A-0C1357989A12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5B035C9-F7B5-4399-B73A-0C1357989A12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5B035C9-F7B5-4399-B73A-0C1357989A12}.Release|x64.ActiveCfg = Release|Any CPU
+		{E5B035C9-F7B5-4399-B73A-0C1357989A12}.Release|x64.Build.0 = Release|Any CPU
+		{E5B035C9-F7B5-4399-B73A-0C1357989A12}.Release|x86.ActiveCfg = Release|Any CPU
+		{E5B035C9-F7B5-4399-B73A-0C1357989A12}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -452,14 +526,21 @@ Global
 		{E2D034B4-D978-4252-ACFB-717D9878328D} = {82E07191-A2E9-4488-831E-BC56D5AC7469}
 		{6C0A01BB-23D6-446E-BC06-B5FAE1C2033B} = {E2D034B4-D978-4252-ACFB-717D9878328D}
 		{391C6336-DECE-4F1B-BCF2-E445CB054072} = {6C0A01BB-23D6-446E-BC06-B5FAE1C2033B}
-		{070FE8F9-B0AD-4A20-A1FE-65959717433D} = {E1A4E891-22ED-4AB6-B1E7-3B1CC4D5BB35}
-		{70213031-4BEA-441F-9A5B-36975C9A8BD5} = {C57152EE-7CEB-4FD2-A26B-9B8852795752}
 		{8D47DC65-29F1-4E38-98F9-0A4EB5145DFB} = {82E07191-A2E9-4488-831E-BC56D5AC7469}
 		{DE0DF855-15C5-43F1-8120-5B6BA7844093} = {8D47DC65-29F1-4E38-98F9-0A4EB5145DFB}
 		{04E2AD43-A54B-465E-AE57-958784F71AD2} = {DE0DF855-15C5-43F1-8120-5B6BA7844093}
 		{478B6F02-E086-4963-9DAD-2BA943197126} = {E1A4E891-22ED-4AB6-B1E7-3B1CC4D5BB35}
 		{6C136C99-40CC-4877-A9DF-7AA0A210BFE9} = {E1A4E891-22ED-4AB6-B1E7-3B1CC4D5BB35}
 		{9EA90E84-37A9-4EF0-8FDC-24BC76319D3B} = {C57152EE-7CEB-4FD2-A26B-9B8852795752}
+		{571527D2-F27B-4F6E-9969-9A747E891F16} = {E1A4E891-22ED-4AB6-B1E7-3B1CC4D5BB35}
+		{6D1355BA-AE3A-4D3B-A6DC-7E3E71DCCC7A} = {C57152EE-7CEB-4FD2-A26B-9B8852795752}
+		{5AA077D1-FF0E-4307-B974-FD34C98FF4D4} = {E1A4E891-22ED-4AB6-B1E7-3B1CC4D5BB35}
+		{89DFCA77-D2DF-4D80-9046-E58BECF3DE7E} = {C57152EE-7CEB-4FD2-A26B-9B8852795752}
+		{35449831-00F7-4118-8D51-9CD2C2D5AAA3} = {E1A4E891-22ED-4AB6-B1E7-3B1CC4D5BB35}
+		{F1BD62BD-4233-4089-AFA3-DBE51491E9A3} = {C57152EE-7CEB-4FD2-A26B-9B8852795752}
+		{8B65864F-AA6D-41C7-A898-9481DEE14175} = {82E07191-A2E9-4488-831E-BC56D5AC7469}
+		{DF1358A2-C3D0-4095-8EE7-D569BFFF70AF} = {8B65864F-AA6D-41C7-A898-9481DEE14175}
+		{E5B035C9-F7B5-4399-B73A-0C1357989A12} = {DF1358A2-C3D0-4095-8EE7-D569BFFF70AF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D2AFD460-8F30-4611-A635-17D59DE0DE4B}

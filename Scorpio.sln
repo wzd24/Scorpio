@@ -102,6 +102,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DF1358A2-C3D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.WebApplication", "samples\BasicWebApplication\src\Scorpio.WebApplication\Scorpio.WebApplication.csproj", "{E5B035C9-F7B5-4399-B73A-0C1357989A12}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.Authorization", "src\Scorpio.Authorization\Scorpio.Authorization.csproj", "{E301E546-2D11-4310-90BD-3AAB788E15EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -496,6 +498,18 @@ Global
 		{E5B035C9-F7B5-4399-B73A-0C1357989A12}.Release|x64.Build.0 = Release|Any CPU
 		{E5B035C9-F7B5-4399-B73A-0C1357989A12}.Release|x86.ActiveCfg = Release|Any CPU
 		{E5B035C9-F7B5-4399-B73A-0C1357989A12}.Release|x86.Build.0 = Release|Any CPU
+		{E301E546-2D11-4310-90BD-3AAB788E15EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E301E546-2D11-4310-90BD-3AAB788E15EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E301E546-2D11-4310-90BD-3AAB788E15EC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E301E546-2D11-4310-90BD-3AAB788E15EC}.Debug|x64.Build.0 = Debug|Any CPU
+		{E301E546-2D11-4310-90BD-3AAB788E15EC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E301E546-2D11-4310-90BD-3AAB788E15EC}.Debug|x86.Build.0 = Debug|Any CPU
+		{E301E546-2D11-4310-90BD-3AAB788E15EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E301E546-2D11-4310-90BD-3AAB788E15EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E301E546-2D11-4310-90BD-3AAB788E15EC}.Release|x64.ActiveCfg = Release|Any CPU
+		{E301E546-2D11-4310-90BD-3AAB788E15EC}.Release|x64.Build.0 = Release|Any CPU
+		{E301E546-2D11-4310-90BD-3AAB788E15EC}.Release|x86.ActiveCfg = Release|Any CPU
+		{E301E546-2D11-4310-90BD-3AAB788E15EC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -541,6 +555,7 @@ Global
 		{8B65864F-AA6D-41C7-A898-9481DEE14175} = {82E07191-A2E9-4488-831E-BC56D5AC7469}
 		{DF1358A2-C3D0-4095-8EE7-D569BFFF70AF} = {8B65864F-AA6D-41C7-A898-9481DEE14175}
 		{E5B035C9-F7B5-4399-B73A-0C1357989A12} = {DF1358A2-C3D0-4095-8EE7-D569BFFF70AF}
+		{E301E546-2D11-4310-90BD-3AAB788E15EC} = {E1A4E891-22ED-4AB6-B1E7-3B1CC4D5BB35}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D2AFD460-8F30-4611-A635-17D59DE0DE4B}

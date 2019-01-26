@@ -31,6 +31,7 @@ namespace Scorpio.EntityFrameworkCore
         /// </summary>
         /// <param name="contextOptions"></param>
         /// <param name="filterOptions"></param>
+        /// <param name="serviceProvider"></param>
         protected ScorpioDbContext(IServiceProvider serviceProvider, DbContextOptions<TDbContext> contextOptions, IOptions<DataFilterOptions> filterOptions) : base(serviceProvider, contextOptions, filterOptions)
         {
 
@@ -58,6 +59,11 @@ namespace Scorpio.EntityFrameworkCore
         /// 
         /// </summary>
         public IDataFilter DataFilter { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ScorpioDbContextOptions ScorpioDbContextOptions { get; }
 
         /// <summary>
         /// 
@@ -90,6 +96,7 @@ namespace Scorpio.EntityFrameworkCore
             _filterOptions = filterOptions.Value;
             ServiceProvider = serviceProvider;
             DataFilter = ServiceProvider.GetService<IDataFilter>();
+            ScorpioDbContextOptions = ServiceProvider.GetRequiredService<IOptions<ScorpioDbContextOptions>>().Value;
         }
 
         /// <summary>
@@ -98,7 +105,11 @@ namespace Scorpio.EntityFrameworkCore
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            var context = new ModelCreatingContributionContext(modelBuilder);
+            foreach (var item in ScorpioDbContextOptions.ModelCreatingContributors)
+            {
+                item.Contributor(context);
+            }
             base.OnModelCreating(modelBuilder);
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
@@ -107,6 +118,7 @@ namespace Scorpio.EntityFrameworkCore
                    .Invoke(this, new object[] { modelBuilder, entityType });
             }
         }
+
 
 
         /// <summary>
@@ -159,7 +171,7 @@ namespace Scorpio.EntityFrameworkCore
         /// <param name="modelBuilder"></param>
         /// <param name="entityType"></param>
         protected void ConfigureGlobalFilters<TEntity>(ModelBuilder modelBuilder, IMutableEntityType entityType)
-         where TEntity : class
+            where TEntity : class
         {
             if (entityType.BaseType == null && ShouldFilterEntity<TEntity>(entityType))
             {

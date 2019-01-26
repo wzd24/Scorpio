@@ -19,6 +19,10 @@ namespace Scorpio.EntityFrameworkCore
 
         internal Dictionary<Type, object> ConfigureActions { get; set; }
 
+        internal IEnumerable<IModelCreatingContributor> ModelCreatingContributors => _modelCreatingContributors;
+
+        private List<IModelCreatingContributor> _modelCreatingContributors;
+
         /// <summary>
         /// 
         /// </summary>
@@ -27,6 +31,7 @@ namespace Scorpio.EntityFrameworkCore
             DefaultPreConfigureActions = new List<Action<DbContextConfigurationContext>>();
             PreConfigureActions = new Dictionary<Type, List<object>>();
             ConfigureActions = new Dictionary<Type, object>();
+            _modelCreatingContributors = new List<IModelCreatingContributor>();
         }
 
         /// <summary>
@@ -81,6 +86,25 @@ namespace Scorpio.EntityFrameworkCore
             Check.NotNull(action, nameof(action));
 
             ConfigureActions[typeof(TDbContext)] = action;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modelCreatingContributor"></param>
+        public void AddModelCreatingContributor(IModelCreatingContributor modelCreatingContributor)
+        {
+            _modelCreatingContributors.AddIfNotContains(modelCreatingContributor);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TContributor"></typeparam>
+        public void AddModelCreatingContributor<TContributor>()
+            where TContributor:class,IModelCreatingContributor
+        {
+            AddModelCreatingContributor(Activator.CreateInstance<TContributor>());
         }
     }
 }

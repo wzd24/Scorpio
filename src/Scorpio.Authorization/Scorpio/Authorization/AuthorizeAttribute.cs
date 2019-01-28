@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-
+using Microsoft.Extensions.DependencyInjection;
 namespace Scorpio.Authorization
 {
     /// <summary>
@@ -32,9 +32,11 @@ namespace Scorpio.Authorization
         /// <param name="context"></param>
         /// <param name="next"></param>
         /// <returns></returns>
-        public override Task Invoke(AspectContext context, AspectDelegate next)
+        public async override Task Invoke(AspectContext context, AspectDelegate next)
         {
-            throw new NotImplementedException();
+            var interceptor = context.ServiceProvider.GetService<AuthorizationInterceptor>();
+            interceptor.SetPermission(Permissions);
+            await interceptor.Invoke(context, next);
         }
     }
 }

@@ -1,11 +1,14 @@
-﻿using System;
+﻿using Scorpio.Authorization;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Scorpio.ConsoleApplication
 {
-   public interface ISayHelloService
+    [Authorize("Admin", "Admin1")]
+    public interface ISayHelloService
     {
+        [AllowAnonymous]
         void SayHello();
     }
 

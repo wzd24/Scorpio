@@ -1,13 +1,21 @@
 ﻿using System;
+using System.Reflection;
+
 namespace Scorpio.Authorization
 {
-    public class InvocationAuthorizationContext
+    internal class InvocationAuthorizationContext:IInvocationAuthorizationContext
     {
-        public InvocationAuthorizationContext(string[] permissions)
+        public InvocationAuthorizationContext(string[] permissions, bool requireAllPermissions,MethodInfo method)
         {
-            this.Permissions = permissions;
+            Permissions = permissions;
+            RequireAllPermissions = requireAllPermissions;
+            Method = method;
         }
 
         public string[] Permissions { get;}
+
+        public bool RequireAllPermissions { get; }
+
+        public MethodInfo Method { get; }
     }
 }

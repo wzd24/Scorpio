@@ -5,10 +5,7 @@
   </PropertyGroup>
   <Import Project="../../common.props" />
   <ItemGroup>
-    <ProjectReference Include="..\Scorpio.Security\Scorpio.Security.csproj" />
     <ProjectReference Include="..\Scorpio\Scorpio.csproj" />
-  </ItemGroup>
-  <ItemGroup>
   </ItemGroup>
 
 </Project>

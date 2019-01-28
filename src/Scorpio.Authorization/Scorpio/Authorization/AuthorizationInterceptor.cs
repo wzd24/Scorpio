@@ -17,6 +17,8 @@ namespace Scorpio.Authorization
         }
 
         internal string[] Permissions { get; private set; }
+
+        internal bool RequireAllPermissions { get; private set; }
         /// <summary>
         /// Invoke the specified context and next.
         /// </summary>
@@ -26,14 +28,15 @@ namespace Scorpio.Authorization
         public async override Task Invoke(AspectContext context, AspectDelegate next)
         {
             var service= context.ServiceProvider.GetRequiredService<IAuthorizationService>();
-            var authorizationContext = new InvocationAuthorizationContext(Permissions);
+            var authorizationContext = new InvocationAuthorizationContext(Permissions,RequireAllPermissions,context.ServiceMethod);
             await service.CheckAsync(authorizationContext);
             await next(context);
         }
 
-        internal void SetPermission(string[] permissions)
+        internal void SetPermission(string[] permissions, bool requireAllPermissions)
         {
             Permissions = permissions;
+            RequireAllPermissions = requireAllPermissions;
         }
     }
 }

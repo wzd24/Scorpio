@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\src\Scorpio.Authorization\Scorpio.Authorization.csproj" />
     <ProjectReference Include="..\..\..\..\src\Scorpio\Scorpio.csproj" />
   </ItemGroup>
 

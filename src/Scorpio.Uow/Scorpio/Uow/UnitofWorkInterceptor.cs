@@ -34,6 +34,11 @@ namespace Scorpio.Uow
         /// <returns></returns>
         public override async Task Invoke(AspectContext context, AspectDelegate next)
         {
+            if (context.ServiceMethod.AttributeExists<DisableUnitOfWorkAttribute>())
+            {
+                await next(context);
+                return;
+            }
             using (var uow = _unitOfWorkManager.Begin(CreateOptions(context)))
             {
                 await next(context);

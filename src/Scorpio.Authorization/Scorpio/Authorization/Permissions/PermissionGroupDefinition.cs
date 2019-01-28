@@ -68,13 +68,13 @@ namespace Scorpio.Authorization.Permissions
         /// <param name="name"></param>
         /// <param name="displayName"></param>
         /// <returns></returns>
-        public virtual PermissionDefinition AddPermission(string name, string displayName = null)
+        public virtual PermissionGroupDefinition AddPermission(string name, string displayName = null)
         {
             var permission = new PermissionDefinition(name, displayName);
 
             _permissions.Add(permission);
 
-            return permission;
+            return this;
         }
 
         /// <summary>

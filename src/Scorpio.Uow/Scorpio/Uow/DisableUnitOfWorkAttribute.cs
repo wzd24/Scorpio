@@ -9,7 +9,7 @@ namespace Scorpio.Uow
     /// 
     /// </summary>
     [AttributeUsage(AttributeTargets.All, AllowMultiple = false, Inherited = false)]
-    public sealed class DisableUnitOfWorkAttribute:NonAspectAttribute
+    public sealed class DisableUnitOfWorkAttribute:Attribute
     {
     }
 }

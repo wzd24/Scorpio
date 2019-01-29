@@ -35,6 +35,11 @@ namespace Scorpio.WebApplication
             base.Shutdown(context);
         }
 
+        public override void Initialize(ApplicationInitializationContext context)
+        {
+            
+            base.Initialize(context);
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

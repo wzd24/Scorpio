@@ -11,21 +11,8 @@ namespace Scorpio.EFConsoleApplication
     {
         public DemoDbContext(IServiceProvider serviceProvider, DbContextOptions<DemoDbContext> contextOptions, IOptions<DataFilterOptions> filterOptions) : base(serviceProvider, contextOptions, filterOptions)
         {
-            Database.EnsureCreated();
         }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<User>();
-            base.OnModelCreating(modelBuilder);
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.EnableSensitiveDataLogging();
-            base.OnConfiguring(optionsBuilder);
-        }
-
+        
         public DbSet<User> Users { get; set; }
 
     }

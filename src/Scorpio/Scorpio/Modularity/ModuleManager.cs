@@ -39,7 +39,7 @@ namespace Scorpio.Modularity
 
             foreach (var module in _moduleContainer.Modules)
             {
-                _logger.LogInformation("- " + module.Type.FullName);
+                _logger.LogInformation($"- ({module.Type.FullName})" );
             }
         }
 

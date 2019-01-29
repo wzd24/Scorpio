@@ -44,9 +44,9 @@ namespace Scorpio.Data
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
-        internal Expression<Func<TEntity, bool>> BuildFilterExpression<TEntity>(IDataFilter dataFilter) where TEntity : class
+        internal Expression<Func<TEntity, bool>> BuildFilterExpression<TEntity>(IDataFilter dataFilter,IFilterContext context) where TEntity : class
         {
-            var filterexpression = BuildFilterExpression<TEntity>();
+            var filterexpression = BuildFilterExpression<TEntity>(context);
             var expression = filterexpression.Or(filterexpression.Equal(expr2 => dataFilter.IsEnabled(FilterType)));
             return expression;
         }
@@ -56,9 +56,9 @@ namespace Scorpio.Data
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
-        internal Expression<Func<TEntity, bool>> BuildFilterExpression<TEntity>() where TEntity : class
+        internal Expression<Func<TEntity, bool>> BuildFilterExpression<TEntity>(IFilterContext context) where TEntity : class
         {
-            var filterexpression = BuildFilterExpressionCore<TEntity>();
+            var filterexpression = BuildFilterExpressionCore<TEntity>(context);
             return filterexpression;
         }
 
@@ -68,7 +68,7 @@ namespace Scorpio.Data
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
-        protected abstract Expression<Func<TEntity, bool>> BuildFilterExpressionCore<TEntity>() where TEntity : class;
+        protected abstract Expression<Func<TEntity, bool>> BuildFilterExpressionCore<TEntity>(IFilterContext context) where TEntity : class;
     }
 
     /// <summary>
@@ -97,9 +97,16 @@ namespace Scorpio.Data
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
-        protected override Expression<Func<TEntity, bool>> BuildFilterExpressionCore<TEntity>()
+        protected override Expression<Func<TEntity, bool>> BuildFilterExpressionCore<TEntity>(IFilterContext context)
         {
-            return e => ((ISoftDelete)e).IsDeleted == false;
+            return e => ((ISoftDelete)e).IsDeleted== false;
+            //return GetExpression(context.GetPropertyExpression<TEntity,bool>("IsDeleted"));
         }
+
+        //private Expression<Func<TEntity,bool>> GetExpression<TEntity,TProperty>(Expression<Func<TEntity,TProperty>> expression)
+        //{
+        //    var right = Expression.Constant(false);
+        //    return Expression.Lambda<Func<TEntity,bool>>( Expression.Equal(expression.Body, right),expression.Parameters[0]);
+        //}
     }
 }

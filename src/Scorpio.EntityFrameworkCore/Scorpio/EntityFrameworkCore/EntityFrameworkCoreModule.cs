@@ -26,6 +26,7 @@ namespace Scorpio.EntityFrameworkCore
         {
             context.Services.Configure<ScorpioDbContextOptions>(options =>
             {
+                options.AddModelCreatingContributor<DataModelCreatingContributor>();
                 options.PreConfigure(dbConfigContext => dbConfigContext.DbContextOptions.ConfigureWarnings(
                     warnings => warnings.Ignore(CoreEventId.LazyLoadOnDisposedContextWarning)
                     ));

@@ -9,6 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using Scorpio.Data;
 using Scorpio.EntityFrameworkCore;
 using Scorpio.EntityFrameworkCore.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
+
 namespace Scorpio.EFConsoleApplication
 {
     [DependsOn(typeof(EntityFrameworkCoreModule))]
@@ -23,14 +26,11 @@ namespace Scorpio.EFConsoleApplication
             {
                 o.Configure(c => c.UseSqlServer());
             });
+            context.Services.AddLogging(l=>l.AddConsole());
             context.Services.AddSaveChangeHandler<DemoOnSaveChangeHandler>();
             context.Services.Configure<DbConnectionOptions>(options =>
             {
-                options.ConnectionStrings.Default = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Demo;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            });
-            context.Services.Configure<DataFilterOptions>(options =>
-            {
-            //options.ConfigureFilter<ISoftDelete>(c => c.Disable());
+                options.ConnectionStrings.Default = @"Data Source=(localdb)\ProjectsV13;Initial Catalog=Demo;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             });
             context.Services.RegisterAssemblyByConvention();
             base.ConfigureServices(context);

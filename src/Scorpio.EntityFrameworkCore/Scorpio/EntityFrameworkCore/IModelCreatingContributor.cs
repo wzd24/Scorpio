@@ -12,6 +12,6 @@ namespace Scorpio.EntityFrameworkCore
         /// <summary>
         /// 
         /// </summary>
-        void Contributor(ModelCreatingContributionContext context);
+        void Contributor<TEntity>(ModelCreatingContributionContext<TEntity> context) where TEntity:class;
     }
 }

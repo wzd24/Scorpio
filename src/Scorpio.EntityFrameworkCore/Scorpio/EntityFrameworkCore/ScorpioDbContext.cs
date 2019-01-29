@@ -32,7 +32,8 @@ namespace Scorpio.EntityFrameworkCore
         /// <param name="contextOptions"></param>
         /// <param name="filterOptions"></param>
         /// <param name="serviceProvider"></param>
-        protected ScorpioDbContext(IServiceProvider serviceProvider, DbContextOptions<TDbContext> contextOptions, IOptions<DataFilterOptions> filterOptions) : base(serviceProvider, contextOptions, filterOptions)
+        protected ScorpioDbContext(IServiceProvider serviceProvider, DbContextOptions<TDbContext> contextOptions, IOptions<DataFilterOptions> filterOptions)
+            : base(serviceProvider, contextOptions, filterOptions)
         {
 
         }
@@ -40,7 +41,7 @@ namespace Scorpio.EntityFrameworkCore
     /// <summary>
     /// 
     /// </summary>
-    public abstract class ScorpioDbContext : DbContext
+    public abstract class ScorpioDbContext : DbContext, IFilterContext
     {
         private readonly DataFilterOptions _filterOptions;
 
@@ -76,10 +77,10 @@ namespace Scorpio.EntityFrameworkCore
         /// </summary>
         protected IServiceProvider ServiceProvider { get; }
 
-        private static readonly MethodInfo _configureGlobalFiltersMethodInfo
+        private static readonly MethodInfo _configureEntityPropertiesMethodInfo
     = typeof(ScorpioDbContext)
         .GetMethod(
-            nameof(ConfigureGlobalFilters),
+            nameof(ConfigureEntityProperties),
             BindingFlags.Instance | BindingFlags.NonPublic
         );
 
@@ -105,18 +106,13 @@ namespace Scorpio.EntityFrameworkCore
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var context = new ModelCreatingContributionContext(modelBuilder);
-            foreach (var item in ScorpioDbContextOptions.ModelCreatingContributors)
-            {
-                item.Contributor(context);
-            }
-            base.OnModelCreating(modelBuilder);
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
-                _configureGlobalFiltersMethodInfo
+                _configureEntityPropertiesMethodInfo
                    .MakeGenericMethod(entityType.ClrType)
                    .Invoke(this, new object[] { modelBuilder, entityType });
             }
+            base.OnModelCreating(modelBuilder);
         }
 
 
@@ -170,7 +166,7 @@ namespace Scorpio.EntityFrameworkCore
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="modelBuilder"></param>
         /// <param name="entityType"></param>
-        protected void ConfigureGlobalFilters<TEntity>(ModelBuilder modelBuilder, IMutableEntityType entityType)
+        protected virtual void ConfigureGlobalFilters<TEntity>(ModelBuilder modelBuilder, IMutableEntityType entityType)
             where TEntity : class
         {
             if (entityType.BaseType == null && ShouldFilterEntity<TEntity>(entityType))
@@ -179,6 +175,38 @@ namespace Scorpio.EntityFrameworkCore
                 if (filterExpression != null)
                 {
                     modelBuilder.Entity<TEntity>().HasQueryFilter(filterExpression);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <param name="modelBuilder"></param>
+        /// <param name="entityType"></param>
+        protected  void ConfigureEntityProperties<TEntity>(ModelBuilder modelBuilder,IMutableEntityType entityType)
+            where TEntity:class
+        {
+            ConfigureCreatingContributor<TEntity>(modelBuilder, entityType);
+            ConfigureGlobalFilters<TEntity>(modelBuilder, entityType);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <param name="modelBuilder"></param>
+        /// <param name="entityType"></param>
+        protected void ConfigureCreatingContributor<TEntity>(ModelBuilder modelBuilder, IMutableEntityType entityType) where TEntity : class
+        {
+            var context = new ModelCreatingContributionContext<TEntity>(modelBuilder, entityType);
+            var modelCreatingContributors = ScorpioDbContextOptions.GetModelCreatingContributors(GetType());
+            if (modelCreatingContributors != null)
+            {
+                foreach (var item in modelCreatingContributors)
+                {
+                    item.Contributor(context);
                 }
             }
         }
@@ -207,12 +235,34 @@ namespace Scorpio.EntityFrameworkCore
             {
                 if (item.Key.IsAssignableFrom(typeof(TEntity)))
                 {
-                    var filterexpression = item.Value.BuildFilterExpression<TEntity>();
+                    var filterexpression = item.Value.BuildFilterExpression<TEntity>(this);
                     filterexpression = filterexpression.Or(filterexpression.Equal(expr2 => DataFilter.IsEnabled(item.Key)));
                     expression = expression == null ? filterexpression : expression.And(filterexpression);
                 }
             });
             return expression;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public T GetParameter<T>()
+        {
+            return ServiceProvider.GetService<T>();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <typeparam name="TProperty"></typeparam>
+        /// <param name="propertyName"></param>
+        /// <returns></returns>
+        public Expression<Func<TEntity, TProperty>> GetPropertyExpression<TEntity, TProperty>(string propertyName)
+        {
+            return e => EF.Property<TProperty>(e, propertyName);
         }
     }
 }

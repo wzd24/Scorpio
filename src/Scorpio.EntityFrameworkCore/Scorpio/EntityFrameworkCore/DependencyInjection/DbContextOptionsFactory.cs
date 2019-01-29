@@ -10,7 +10,7 @@ namespace Scorpio.EntityFrameworkCore.DependencyInjection
 {
     internal static class DbContextOptionsFactory
     {
-        public static DbContextOptions<TDbContext> Create<TDbContext>(IServiceProvider serviceProvider,ScorpioDbContextOptionsBuilder<TDbContext> optionsBuilder)
+        public static DbContextOptions<TDbContext> Create<TDbContext>(IServiceProvider serviceProvider, ScorpioDbContextOptionsBuilder<TDbContext> optionsBuilder)
             where TDbContext : ScorpioDbContext<TDbContext>
         {
             var creationContext = GetCreationContext<TDbContext>(serviceProvider);
@@ -20,10 +20,9 @@ namespace Scorpio.EntityFrameworkCore.DependencyInjection
                 serviceProvider,
                 creationContext.ExistingConnection
             );
-
+            context.DbContextOptions.UseApplicationServiceProvider(serviceProvider);
 
             var options = GetDbContextOptions<TDbContext>(serviceProvider);
-
             PreConfigure(options, context);
             Configure(options, context);
             optionsBuilder.OptionsActions.ForEach(action => action?.Invoke(context.DbContextOptions));

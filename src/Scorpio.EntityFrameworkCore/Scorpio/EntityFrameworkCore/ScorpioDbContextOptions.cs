@@ -2,6 +2,7 @@
 using Scorpio.EntityFrameworkCore.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Scorpio.EntityFrameworkCore
@@ -19,9 +20,14 @@ namespace Scorpio.EntityFrameworkCore
 
         internal Dictionary<Type, object> ConfigureActions { get; set; }
 
-        internal IEnumerable<IModelCreatingContributor> ModelCreatingContributors => _modelCreatingContributors;
+        internal IEnumerable<IModelCreatingContributor> GetModelCreatingContributors<TDbContext>()
+              where TDbContext : ScorpioDbContext<TDbContext> => _commonModelCreatingContributors.Concat(_modelCreatingContributors.GetOrDefault(typeof(TDbContext)) ?? new List<IModelCreatingContributor>());
+        internal IEnumerable<IModelCreatingContributor> GetModelCreatingContributors(Type dbcontextType)
+              => _commonModelCreatingContributors.Concat(_modelCreatingContributors.GetOrDefault(dbcontextType)??new List<IModelCreatingContributor>());
 
-        private List<IModelCreatingContributor> _modelCreatingContributors;
+        private Dictionary<Type, List<IModelCreatingContributor>> _modelCreatingContributors;
+
+        private List<IModelCreatingContributor> _commonModelCreatingContributors;
 
         /// <summary>
         /// 
@@ -31,7 +37,8 @@ namespace Scorpio.EntityFrameworkCore
             DefaultPreConfigureActions = new List<Action<DbContextConfigurationContext>>();
             PreConfigureActions = new Dictionary<Type, List<object>>();
             ConfigureActions = new Dictionary<Type, object>();
-            _modelCreatingContributors = new List<IModelCreatingContributor>();
+            _modelCreatingContributors = new Dictionary<Type, List<IModelCreatingContributor>>();
+            _commonModelCreatingContributors = new List<IModelCreatingContributor>();
         }
 
         /// <summary>
@@ -92,17 +99,45 @@ namespace Scorpio.EntityFrameworkCore
         /// 
         /// </summary>
         /// <param name="modelCreatingContributor"></param>
-        public void AddModelCreatingContributor(IModelCreatingContributor modelCreatingContributor)
+        /// <typeparam name="TDbContext"></typeparam>
+        public void AddModelCreatingContributor<TDbContext>(IModelCreatingContributor modelCreatingContributor)
+                where TDbContext : ScorpioDbContext<TDbContext>
         {
-            _modelCreatingContributors.AddIfNotContains(modelCreatingContributor);
+            var contributors = _modelCreatingContributors.GetOrDefault(typeof(TDbContext));
+            if (contributors == null)
+            {
+                _modelCreatingContributors[typeof(TDbContext)] = contributors = new List<IModelCreatingContributor>();
+            }
+            contributors.AddIfNotContains(modelCreatingContributor);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <typeparam name="TContributor"></typeparam>
-        public void AddModelCreatingContributor<TContributor>()
-            where TContributor:class,IModelCreatingContributor
+        /// <typeparam name="TDbContext"></typeparam>
+        public void AddModelCreatingContributor<TDbContext, TContributor>()
+            where TDbContext : ScorpioDbContext<TDbContext>
+            where TContributor : class, IModelCreatingContributor
+        {
+            AddModelCreatingContributor<TDbContext>(Activator.CreateInstance<TContributor>());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modelCreatingContributor"></param>
+        public void AddModelCreatingContributor(IModelCreatingContributor modelCreatingContributor)
+        {
+            _commonModelCreatingContributors.AddIfNotContains(modelCreatingContributor);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TContributor"></typeparam>
+        public void AddModelCreatingContributor< TContributor>()
+            where TContributor : class, IModelCreatingContributor
         {
             AddModelCreatingContributor(Activator.CreateInstance<TContributor>());
         }

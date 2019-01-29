@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection.Extensions;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Scorpio.EntityFrameworkCore;
 using Scorpio.EntityFrameworkCore.DependencyInjection;
 using System;
@@ -26,6 +27,7 @@ namespace Microsoft.Extensions.DependencyInjection
             var options = new ScorpioDbContextOptionsBuilder<TDbContext>(services);
             builderAction?.Invoke(options);
             services.TryAddTransient(serviceProvider => DbContextOptionsFactory.Create(serviceProvider, options));
+            services.AddTransient<DbContextOptions>(p => p.GetRequiredService<DbContextOptions<TDbContext>>());
             services.AddTransient<TDbContext>();
             new EfCoreRepositoryRegistrar<TDbContext>(options).RegisterRepositories();
             return services;

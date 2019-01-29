@@ -30,22 +30,23 @@ namespace Scorpio.Data
         public void Test()
         {
             DataFilter.IsEnabled<ISoftDelete>().ShouldBeTrue();
-            DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter).Compile()(new SoftDeleteEntity(true)).ShouldBeFalse();
-            DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter).Compile()(new SoftDeleteEntity(false)).ShouldBeTrue();
+            var filterContext = new FakeFilterContext();
+            DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter, filterContext).Compile()(new SoftDeleteEntity(true)).ShouldBeFalse();
+            DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter, filterContext).Compile()(new SoftDeleteEntity(false)).ShouldBeTrue();
             using (DataFilter.Disable<ISoftDelete>())
             {
-                DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter).Compile()(new SoftDeleteEntity(true)).ShouldBeTrue();
-                DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter).Compile()(new SoftDeleteEntity(false)).ShouldBeTrue();
+                DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter, filterContext).Compile()(new SoftDeleteEntity(true)).ShouldBeTrue();
+                DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter, filterContext).Compile()(new SoftDeleteEntity(false)).ShouldBeTrue();
                 using (DataFilter.Enable<ISoftDelete>())
                 {
-                    DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter).Compile()(new SoftDeleteEntity(true)).ShouldBeFalse();
-                    DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter).Compile()(new SoftDeleteEntity(false)).ShouldBeTrue();
+                    DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter, filterContext).Compile()(new SoftDeleteEntity(true)).ShouldBeFalse();
+                    DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter, filterContext).Compile()(new SoftDeleteEntity(false)).ShouldBeTrue();
                 }
-                DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter).Compile()(new SoftDeleteEntity(true)).ShouldBeTrue();
-                DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter).Compile()(new SoftDeleteEntity(false)).ShouldBeTrue();
+                DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter, filterContext).Compile()(new SoftDeleteEntity(true)).ShouldBeTrue();
+                DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter, filterContext).Compile()(new SoftDeleteEntity(false)).ShouldBeTrue();
             }
-            DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter).Compile()(new SoftDeleteEntity(true)).ShouldBeFalse();
-            DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter).Compile()(new SoftDeleteEntity(false)).ShouldBeTrue();
+            DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter, filterContext).Compile()(new SoftDeleteEntity(true)).ShouldBeFalse();
+            DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter, filterContext).Compile()(new SoftDeleteEntity(false)).ShouldBeTrue();
         }
 
     }
@@ -56,22 +57,23 @@ namespace Scorpio.Data
         public void Test()
         {
             DataFilter.IsEnabled<ISoftDelete>().ShouldBeFalse();
-            DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter).Compile()(new SoftDeleteEntity(true)).ShouldBeTrue();
-            DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter).Compile()(new SoftDeleteEntity(false)).ShouldBeTrue();
+            var filterContext = new FakeFilterContext();
+            DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter, filterContext).Compile()(new SoftDeleteEntity(true)).ShouldBeTrue();
+            DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter, filterContext).Compile()(new SoftDeleteEntity(false)).ShouldBeTrue();
             using (DataFilter.Enable<ISoftDelete>())
             {
-                DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter).Compile()(new SoftDeleteEntity(true)).ShouldBeFalse();
-                DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter).Compile()(new SoftDeleteEntity(false)).ShouldBeTrue();
+                DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter, filterContext).Compile()(new SoftDeleteEntity(true)).ShouldBeFalse();
+                DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter, filterContext).Compile()(new SoftDeleteEntity(false)).ShouldBeTrue();
                 using (DataFilter.Disable<ISoftDelete>())
                 {
-                    DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter).Compile()(new SoftDeleteEntity(true)).ShouldBeTrue();
-                    DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter).Compile()(new SoftDeleteEntity(false)).ShouldBeTrue();
+                    DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter, filterContext).Compile()(new SoftDeleteEntity(true)).ShouldBeTrue();
+                    DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter, filterContext).Compile()(new SoftDeleteEntity(false)).ShouldBeTrue();
                 }
-                DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter).Compile()(new SoftDeleteEntity(true)).ShouldBeFalse();
-                DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter).Compile()(new SoftDeleteEntity(false)).ShouldBeTrue();
+                DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter, filterContext).Compile()(new SoftDeleteEntity(true)).ShouldBeFalse();
+                DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter, filterContext).Compile()(new SoftDeleteEntity(false)).ShouldBeTrue();
             }
-            DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter).Compile()(new SoftDeleteEntity(true)).ShouldBeTrue();
-            DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter).Compile()(new SoftDeleteEntity(false)).ShouldBeTrue();
+            DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter, filterContext).Compile()(new SoftDeleteEntity(true)).ShouldBeTrue();
+            DataFilterDescriptor.BuildFilterExpression<SoftDeleteEntity>(DataFilter, filterContext).Compile()(new SoftDeleteEntity(false)).ShouldBeTrue();
         }
 
     }

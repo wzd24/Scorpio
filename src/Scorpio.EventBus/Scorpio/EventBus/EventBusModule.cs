@@ -4,6 +4,7 @@ using System.Text;
 using Scorpio.Modularity;
 using Scorpio.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 namespace Scorpio.EventBus
 {
     /// <summary>
@@ -28,6 +29,7 @@ namespace Scorpio.EventBus
         public override void ConfigureServices(ConfigureServicesContext context)
         {
             context.Services.RegisterAssemblyByConvention();
+            context.Services.TryAddSingleton<IEventBus, LocalEventBus>();
         }
     }
 }

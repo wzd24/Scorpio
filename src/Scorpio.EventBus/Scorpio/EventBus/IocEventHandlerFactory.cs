@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Scorpio.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,16 +17,16 @@ namespace Scorpio.EventBus
         /// </summary>
         public Type HandlerType { get; }
 
-        private readonly IServiceProvider _serviceProvider;
+        private readonly IHybridServiceScopeFactory _serviceScopeFactory;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="serviceProvider"></param>
         /// <param name="handlerType"></param>
-        public IocEventHandlerFactory(IServiceProvider serviceProvider, Type handlerType)
+        public IocEventHandlerFactory(IHybridServiceScopeFactory  serviceScopeFactory, Type handlerType)
         {
-            _serviceProvider = serviceProvider;
+            _serviceScopeFactory = serviceScopeFactory;
             HandlerType = handlerType;
         }
 
@@ -35,7 +36,7 @@ namespace Scorpio.EventBus
         /// <returns>Resolved handler object</returns>
         public IEventHandlerDisposeWrapper GetHandler()
         {
-            var scope = _serviceProvider.CreateScope();
+            var scope = _serviceScopeFactory.CreateScope();
             return new EventHandlerDisposeWrapper(
                 (IEventHandler)scope.ServiceProvider.GetRequiredService(HandlerType),
                 () => scope.Dispose()

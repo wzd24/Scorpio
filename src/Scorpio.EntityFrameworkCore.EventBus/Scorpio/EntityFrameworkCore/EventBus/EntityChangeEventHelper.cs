@@ -45,7 +45,7 @@ namespace Scorpio.EntityFrameworkCore.EventBus
             }
             foreach (var domainEvent in changeReport.DomainEvents)
             {
-                await _eventBus.TriggerAsync(domainEvent.EventData.GetType(), domainEvent.EventData);
+                await _eventBus.PublishAsync(domainEvent.EventData.GetType(), domainEvent.EventData);
             }
         }
 
@@ -107,10 +107,10 @@ namespace Scorpio.EntityFrameworkCore.EventBus
 
             if (triggerInCurrentUnitOfWork || UnitOfWorkManager.Current == null)
             {
-                await eventPublisher.TriggerAsync(eventType, Activator.CreateInstance(eventType, entity));
+                await eventPublisher.PublishAsync(eventType, Activator.CreateInstance(eventType, entity));
                 return;
             }
-            UnitOfWorkManager.Current.Completed += ((o, e) => eventPublisher.TriggerAsync(eventType, Activator.CreateInstance(eventType, entity)));
+            UnitOfWorkManager.Current.Completed += ((o, e) => eventPublisher.PublishAsync(eventType, Activator.CreateInstance(eventType, entity)));
         }
 
     }

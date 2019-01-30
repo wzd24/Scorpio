@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
+using Scorpio.DependencyInjection;
+
 namespace Scorpio.EventBus
 {
     /// <summary>
@@ -95,12 +97,12 @@ namespace Scorpio.EventBus
         /// </summary>
         /// <param name="serviceProvider"></param>
         /// <returns></returns>
-        public IEventHandlerFactory GetEventHandlerFactory(IServiceProvider serviceProvider)
+        public IEventHandlerFactory GetEventHandlerFactory(IHybridServiceScopeFactory serviceProvider)
         {
             return _factory ?? CreateFactory(serviceProvider);
         }
 
-        private IEventHandlerFactory CreateFactory(IServiceProvider serviceProvider)
+        private IEventHandlerFactory CreateFactory(IHybridServiceScopeFactory serviceProvider)
         {
             switch (ActivationType)
             {

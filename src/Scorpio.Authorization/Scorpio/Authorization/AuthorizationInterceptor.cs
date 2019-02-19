@@ -10,6 +10,11 @@ namespace Scorpio.Authorization
     public class AuthorizationInterceptor : AbstractInterceptor
     {
         /// <summary>
+        /// 
+        /// </summary>
+        public const string CONCERN = "Authorization";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="T:Scorpio.Authorization.AuthorizationInterceptor"/> class.
         /// </summary>
         public AuthorizationInterceptor()
@@ -27,6 +32,11 @@ namespace Scorpio.Authorization
         /// <param name="next">Next.</param>
         public async override Task Invoke(AspectContext context, AspectDelegate next)
         {
+            if (Aspects.CrossCuttingConcerns.IsApplied(context.Implementation,CONCERN))
+            {
+                await next(context);
+                return;
+            }
             var service= context.ServiceProvider.GetRequiredService<IAuthorizationService>();
             var authorizationContext = new InvocationAuthorizationContext(Permissions,RequireAllPermissions,context.ServiceMethod);
             await service.CheckAsync(authorizationContext);

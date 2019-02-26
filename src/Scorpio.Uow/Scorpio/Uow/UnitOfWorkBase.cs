@@ -78,7 +78,7 @@ namespace Scorpio.Uow
             Check.NotNull(options, nameof(options));
 
             PreventMultipleBegin();
-            Options = _defaultOptions.Normalize(options.Clone()); //TODO: Do not set options like that, instead make a copy?
+            Options = _defaultOptions.Normalize(options.Clone()); 
             BeginUow();
         }
 

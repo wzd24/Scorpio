@@ -12,7 +12,7 @@ namespace Scorpio.Authorization
         /// <summary>
         /// 
         /// </summary>
-        public const string CONCERN = "Authorization";
+        public const string CONCERN = "Scorpio.Authorization";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Scorpio.Authorization.AuthorizationInterceptor"/> class.

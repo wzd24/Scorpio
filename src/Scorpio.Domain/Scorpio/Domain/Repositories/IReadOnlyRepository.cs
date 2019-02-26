@@ -21,7 +21,6 @@ namespace Scorpio.Domain.Repositories
         /// 
         /// </summary>
         /// <returns></returns>
-        [DisableUnitOfWork]
         IQueryable<TEntity> WithDetails();
 
         /// <summary>
@@ -29,7 +28,6 @@ namespace Scorpio.Domain.Repositories
         /// </summary>
         /// <param name="propertySelectors"></param>
         /// <returns></returns>
-        [DisableUnitOfWork]
         IQueryable<TEntity> WithDetails(params Expression<Func<TEntity, object>>[] propertySelectors);
     }
 

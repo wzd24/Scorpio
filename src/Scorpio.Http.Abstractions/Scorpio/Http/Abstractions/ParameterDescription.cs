@@ -7,18 +7,12 @@ namespace Scorpio.Http.Abstractions
     /// <summary>
     /// 
     /// </summary>
-    public class ActionDescription
+    public class ParameterDescription
     {
         /// <summary>
         /// 
         /// </summary>
-        public string Id { get; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public string Name { get; }
-
 
         /// <summary>
         /// 
@@ -28,27 +22,21 @@ namespace Scorpio.Http.Abstractions
         /// <summary>
         /// 
         /// </summary>
-        public string HttpMethod { get; }
+        public Type Type { get; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string Path { get; }
+        public bool IsOptional { get; }
 
         /// <summary>
         /// 
         /// </summary>
-        public Type ReturnType { get; }
+        public object DefaultValue { get; }
 
         /// <summary>
         /// 
         /// </summary>
-        public IList<ParameterDescription> Parameters { get; }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public ControllerDescription Controller { get; }
+        public ActionDescription Action { get; }
     }
 }

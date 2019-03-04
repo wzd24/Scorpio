@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
-
+using System.Collections.Immutable;
 namespace Microsoft.Extensions.DependencyInjection
 {
     /// <summary>
@@ -46,7 +46,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection RegisterAssemblyByConvention(this IServiceCollection services, Assembly assembly)
         {
             var context = new ConventionalRegistrationContext(assembly, services);
-            GetOrCreateRegistrarList(services).ForEach(registrar => registrar.Register(context));
+            GetOrCreateRegistrarList(services).ToImmutableList().ForEach(registrar => registrar.Register(context));
             return services;
         }
 

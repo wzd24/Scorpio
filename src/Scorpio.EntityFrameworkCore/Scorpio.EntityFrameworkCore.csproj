@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <Import Project="../../common.props" />
+
+  <ItemGroup>
+    <ProjectReference Include="../Scorpio.Domain/Scorpio.Domain.csproj" />
+    <ProjectReference Include="..\Scorpio.Data\Scorpio.Data.csproj" />
+    <ProjectReference Include="..\Scorpio.Guids\Scorpio.Guids.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.1.4" />
+  </ItemGroup>
+
+</Project>

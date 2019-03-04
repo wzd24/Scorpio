@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <Import Project="../../common.props" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\Scorpio.EntityFrameworkCore\Scorpio.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\Scorpio.EventBus\Scorpio.EventBus.csproj" />
+  </ItemGroup>
+
+</Project>

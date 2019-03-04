@@ -63,7 +63,7 @@ Task("Test")
 
 Task("Package")
     .IsDependentOn("Test")
-    .WithCriteria(() => branch == "master" && isRelease)
+    //.WithCriteria(() => branch == "master" && isRelease)
     .Does(()=>
     {
     	var files=GetFiles("./src/**/*.csproj");

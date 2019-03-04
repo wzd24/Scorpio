@@ -88,31 +88,31 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.AspNetCore", "src\S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.AspNetCore.Tests", "test\Scorpio.AspNetCore.Tests\Scorpio.AspNetCore.Tests.csproj", "{6D1355BA-AE3A-4D3B-A6DC-7E3E71DCCC7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.Hosting", "src\Scorpio.Hosting\Scorpio.Hosting.csproj", "{5AA077D1-FF0E-4307-B974-FD34C98FF4D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Hosting", "src\Scorpio.Hosting\Scorpio.Hosting.csproj", "{5AA077D1-FF0E-4307-B974-FD34C98FF4D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.Hosting.Tests", "test\Scorpio.Hosting.Tests\Scorpio.Hosting.Tests.csproj", "{89DFCA77-D2DF-4D80-9046-E58BECF3DE7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Hosting.Tests", "test\Scorpio.Hosting.Tests\Scorpio.Hosting.Tests.csproj", "{89DFCA77-D2DF-4D80-9046-E58BECF3DE7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.AspNetCore.Hosting", "src\Scorpio.AspNetCore.Hosting\Scorpio.AspNetCore.Hosting.csproj", "{35449831-00F7-4118-8D51-9CD2C2D5AAA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.AspNetCore.Hosting", "src\Scorpio.AspNetCore.Hosting\Scorpio.AspNetCore.Hosting.csproj", "{35449831-00F7-4118-8D51-9CD2C2D5AAA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.AspNetCore.Hosting.Tests", "test\Scorpio.AspNetCore.Hosting.Tests\Scorpio.AspNetCore.Hosting.Tests.csproj", "{F1BD62BD-4233-4089-AFA3-DBE51491E9A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.AspNetCore.Hosting.Tests", "test\Scorpio.AspNetCore.Hosting.Tests\Scorpio.AspNetCore.Hosting.Tests.csproj", "{F1BD62BD-4233-4089-AFA3-DBE51491E9A3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BasicWebApplication", "BasicWebApplication", "{8B65864F-AA6D-41C7-A898-9481DEE14175}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DF1358A2-C3D0-4095-8EE7-D569BFFF70AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.WebApplication", "samples\BasicWebApplication\src\Scorpio.WebApplication\Scorpio.WebApplication.csproj", "{E5B035C9-F7B5-4399-B73A-0C1357989A12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.WebApplication", "samples\BasicWebApplication\src\Scorpio.WebApplication\Scorpio.WebApplication.csproj", "{E5B035C9-F7B5-4399-B73A-0C1357989A12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.Authorization", "src\Scorpio.Authorization\Scorpio.Authorization.csproj", "{E301E546-2D11-4310-90BD-3AAB788E15EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Authorization", "src\Scorpio.Authorization\Scorpio.Authorization.csproj", "{E301E546-2D11-4310-90BD-3AAB788E15EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.Security", "src\Scorpio.Security\Scorpio.Security.csproj", "{4E792029-BDB9-47D8-829F-E7F62F482EC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Security", "src\Scorpio.Security\Scorpio.Security.csproj", "{4E792029-BDB9-47D8-829F-E7F62F482EC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.ObjectMapping", "src\Scorpio.ObjectMapping\Scorpio.ObjectMapping.csproj", "{DAC64C2A-478B-45ED-BF14-0E78889C0ABD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.ObjectMapping", "src\Scorpio.ObjectMapping\Scorpio.ObjectMapping.csproj", "{DAC64C2A-478B-45ED-BF14-0E78889C0ABD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.Settings", "src\Scorpio.Settings\Scorpio.Settings.csproj", "{EFCC4875-484A-40F4-9199-0B452303F711}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Settings", "src\Scorpio.Settings\Scorpio.Settings.csproj", "{EFCC4875-484A-40F4-9199-0B452303F711}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.Auditing", "src\Scorpio.Auditing\Scorpio.Auditing.csproj", "{DA32A8A6-FB50-47AB-A375-1847E4CF785D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Auditing", "src\Scorpio.Auditing\Scorpio.Auditing.csproj", "{DA32A8A6-FB50-47AB-A375-1847E4CF785D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.Http.Abstractions", "src\Scorpio.Http.Abstractions\Scorpio.Http.Abstractions.csproj", "{DC1798A4-C9F2-4654-B139-506F646C9B1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Http.Abstractions", "src\Scorpio.Http.Abstractions\Scorpio.Http.Abstractions.csproj", "{DC1798A4-C9F2-4654-B139-506F646C9B1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -544,18 +544,6 @@ Global
 		{DAC64C2A-478B-45ED-BF14-0E78889C0ABD}.Release|x64.Build.0 = Release|Any CPU
 		{DAC64C2A-478B-45ED-BF14-0E78889C0ABD}.Release|x86.ActiveCfg = Release|Any CPU
 		{DAC64C2A-478B-45ED-BF14-0E78889C0ABD}.Release|x86.Build.0 = Release|Any CPU
-		{DA32A8A6-FB50-47AB-A375-1847E4CF785D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DA32A8A6-FB50-47AB-A375-1847E4CF785D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA32A8A6-FB50-47AB-A375-1847E4CF785D}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{DA32A8A6-FB50-47AB-A375-1847E4CF785D}.Debug|x64.Build.0 = Debug|Any CPU
-		{DA32A8A6-FB50-47AB-A375-1847E4CF785D}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{DA32A8A6-FB50-47AB-A375-1847E4CF785D}.Debug|x86.Build.0 = Debug|Any CPU
-		{DA32A8A6-FB50-47AB-A375-1847E4CF785D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DA32A8A6-FB50-47AB-A375-1847E4CF785D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DA32A8A6-FB50-47AB-A375-1847E4CF785D}.Release|x64.ActiveCfg = Release|Any CPU
-		{DA32A8A6-FB50-47AB-A375-1847E4CF785D}.Release|x64.Build.0 = Release|Any CPU
-		{DA32A8A6-FB50-47AB-A375-1847E4CF785D}.Release|x86.ActiveCfg = Release|Any CPU
-		{DA32A8A6-FB50-47AB-A375-1847E4CF785D}.Release|x86.Build.0 = Release|Any CPU
 		{EFCC4875-484A-40F4-9199-0B452303F711}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EFCC4875-484A-40F4-9199-0B452303F711}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFCC4875-484A-40F4-9199-0B452303F711}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -568,6 +556,18 @@ Global
 		{EFCC4875-484A-40F4-9199-0B452303F711}.Release|x64.Build.0 = Release|Any CPU
 		{EFCC4875-484A-40F4-9199-0B452303F711}.Release|x86.ActiveCfg = Release|Any CPU
 		{EFCC4875-484A-40F4-9199-0B452303F711}.Release|x86.Build.0 = Release|Any CPU
+		{DA32A8A6-FB50-47AB-A375-1847E4CF785D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA32A8A6-FB50-47AB-A375-1847E4CF785D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA32A8A6-FB50-47AB-A375-1847E4CF785D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DA32A8A6-FB50-47AB-A375-1847E4CF785D}.Debug|x64.Build.0 = Debug|Any CPU
+		{DA32A8A6-FB50-47AB-A375-1847E4CF785D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DA32A8A6-FB50-47AB-A375-1847E4CF785D}.Debug|x86.Build.0 = Debug|Any CPU
+		{DA32A8A6-FB50-47AB-A375-1847E4CF785D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA32A8A6-FB50-47AB-A375-1847E4CF785D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA32A8A6-FB50-47AB-A375-1847E4CF785D}.Release|x64.ActiveCfg = Release|Any CPU
+		{DA32A8A6-FB50-47AB-A375-1847E4CF785D}.Release|x64.Build.0 = Release|Any CPU
+		{DA32A8A6-FB50-47AB-A375-1847E4CF785D}.Release|x86.ActiveCfg = Release|Any CPU
+		{DA32A8A6-FB50-47AB-A375-1847E4CF785D}.Release|x86.Build.0 = Release|Any CPU
 		{DC1798A4-C9F2-4654-B139-506F646C9B1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DC1798A4-C9F2-4654-B139-506F646C9B1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC1798A4-C9F2-4654-B139-506F646C9B1E}.Debug|x64.ActiveCfg = Debug|Any CPU

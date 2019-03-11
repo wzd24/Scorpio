@@ -10,7 +10,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static void ShouldContainTransient(this IServiceCollection services, Type serviceType, Type implementationType = null)
         {
-            var serviceDescriptor = services.FirstOrDefault(s => s.ServiceType == serviceType);
+            var serviceDescriptor = services.SingleOrDefault(s => s.ServiceType == serviceType);
 
             serviceDescriptor.ShouldNotBeNull();
             serviceDescriptor.ImplementationType.ShouldBe(implementationType ?? serviceType);
@@ -21,7 +21,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public static void ShouldContainSingleton(this IServiceCollection services, Type serviceType, Type implementationType = null)
         {
-            var serviceDescriptor = services.FirstOrDefault(s => s.ServiceType == serviceType);
+            var serviceDescriptor = services.SingleOrDefault(s => s.ServiceType == serviceType);
 
             serviceDescriptor.ShouldNotBeNull();
             serviceDescriptor.ImplementationType.ShouldBe(implementationType ?? serviceType);
@@ -32,7 +32,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public static void ShouldContainScoped(this IServiceCollection services, Type serviceType, Type implementationType = null)
         {
-            var serviceDescriptor = services.FirstOrDefault(s => s.ServiceType == serviceType);
+            var serviceDescriptor = services.SingleOrDefault(s => s.ServiceType == serviceType);
 
             serviceDescriptor.ShouldNotBeNull();
             serviceDescriptor.ImplementationType.ShouldBe(implementationType ?? serviceType);
@@ -43,7 +43,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public static void ShouldContain(this IServiceCollection services, Type serviceType, Type implementationType, ServiceLifetime lifetime)
         {
-            var serviceDescriptor = services.FirstOrDefault(s => s.ServiceType == serviceType);
+            var serviceDescriptor = services.SingleOrDefault(s => s.ServiceType == serviceType);
 
             serviceDescriptor.ShouldNotBeNull();
             serviceDescriptor.ImplementationType.ShouldBe(implementationType);
@@ -54,7 +54,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public static void ShouldNotContainService(this IServiceCollection services, Type serviceType)
         {
-            var serviceDescriptor = services.FirstOrDefault(s => s.ServiceType == serviceType);
+            var serviceDescriptor = services.SingleOrDefault(s => s.ServiceType == serviceType);
 
             serviceDescriptor.ShouldBeNull();
         }

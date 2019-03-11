@@ -4,8 +4,9 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
+  <Import Project="$(SolutionDir)/common.props"/>
 
-  <Import Project="../../common.props" />
+
 
   <ItemGroup>
     <ProjectReference Include="../Scorpio.Domain/Scorpio.Domain.csproj" />

@@ -4,11 +4,18 @@ using System.Text;
 using Scorpio.Modularity;
 using Scorpio.DependencyInjection.Conventional;
 using Microsoft.Extensions.DependencyInjection;
+using Scorpio.Security;
+using Scorpio.Uow;
+using Scorpio.Threading;
+
 namespace Scorpio.AspNetCore
 {
     /// <summary>
     /// 
     /// </summary>
+    [DependsOn(typeof(SecurityModule))]
+    [DependsOn(typeof(UnitOfWorkModule))]
+    [DependsOn(typeof(ThreadingModule))]
     public sealed class AspNetCoreModule : ScorpioModule
     {
         /// <summary>

@@ -6,6 +6,8 @@ using Scorpio.DependencyInjection;
 using Scorpio.DynamicProxy;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using Scorpio.Conventional;
+using Scorpio.DependencyInjection.Conventional;
 
 namespace Scorpio
 {
@@ -17,6 +19,9 @@ namespace Scorpio
 
         public override void PreConfigureServices(ConfigureServicesContext context)
         {
+            DefaultInterfaceSelector.ExcludeServicePredicates.Clear();
+            ConventionalRegistrarList.Registrars.Clear();
+
             context.Services.AddExcludeServiceOfRegisterAssemblyByConvention(t => t.IsAssignableTo<IDependency>());
             context.Services.AddConventionalRegistrar(new BasicConventionalRegistrar());
         }

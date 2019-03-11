@@ -21,7 +21,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 config.Where(t => t.Name == nameof(Service1)).AsDefault();
                 config.Where(t => t.Name == nameof(Service2)).AsDefault();
             });
-            services.ShouldContainTransient(typeof(IService1), typeof(Service1));
+            services.ShouldContainTransient(typeof(IService1), typeof(Service2));
             services.ShouldContainTransient(typeof(Service1));
             services.ShouldContainTransient(typeof(IService2),typeof(Service1));
         }

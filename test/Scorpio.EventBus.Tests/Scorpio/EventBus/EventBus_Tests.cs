@@ -7,10 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using System.Linq;
 using Moq;
+using Scorpio.EventBus.TestClasses;
 
 namespace Scorpio.EventBus
 {
-    public class EventBus_Tests : TestBase.IntegratedTest<EventBusModule>
+    public class EventBus_Tests : TestBase.IntegratedTest<ServicedEventHandlerModule>
     {
         private IEventBus _eventBus;
 
@@ -25,7 +26,7 @@ namespace Scorpio.EventBus
             _eventBus.Subscribe<string>(s => Task.Run(() => Console.WriteLine(s)));
             _eventBus.ShouldBeOfType<LocalEventBus>().HandlerFactories.ShouldContainKey(typeof(string));
             _eventBus.ShouldBeOfType<LocalEventBus>()
-                .HandlerFactories[typeof(string)].ShouldHaveSingleItem()
+                .HandlerFactories[typeof(string)].OfType<SingleInstanceHandlerFactory>().ShouldHaveSingleItem()
                 .ShouldBeOfType<SingleInstanceHandlerFactory>().HandlerInstance
                 .ShouldBeOfType<ActionEventHandler<string>>();
         }
@@ -37,19 +38,24 @@ namespace Scorpio.EventBus
             _eventBus.Subscribe(mock.Object);
             _eventBus.ShouldBeOfType<LocalEventBus>().HandlerFactories.ShouldContainKey(typeof(string));
             _eventBus.ShouldBeOfType<LocalEventBus>()
-                .HandlerFactories[typeof(string)].ShouldHaveSingleItem()
+                .HandlerFactories[typeof(string)].OfType<SingleInstanceHandlerFactory>().ShouldHaveSingleItem()
                 .ShouldBeOfType<SingleInstanceHandlerFactory>().HandlerInstance.ShouldBe(mock.Object);
         }
 
+
         [Fact]
-        public void RegisterGenericEventHandler()
+        public void ShouldRegisterGenericEventHandler()
         {
-            _eventBus.Subscribe<string, TestClasses.EmptyEventHandler>();
+            _eventBus.ShouldBeOfType<LocalEventBus>().HandlerFactories.ShouldContainKey(typeof(TestEventData));
+            _eventBus.ShouldBeOfType<LocalEventBus>()
+                .HandlerFactories[typeof(TestEventData)].ShouldHaveSingleItem()
+                .ShouldBeOfType<IocEventHandlerFactory>().GetHandler().EventHandler
+                .ShouldBeOfType<ServicedEventHandler>();
             _eventBus.ShouldBeOfType<LocalEventBus>().HandlerFactories.ShouldContainKey(typeof(string));
             _eventBus.ShouldBeOfType<LocalEventBus>()
                 .HandlerFactories[typeof(string)].ShouldHaveSingleItem()
-                .ShouldBeOfType<TransientEventHandlerFactory<TestClasses.EmptyEventHandler>>().GetHandler().EventHandler
-                .ShouldBeOfType<TestClasses.EmptyEventHandler>();
+                .ShouldBeOfType<TransientEventHandlerFactory>().GetHandler().EventHandler
+                .ShouldBeOfType<EmptyEventHandler>();
         }
 
         [Fact]
@@ -59,8 +65,7 @@ namespace Scorpio.EventBus
             _eventBus.Subscribe<string>(mock.Object);
             _eventBus.ShouldBeOfType<LocalEventBus>().HandlerFactories.ShouldContainKey(typeof(string));
             _eventBus.ShouldBeOfType<LocalEventBus>()
-                .HandlerFactories[typeof(string)].ShouldHaveSingleItem().ShouldBe(mock.Object);
-
+                .HandlerFactories[typeof(string)].Where(f=>f.GetType()==mock.Object.GetType()).ShouldHaveSingleItem().ShouldBe(mock.Object);
         }
 
         [Fact]
@@ -86,11 +91,11 @@ namespace Scorpio.EventBus
             _eventBus.Subscribe(mock.Object);
             _eventBus.ShouldBeOfType<LocalEventBus>().HandlerFactories.ShouldContainKey(typeof(string));
             _eventBus.ShouldBeOfType<LocalEventBus>()
-                .HandlerFactories[typeof(string)].ShouldHaveSingleItem()
+                .HandlerFactories[typeof(string)].OfType<SingleInstanceHandlerFactory>().ShouldHaveSingleItem()
                 .ShouldBeOfType<SingleInstanceHandlerFactory>().HandlerInstance.ShouldBe(mock.Object);
             _eventBus.Unsubscribe(mock.Object);
             _eventBus.ShouldBeOfType<LocalEventBus>()
-                .HandlerFactories[typeof(string)].ShouldBeEmpty();
+                .HandlerFactories[typeof(string)].OfType<SingleInstanceHandlerFactory>().ShouldBeEmpty();
         }
 
         [Fact]
@@ -100,10 +105,10 @@ namespace Scorpio.EventBus
             _eventBus.Subscribe<string>(mock.Object);
             _eventBus.ShouldBeOfType<LocalEventBus>().HandlerFactories.ShouldContainKey(typeof(string));
             _eventBus.ShouldBeOfType<LocalEventBus>()
-                .HandlerFactories[typeof(string)].ShouldHaveSingleItem().ShouldBe(mock.Object);
+                .HandlerFactories[typeof(string)].Where(f => f.GetType() == mock.Object.GetType()).ShouldHaveSingleItem().ShouldBe(mock.Object);
             _eventBus.Unsubscribe<string>(mock.Object);
             _eventBus.ShouldBeOfType<LocalEventBus>()
-                .HandlerFactories[typeof(string)].ShouldBeEmpty();
+                .HandlerFactories[typeof(string)].Where(f => f.GetType() == mock.Object.GetType()).ShouldBeEmpty();
 
         }
     }

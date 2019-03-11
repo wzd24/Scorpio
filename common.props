@@ -1,22 +1,5 @@
 ﻿<Project>
   <PropertyGroup>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <RootNamespace></RootNamespace>
-    <Version>0.0.1.0-preview1</Version>
-    <Authors>Zidan.Wang</Authors>
-    <Company>Pluto Studio</Company>
-    <Copyright>Copyright ©  2015-2018</Copyright>
-    <Product>Scorpio</Product>
-    <Description>Scorpio 是由 Pluto Studio 所开发的一系列Api及框架。</Description>
-    <PackageLicenseUrl>https://github.com/wzd24/Scorpio/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/wzd24/Scorpio/wiki</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/wzd24/Scorpio</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
+    <RootNamespace />
   </PropertyGroup>
-  <PropertyGroup >
-    <LangVersion>latest</LangVersion>
-  </PropertyGroup>
-  
 </Project>

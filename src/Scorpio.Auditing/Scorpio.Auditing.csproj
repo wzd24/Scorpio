@@ -3,8 +3,10 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)/common.props"/>
+  <Import Project="$(SolutionDir)/common.props" />
   <ItemGroup>
+    <ProjectReference Include="..\Scorpio.Security\Scorpio.Security.csproj" />
+    <ProjectReference Include="..\Scorpio.Timing\Scorpio.Timing.csproj" />
     <ProjectReference Include="..\Scorpio\Scorpio.csproj" />
   </ItemGroup>
 

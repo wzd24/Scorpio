@@ -1,4 +1,5 @@
-﻿using Scorpio.Authorization;
+﻿using Scorpio.Auditing;
+using Scorpio.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,7 @@ namespace Scorpio.ConsoleApplication
     public interface ISayHelloService
     {
         [AllowAnonymous]
+        [Audited]
         void SayHello();
     }
 

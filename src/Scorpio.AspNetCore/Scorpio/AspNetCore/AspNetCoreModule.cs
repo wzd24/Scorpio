@@ -7,6 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Scorpio.Security;
 using Scorpio.Uow;
 using Scorpio.Threading;
+using Scorpio.Auditing;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.AspNetCore.Http;
 
 namespace Scorpio.AspNetCore
 {
@@ -16,6 +19,7 @@ namespace Scorpio.AspNetCore
     [DependsOn(typeof(SecurityModule))]
     [DependsOn(typeof(UnitOfWorkModule))]
     [DependsOn(typeof(ThreadingModule))]
+    [DependsOn(typeof(AuditingModule))]
     public sealed class AspNetCoreModule : ScorpioModule
     {
         /// <summary>
@@ -24,6 +28,11 @@ namespace Scorpio.AspNetCore
         /// <param name="context"></param>
         public override void ConfigureServices(ConfigureServicesContext context)
         {
+           context.Services.Configure<AuditingOptions>(options =>
+            {
+                options.Contributors.Add(new AspNetCoreAuditContributor());
+            });
+            context.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             context.Services.RegisterAssemblyByConvention();
             base.ConfigureServices(context);
         }

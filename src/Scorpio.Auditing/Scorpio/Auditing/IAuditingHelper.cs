@@ -12,15 +12,16 @@ namespace Scorpio.Auditing
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="method"></param>
+        /// <param name="methodInfo"></param>
+        /// <param name="defaultValue"></param>
         /// <returns></returns>
-        bool ShouldSaveAudit(MethodInfo method);
+        bool ShouldSaveAudit(MethodInfo methodInfo, bool defaultValue = false);
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        AuditActionInfo CreateAuditAction();
+        AuditInfo CreateAuditInfo();
 
         /// <summary>
         /// 
@@ -39,6 +40,5 @@ namespace Scorpio.Auditing
         /// <param name="parameters"></param>
         /// <returns></returns>
         AuditActionInfo CreateAuditAction(Type type, MethodInfo implementationMethod, IDictionary<string, object> parameters);
-
     }
 }

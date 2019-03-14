@@ -37,6 +37,8 @@ namespace Scorpio.Auditing
         /// </summary>
         public List<Type> IgnoredTypes { get; }
 
+        
+
         /// <summary>
         /// 
         /// </summary>

@@ -89,7 +89,7 @@ namespace Scorpio.Auditing
                 return false;
             }
 
-            if (!_auditingHelper.ShouldSaveAudit(context.ImplementationMethod))
+            if (!_auditingHelper.ShouldSaveAudit(context.ImplementationMethod) && !_auditingHelper.ShouldSaveAudit(context.ServiceMethod))
             {
                 return false;
             }

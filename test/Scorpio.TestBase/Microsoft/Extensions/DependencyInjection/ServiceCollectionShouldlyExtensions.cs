@@ -8,26 +8,24 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionShouldlyExtensions
     {
-        public static void ShouldContainTransient(this IServiceCollection services, Type serviceType, Type implementationType = null)
+        public static ServiceDescriptor ShouldContainTransient(this IServiceCollection services, Type serviceType, Type implementationType = null)
         {
             var serviceDescriptor = services.SingleOrDefault(s => s.ServiceType == serviceType);
 
             serviceDescriptor.ShouldNotBeNull();
-            serviceDescriptor.ImplementationType.ShouldBe(implementationType ?? serviceType);
-            serviceDescriptor.ImplementationFactory.ShouldBeNull();
-            serviceDescriptor.ImplementationInstance.ShouldBeNull();
+            serviceDescriptor.GetImplementationType().ShouldBe(implementationType ?? serviceType);
             serviceDescriptor.Lifetime.ShouldBe(ServiceLifetime.Transient);
+            return serviceDescriptor;
         }
 
-        public static void ShouldContainSingleton(this IServiceCollection services, Type serviceType, Type implementationType = null)
+        public static ServiceDescriptor ShouldContainSingleton(this IServiceCollection services, Type serviceType, Type implementationType = null)
         {
             var serviceDescriptor = services.SingleOrDefault(s => s.ServiceType == serviceType);
 
             serviceDescriptor.ShouldNotBeNull();
-            serviceDescriptor.ImplementationType.ShouldBe(implementationType ?? serviceType);
-            serviceDescriptor.ImplementationFactory.ShouldBeNull();
-            serviceDescriptor.ImplementationInstance.ShouldBeNull();
+            serviceDescriptor.GetImplementationType().ShouldBe(implementationType ?? serviceType);
             serviceDescriptor.Lifetime.ShouldBe(ServiceLifetime.Singleton);
+            return serviceDescriptor;
         }
 
         public static void ShouldContainScoped(this IServiceCollection services, Type serviceType, Type implementationType = null)
@@ -35,9 +33,7 @@ namespace Microsoft.Extensions.DependencyInjection
             var serviceDescriptor = services.SingleOrDefault(s => s.ServiceType == serviceType);
 
             serviceDescriptor.ShouldNotBeNull();
-            serviceDescriptor.ImplementationType.ShouldBe(implementationType ?? serviceType);
-            serviceDescriptor.ImplementationFactory.ShouldBeNull();
-            serviceDescriptor.ImplementationInstance.ShouldBeNull();
+            serviceDescriptor.GetImplementationType().ShouldBe(implementationType ?? serviceType);
             serviceDescriptor.Lifetime.ShouldBe(ServiceLifetime.Scoped);
         }
 
@@ -46,9 +42,7 @@ namespace Microsoft.Extensions.DependencyInjection
             var serviceDescriptor = services.SingleOrDefault(s => s.ServiceType == serviceType);
 
             serviceDescriptor.ShouldNotBeNull();
-            serviceDescriptor.ImplementationType.ShouldBe(implementationType);
-            serviceDescriptor.ImplementationFactory.ShouldBeNull();
-            serviceDescriptor.ImplementationInstance.ShouldBeNull();
+            serviceDescriptor.GetImplementationType().ShouldBe(implementationType);
             serviceDescriptor.Lifetime.ShouldBe(lifetime);
         }
 

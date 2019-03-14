@@ -8,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using Scorpio.Conventional;
 using Scorpio.DependencyInjection.Conventional;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
 
 namespace Scorpio
 {
@@ -21,7 +23,7 @@ namespace Scorpio
         {
             DefaultInterfaceSelector.ExcludeServicePredicates.Clear();
             ConventionalRegistrarList.Registrars.Clear();
-
+            context.Services.Replace(ServiceDescriptor.Transient(typeof(IOptionsFactory<>), typeof(Options.OptionsFactory<>)));
             context.Services.AddExcludeServiceOfRegisterAssemblyByConvention(t => t.IsAssignableTo<IDependency>());
             context.Services.AddConventionalRegistrar(new BasicConventionalRegistrar());
         }

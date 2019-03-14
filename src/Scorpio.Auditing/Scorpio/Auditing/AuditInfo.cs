@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Scorpio;
 namespace Scorpio.Auditing
@@ -47,7 +48,7 @@ namespace Scorpio.Auditing
         /// <summary>
         /// 
         /// </summary>
-        public IList<string> Comments { get;  }
+        public IList<string> Comments { get; }
 
         /// <summary>
         /// 
@@ -76,9 +77,60 @@ namespace Scorpio.Auditing
         /// </summary>
         /// <param name="name"></param>
         /// <param name="value"></param>
-        protected void SetExtraProperty(string name,object value)
+        protected void SetExtraProperty(string name, object value)
         {
             ExtraProperties[name] = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TWapper"></typeparam>
+        /// <returns></returns>
+        public TWapper CreateWapper<TWapper>() where TWapper : AuditInfoWapper
+        {
+            return Activator.CreateInstance(typeof(TWapper), this) as TWapper;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+
+            sb.AppendLine($"AUDIT LOG:");
+            sb.AppendLine($"- User                 : {CurrentUser} ");
+            sb.AppendLine($"- ExecutionDuration      : {ExecutionDuration}");
+
+            if (ExtraProperties.Any())
+            {
+                foreach (var property in ExtraProperties)
+                {
+                    sb.AppendLine($"- {property.Key}      : {property.Value}");
+                }
+            }
+            if (Actions.Any())
+            {
+                sb.AppendLine("- Actions:");
+                foreach (var action in Actions)
+                {
+                    sb.AppendLine($"  - {action.ServiceName}.{action.MethodName} ({action.ExecutionDuration} ms.)");
+                    sb.AppendLine($"    {action.Parameters}");
+                }
+            }
+
+            if (Exceptions.Any())
+            {
+                sb.AppendLine("- Exceptions:");
+                foreach (var exception in Exceptions)
+                {
+                    sb.AppendLine($"  - {exception.Message}");
+                    sb.AppendLine($"    {exception}");
+                }
+            }
+            return sb.ToString();
         }
 
     }

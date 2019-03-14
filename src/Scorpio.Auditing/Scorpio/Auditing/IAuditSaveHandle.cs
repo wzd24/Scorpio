@@ -1,6 +1,23 @@
-﻿namespace Scorpio.Auditing
+﻿using System;
+using System.Threading.Tasks;
+
+namespace Scorpio.Auditing
 {
-    public interface IAuditSaveHandle
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface IAuditSaveHandle: IDisposable
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        void Save();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        Task SaveAsync();
+
     }
 }

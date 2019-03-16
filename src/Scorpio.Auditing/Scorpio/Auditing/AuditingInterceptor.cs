@@ -16,7 +16,7 @@ namespace Scorpio.Auditing
         /// <summary>
         /// 
         /// </summary>
-        public const string CONCERNS = "Scorpio.Auditing";
+        public readonly static string Concerns = "Scorpio.Auditing";
         private readonly IAuditingHelper _auditingHelper;
         private readonly IAuditingManager _auditingManager;
 
@@ -75,7 +75,7 @@ namespace Scorpio.Auditing
             audit = null;
             auditAction = null;
 
-            if (CrossCuttingConcerns.IsApplied(context.Implementation,CONCERNS))
+            if (CrossCuttingConcerns.IsApplied(context.Implementation,Concerns))
             {
                 return false;
             }

@@ -19,7 +19,6 @@ namespace Scorpio.WebApplication
 
         public Task Invoke(HttpContext httpContext)
         {
-
             return _next(httpContext);
         }
     }

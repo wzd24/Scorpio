@@ -10,6 +10,10 @@ using Scorpio.Threading;
 using Scorpio.Auditing;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.AspNetCore.Http;
+using Scorpio.AspNetCore.Auditing;
+using Scorpio.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
+using Scorpio.Authorization;
 
 namespace Scorpio.AspNetCore
 {
@@ -20,6 +24,7 @@ namespace Scorpio.AspNetCore
     [DependsOn(typeof(UnitOfWorkModule))]
     [DependsOn(typeof(ThreadingModule))]
     [DependsOn(typeof(AuditingModule))]
+    [DependsOn(typeof(AuthorizationModule))]
     public sealed class AspNetCoreModule : ScorpioModule
     {
         /// <summary>
@@ -33,6 +38,10 @@ namespace Scorpio.AspNetCore
                 options.Contributors.Add(new AspNetCoreAuditContributor());
             });
             context.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            context.Services.AddAuthorization();
+
+            context.Services.AddSingleton<IAuthorizationHandler, PermissionRequirementHandler>();
+
             context.Services.RegisterAssemblyByConvention();
             base.ConfigureServices(context);
         }

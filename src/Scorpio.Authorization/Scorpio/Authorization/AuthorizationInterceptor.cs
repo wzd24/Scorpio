@@ -12,7 +12,7 @@ namespace Scorpio.Authorization
         /// <summary>
         /// 
         /// </summary>
-        public const string CONCERN = "Scorpio.Authorization";
+        public static readonly string Concern = "Scorpio.Authorization";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Scorpio.Authorization.AuthorizationInterceptor"/> class.
@@ -32,7 +32,7 @@ namespace Scorpio.Authorization
         /// <param name="next">Next.</param>
         public async override Task Invoke(AspectContext context, AspectDelegate next)
         {
-            if (Aspects.CrossCuttingConcerns.IsApplied(context.Implementation,CONCERN))
+            if (Aspects.CrossCuttingConcerns.IsApplied(context.Implementation,Concern))
             {
                 await next(context);
                 return;

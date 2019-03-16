@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Scorpio.Auditing;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Scorpio.Auditing
+namespace Scorpio.AspNetCore.Auditing
 {
     internal class AspNetCoreAuditInfoWapper : AuditInfoWapper
     {

@@ -53,7 +53,7 @@ namespace Scorpio.AspNetCore.Mvc.Filters
                 return;
             }
 
-            using (CrossCuttingConcerns.Applying(context.Controller, AuditingInterceptor.CONCERNS))
+            using (CrossCuttingConcerns.Applying(context.Controller, AuditingInterceptor.Concerns))
             {
                 var stopwatch = Stopwatch.StartNew();
 
@@ -90,6 +90,10 @@ namespace Scorpio.AspNetCore.Mvc.Filters
             {
                 return false;
             }
+            if (!Options.IsAuditingController())
+            {
+                return false;
+            }
 
             if (!context.ActionDescriptor.IsControllerAction())
             {
@@ -103,11 +107,6 @@ namespace Scorpio.AspNetCore.Mvc.Filters
             }
 
             if (!_auditingHelper.ShouldSaveAudit(context.ActionDescriptor.GetMethodInfo(), true))
-            {
-                return false;
-            }
-
-            if (!AuditingHelper.ShouldAuditTypeByDefault(context.Controller.GetType()))
             {
                 return false;
             }

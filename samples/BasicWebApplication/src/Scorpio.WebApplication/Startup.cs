@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Scorpio.AspNetCore;
 using Scorpio.AspNetCore.Mvc;
 using Scorpio.Modularity;
+using Scorpio.Auditing;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Scorpio.WebApplication
 {
@@ -17,13 +19,19 @@ namespace Scorpio.WebApplication
         public void ConfigureServices(IServiceCollection services)
         {
             services.RegisterAssemblyByConvention();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+            services.Configure<AuditingOptions>(options => options.EnableAuditingPage());
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
+            services.Configure<Authorization.Permissions.PermissionOptions>(options =>
+            {
+                options.DefinitionProviders.Add<PermissionProvider>();
+                options.GrantingProviders.Add<UserBasePermissionGrantingProvider>();
+            });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -46,6 +54,7 @@ namespace Scorpio.WebApplication
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            //app.UseMiddleware<Middleware>();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -56,7 +65,8 @@ namespace Scorpio.WebApplication
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseMiddleware<AspNetCore.Middlewares.AuditingMiddleware>();
+            app.UseAuthentication();
+            app.UseAuditing();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();

@@ -69,7 +69,7 @@ namespace Scorpio.Authorization.Permissions
 
             if (permission == null)
             {
-                throw new ScorpioException("Undefined permission: " + name);
+                throw new PermissionNotFondException(name);
             }
 
             return permission;

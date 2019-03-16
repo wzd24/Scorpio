@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Scorpio.AspNetCore.Middlewares
+namespace Scorpio.AspNetCore.Uow
 {
     /// <summary>
     /// 

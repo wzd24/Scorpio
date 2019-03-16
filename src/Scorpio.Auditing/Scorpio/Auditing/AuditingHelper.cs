@@ -108,10 +108,7 @@ namespace Scorpio.Auditing
             var classType = methodInfo.DeclaringType;
             if (classType != null)
             {
-                if (ShouldAuditTypeByDefault(classType))
-                {
-                    return true;
-                }
+                return ShouldAuditTypeByDefault(classType, defaultValue);
             }
             return defaultValue;
         }
@@ -120,8 +117,9 @@ namespace Scorpio.Auditing
         /// 
         /// </summary>
         /// <param name="type"></param>
+        /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static bool ShouldAuditTypeByDefault(Type type)
+        public static bool ShouldAuditTypeByDefault(Type type,bool defaultValue=false)
         {
             if (type.IsDefined(typeof(AuditedAttribute), true))
             {
@@ -132,7 +130,7 @@ namespace Scorpio.Auditing
             {
                 return false;
             }
-            return false;
+            return defaultValue;
         }
 
 

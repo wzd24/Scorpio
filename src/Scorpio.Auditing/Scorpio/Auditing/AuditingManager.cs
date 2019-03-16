@@ -16,7 +16,7 @@ namespace Scorpio.Auditing
 {
     internal class AuditingManager : IAuditingManager, ITransientDependency
     {
-        private const string AMBIENT_CONTEXT_KEY = "Scorpio.Auditing.IAuditScope";
+        private readonly static string _ambientContextKey = "Scorpio.Auditing.IAuditScope";
 
         private readonly IAmbientScopeProvider<IAuditScope> _ambientScopeProvider;
         private readonly IAuditingHelper _auditingHelper;
@@ -26,7 +26,7 @@ namespace Scorpio.Auditing
         [FromContainer]
         protected ILogger<AuditingManager> Logger { get; set; }
 
-        public IAuditScope Current => _ambientScopeProvider.GetValue(AMBIENT_CONTEXT_KEY);
+        public IAuditScope Current => _ambientScopeProvider.GetValue(_ambientContextKey);
 
         public AuditingManager(
            IAmbientScopeProvider<IAuditScope> ambientScopeProvider,
@@ -46,7 +46,7 @@ namespace Scorpio.Auditing
         public IAuditSaveHandle BeginScope()
         {
             var ambientScope = _ambientScopeProvider.BeginScope(
-                AMBIENT_CONTEXT_KEY,
+                _ambientContextKey,
                 new AuditScope(_auditingHelper.CreateAuditInfo())
             );
 

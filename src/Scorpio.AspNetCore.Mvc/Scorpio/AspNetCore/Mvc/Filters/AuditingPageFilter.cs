@@ -52,7 +52,7 @@ namespace Scorpio.AspNetCore.Mvc.Filters
                 return;
             }
 
-            using (CrossCuttingConcerns.Applying(context.HandlerInstance, AuditingInterceptor.CONCERNS))
+            using (CrossCuttingConcerns.Applying(context.HandlerInstance, AuditingInterceptor.Concerns))
             {
                 var stopwatch = Stopwatch.StartNew();
 
@@ -99,6 +99,11 @@ namespace Scorpio.AspNetCore.Mvc.Filters
                 return false;
             }
 
+            if (!Options.IsAuditingPage())
+            {
+                return false;
+            }
+
             if (!(context.ActionDescriptor is CompiledPageActionDescriptor))
             {
                 return false;
@@ -114,12 +119,6 @@ namespace Scorpio.AspNetCore.Mvc.Filters
             {
                 return false;
             }
-
-            if (!AuditingHelper.ShouldAuditTypeByDefault(context.ActionDescriptor.HandlerTypeInfo))
-            {
-                return false;
-            }
-
             auditLog = auditLogScope.Info;
             auditLogAction = _auditingHelper.CreateAuditAction(
                 context.ActionDescriptor.HandlerTypeInfo,

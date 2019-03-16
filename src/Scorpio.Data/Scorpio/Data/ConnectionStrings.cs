@@ -13,7 +13,7 @@ namespace Scorpio.Data
         /// <summary>
         /// 
         /// </summary>
-        public const string DefaultConnectionStringName = "Default";
+        public static readonly string DefaultConnectionStringName = "Default";
 
         /// <summary>
         /// 

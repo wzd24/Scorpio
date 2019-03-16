@@ -3,11 +3,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using Scorpio.Auditing;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Scorpio.Auditing
+namespace Scorpio.AspNetCore.Auditing
 {
     /// <summary>
     /// 
@@ -33,6 +34,7 @@ namespace Scorpio.Auditing
                 return;
             }
             var wapper = context.CreateWapper<AspNetCoreAuditInfoWapper>();
+            wapper.CurrentUser = httpContext.User?.Identity?.Name?? "Anonymous";
             if (wapper.HttpMethod == null)
             {
                 wapper.HttpMethod = httpContext.Request.Method;

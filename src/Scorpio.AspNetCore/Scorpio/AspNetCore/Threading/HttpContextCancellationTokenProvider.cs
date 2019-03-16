@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 
-namespace Scorpio.Threading
+namespace Scorpio.AspNetCore.Threading
 {
     /// <summary>
     /// 

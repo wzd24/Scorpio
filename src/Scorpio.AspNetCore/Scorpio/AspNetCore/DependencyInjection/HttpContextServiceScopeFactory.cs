@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Scorpio.DependencyInjection
+namespace Scorpio.AspNetCore.DependencyInjection
 {
     internal class HttpContextServiceScopeFactory : IHybridServiceScopeFactory, ITransientDependency
     {

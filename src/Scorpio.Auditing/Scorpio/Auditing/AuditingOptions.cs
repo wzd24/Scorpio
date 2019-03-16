@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Scorpio.Options;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq.Expressions;
@@ -9,7 +10,7 @@ namespace Scorpio.Auditing
     /// <summary>
     /// 
     /// </summary>
-    public class AuditingOptions
+    public class AuditingOptions:ExtensibleOptions
     {
         /// <summary>
         /// Default: true.

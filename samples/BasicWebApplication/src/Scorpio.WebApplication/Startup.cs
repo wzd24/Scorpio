@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 namespace Scorpio.WebApplication
 {
     [DependsOn(typeof(AspNetCoreMvcModule))]
-    public class StartupModule : ScorpioModule
+     class StartupModule : ScorpioModule
     {
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -32,7 +32,6 @@ namespace Scorpio.WebApplication
                 options.DefinitionProviders.Add<PermissionProvider>();
                 options.GrantingProviders.Add<UserBasePermissionGrantingProvider>();
             });
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         public override void ConfigureServices(ConfigureServicesContext context)
@@ -54,7 +53,7 @@ namespace Scorpio.WebApplication
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            //app.UseMiddleware<Middleware>();
+            app.UseMiddleware();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -70,7 +69,6 @@ namespace Scorpio.WebApplication
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
             app.UseMvc();
         }
     }

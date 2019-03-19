@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)/common.props" />
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Scorpio.AspNetCore\Scorpio.AspNetCore.csproj" />
+  </ItemGroup>
+
+</Project>

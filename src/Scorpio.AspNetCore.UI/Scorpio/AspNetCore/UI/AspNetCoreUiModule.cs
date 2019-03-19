@@ -12,8 +12,14 @@ namespace Scorpio.AspNetCore.UI
     /// <summary>
     /// 
     /// </summary>
+    [DependsOn(typeof(AspNetCoreModule))]
     public sealed class AspNetCoreUiModule : ScorpioModule
     {
+        public override void PreConfigureServices(ConfigureServicesContext context)
+        {
+            context.Services.AddConventionalRegistrar<AspNetCoreUiConventionalRegistrar>();
+            base.PreConfigureServices(context);
+        }
         /// <summary>
         /// 
         /// </summary>

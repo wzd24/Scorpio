@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
-namespace Scorpio.AspNetCore.Mvc
+namespace Scorpio.AspNetCore.UI
 {
     internal class AspNetCoreUiConventionalRegistrar : IConventionalRegistrar
     {
@@ -18,7 +18,7 @@ namespace Scorpio.AspNetCore.Mvc
         {
             context.Services.RegisterAssembly(context.Assembly, config =>
             {
-                config.Where(t => t.IsAssignableTo<ITagHelper>()).AsSelf().Lifetime(ServiceLifetime.Transient);
+                config.Where(t => t.IsAssignableTo<TagHelpers.ITagHelperService>()).AsSelf().Lifetime(ServiceLifetime.Transient);
             });
         }
     }

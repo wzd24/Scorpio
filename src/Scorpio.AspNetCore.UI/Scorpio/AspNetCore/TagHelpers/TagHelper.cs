@@ -53,7 +53,6 @@ namespace Scorpio.AspNetCore.TagHelpers
         /// <param name="context">Contains information associated with the current HTML tag.</param>
         /// <param name="output">A stateful HTML element used to generate an HTML tag.</param>
         /// <returns>A <see cref="Task"/> that on completion updates the <paramref name="output"/>.</returns>
-        /// <remarks>By default this calls into <see cref="Process"/>.</remarks>.
         public virtual Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
             return Task.CompletedTask;

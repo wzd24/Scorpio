@@ -4,11 +4,15 @@ using Scorpio.DependencyInjection;
 
 namespace Scorpio.AspNetCore.TagHelpers
 {
+    public interface ITagHelperService
+    {
+
+    }
     /// <summary>
     /// 
     /// </summary>
     /// <typeparam name="TTagHelper"></typeparam>
-    public interface ITagHelperService<TTagHelper> : ITransientDependency where TTagHelper : TagHelper
+    public interface ITagHelperService<TTagHelper> :ITagHelperService where TTagHelper : TagHelper
     {
         /// <summary>
         /// 

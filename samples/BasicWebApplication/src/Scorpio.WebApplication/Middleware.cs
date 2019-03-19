@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -19,6 +20,7 @@ namespace Scorpio.WebApplication
 
         public Task Invoke(HttpContext httpContext)
         {
+            httpContext.User = new GenericPrincipal(new GenericIdentity("Admin"), new string[] { });
             return _next(httpContext);
         }
     }

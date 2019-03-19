@@ -35,7 +35,7 @@ namespace Scorpio
         /// <summary>
         /// The <see cref="IConfiguration" /> containing the merged configuration of the application.
         /// </summary>
-        public IConfiguration Configuration { get;}
+        public IConfiguration Configuration { get; }
 
         /// <summary>
         /// A central location for sharing state between components during the host building process.
@@ -65,7 +65,7 @@ namespace Scorpio
         /// <param name="services"></param>
         /// <param name="configuration"></param>
         /// <param name="optionsAction"></param>
-        protected Bootstrapper(Type startupModuleType, IServiceCollection services,IConfiguration configuration, Action<BootstrapperCreationOptions> optionsAction)
+        protected Bootstrapper(Type startupModuleType, IServiceCollection services, IConfiguration configuration, Action<BootstrapperCreationOptions> optionsAction)
         {
             Services = services;
             Configuration = configuration;
@@ -90,7 +90,7 @@ namespace Scorpio
 
         private void ConfigureServices()
         {
-            var context = new ConfigureServicesContext(Services) { Configuration=Configuration};
+            var context = new ConfigureServicesContext(this, Services) { Configuration = Configuration };
             Services.AddSingleton(context);
             Modules.ForEach(m => m.Instance.PreConfigureServices(context));
             Modules.ForEach(m => m.Instance.ConfigureServices(context));
@@ -106,7 +106,7 @@ namespace Scorpio
         /// 
         /// </summary>
         /// <param name="serviceProvider"></param>
-        internal  void SetServiceProvider(IServiceProvider serviceProvider)
+        internal void SetServiceProvider(IServiceProvider serviceProvider)
         {
             ServiceProvider = serviceProvider;
         }
@@ -130,7 +130,7 @@ namespace Scorpio
             {
                 scope.ServiceProvider
                     .GetRequiredService<IModuleManager>()
-                    .InitializeModules(new ApplicationInitializationContext(scope.ServiceProvider,initializeParams));
+                    .InitializeModules(new ApplicationInitializationContext(scope.ServiceProvider, initializeParams));
             }
         }
 
@@ -171,7 +171,7 @@ namespace Scorpio
                 throw new ArgumentException($"{nameof(startupModuleType)} should be derived from {typeof(IScorpioModule)}");
             }
             var services = new ServiceCollection();
-            var bootstrapper = new InternalBootstrapper(startupModuleType, services,null, optionsAction);
+            var bootstrapper = new InternalBootstrapper(startupModuleType, services, null, optionsAction);
             bootstrapper.SetServiceProvider(services.BuildAspectInjectorProvider());
             return bootstrapper;
         }

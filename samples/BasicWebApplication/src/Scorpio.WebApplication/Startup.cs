@@ -8,11 +8,14 @@ using Scorpio.AspNetCore.Mvc;
 using Scorpio.Modularity;
 using Scorpio.Auditing;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Scorpio.AspNetCore.UI.Bootstrap;
 
 namespace Scorpio.WebApplication
 {
     [DependsOn(typeof(AspNetCoreMvcModule))]
-     class StartupModule : ScorpioModule
+    [DependsOn(typeof(BootstrapModule))]
+
+    class StartupModule : ScorpioModule
     {
 
         // This method gets called by the runtime. Use this method to add services to the container.

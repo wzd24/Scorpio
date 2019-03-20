@@ -15,8 +15,8 @@ var nupkgPath = "./artifacts/";
 var nupkgRegex = $"{nupkgPath}**/*.nupkg";
 var nugetApiKey = "33b30e22-01aa-4b75-80e9-3e73cfa4c1b8";
 
-var nugetQueryUrl="https://www.myget.org/F/plutostudio/api/v3/index.json";
-var nugetPushUrl = "https://www.myget.org/F/plutostudio/api/v2/package";
+var nugetQueryUrl="https://www.myget.org/F/scorpio/api/v3/index.json";
+var nugetPushUrl = "https://www.myget.org/F/scorpio/api/v2/package";
 
 var NUGET_PUSH_SETTINGS = new DotNetCoreNuGetPushSettings
                          {

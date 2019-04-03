@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "font-awesome@5.8.1",
+      "destination": "wwwroot/lib/font-awesome/"
+    },
+    {
+      "library": "holder@2.9.6",
+      "destination": "wwwroot/lib/holder/"
+    }
+  ]
+}

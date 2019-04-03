@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
@@ -55,5 +57,38 @@ namespace Scorpio.AspNetCore.TagHelpers
             Process(context, output);
             return Task.CompletedTask;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="context"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        protected virtual T GetValueFromContext<T>(TagHelperContext context, string key)
+        {
+            if (!context.Items.ContainsKey(key))
+            {
+                return default(T);
+            }
+
+            return (T)context.Items[key];
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="output"></param>
+        /// <param name="htmlEncoder"></param>
+        /// <returns></returns>
+        protected virtual string RenderTagHelperOutput(TagHelperOutput output, HtmlEncoder htmlEncoder)
+        {
+            using (var writer = new StringWriter())
+            {
+                output.WriteTo(writer, htmlEncoder);
+                return writer.ToString();
+            }
+        }
+
     }
 }

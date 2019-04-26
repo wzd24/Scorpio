@@ -20,7 +20,6 @@ namespace Scorpio.AspNetCore.TagHelpers
         int Order { get; }
 
         /// <summary>
-        /// <summary>
         /// 
         /// </summary>
         TTagHelper TagHelper { get; }

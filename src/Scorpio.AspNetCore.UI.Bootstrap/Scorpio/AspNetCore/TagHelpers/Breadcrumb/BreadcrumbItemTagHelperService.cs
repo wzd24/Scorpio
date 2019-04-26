@@ -42,7 +42,7 @@ namespace Scorpio.AspNetCore.TagHelpers.Breadcrumb
             output.AddClass("breadcrumb-item");
             output.AddClass(BreadcrumbItemActivePlaceholder);
 
-            var list = GetValueFromContext<List<BreadcrumbItem>>(context, BreadcrumbItemsContent);
+            var list = context.GetValue<List<BreadcrumbItem>>(BreadcrumbItemsContent);
 
             output.Content.SetHtmlContent(GetInnerHtml(context, output));
             

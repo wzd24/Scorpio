@@ -61,23 +61,6 @@ namespace Scorpio.AspNetCore.TagHelpers
         /// <summary>
         /// 
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="context"></param>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        protected virtual T GetValueFromContext<T>(TagHelperContext context, string key)
-        {
-            if (!context.Items.ContainsKey(key))
-            {
-                return default(T);
-            }
-
-            return (T)context.Items[key];
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="output"></param>
         /// <param name="htmlEncoder"></param>
         /// <returns></returns>

@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		appveyor.yml = appveyor.yml
 		build.cake = build.cake
 		build.ps1 = build.ps1
+		common.props = common.props
+		Directory.Build.props = Directory.Build.props
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
@@ -116,7 +118,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.AspNetCore.Mvc", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.AspNetCore.UI", "src\Scorpio.AspNetCore.UI\Scorpio.AspNetCore.UI.csproj", "{A7B4E1DA-F9E3-41EB-9321-EB6BAF0FD4FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorpio.AspNetCore.UI.Bootstrap", "src\Scorpio.AspNetCore.UI.Bootstrap\Scorpio.AspNetCore.UI.Bootstrap.csproj", "{337AED01-D76F-4068-A94A-5D9558CD49AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.AspNetCore.UI.Bootstrap", "src\Scorpio.AspNetCore.UI.Bootstrap\Scorpio.AspNetCore.UI.Bootstrap.csproj", "{337AED01-D76F-4068-A94A-5D9558CD49AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

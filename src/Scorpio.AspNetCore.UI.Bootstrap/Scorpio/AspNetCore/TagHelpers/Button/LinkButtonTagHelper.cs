@@ -6,24 +6,51 @@ namespace Scorpio.AspNetCore.TagHelpers.Button
     [HtmlTargetElement("input", Attributes = "button", TagStructure = TagStructure.WithoutEndTag)]
     public class LinkButtonTagHelper : TagHelper<LinkButtonTagHelper, LinkButtonTagHelperService>, IButtonTagHelperBase
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [HtmlAttributeName("button")]
         public ButtonType ButtonType { get; set; }
 
-        public ButtonSize Size { get; set; } = ButtonSize.Default;
+        /// <summary>
+        /// 
+        /// </summary>
+        public Size Size { get; set; } = Size.Default;
 
         /// <summary>
         /// 
         /// </summary>
         public bool OutLine { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Block { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string Text { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Icon { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool? Disabled { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public FontIconType IconType { get; } = FontIconType.FontAwesome;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="service"></param>
         public LinkButtonTagHelper(LinkButtonTagHelperService service) 
             : base(service)
         {

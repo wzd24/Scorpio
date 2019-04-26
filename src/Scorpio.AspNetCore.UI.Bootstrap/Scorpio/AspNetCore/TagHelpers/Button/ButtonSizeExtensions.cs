@@ -2,30 +2,22 @@
 
 namespace Scorpio.AspNetCore.TagHelpers.Button
 {
-    public static class ButtonSizeExtensions
+    internal static class ButtonSizeExtensions
     {
-        public static string ToClassName(this ButtonSize size)
+        public static string ToClassName(this Size size)
         {
             switch (size)
             {
-                case ButtonSize.Small:
+                case Size.Small:
                     return "btn-sm";
-                case ButtonSize.Medium:
+                case Size.Medium:
                     return "btn-md";
-                case ButtonSize.Large:
+                case Size.Large:
                     return "btn-lg";
-                case ButtonSize.Block:
-                    return "btn-block";
-                case ButtonSize.Block_Small:
-                    return "btn-sm  btn-block";
-                case ButtonSize.Block_Medium:
-                    return "btn-md  btn-block";
-                case ButtonSize.Block_Large:
-                    return "btn-lg  btn-block";
-                case ButtonSize.Default:
+                case Size.Default:
                     return "";
                 default:
-                    throw new Exception($"Unknown {nameof(ButtonSize)}: {size}");
+                    throw new Exception($"Unknown {nameof(Size)}: {size}");
             }
         }
     }

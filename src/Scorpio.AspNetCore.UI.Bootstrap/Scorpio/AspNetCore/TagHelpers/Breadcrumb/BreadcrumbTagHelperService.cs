@@ -60,11 +60,15 @@ namespace Scorpio.AspNetCore.TagHelpers.Breadcrumb
             output.Content.SetHtmlContent(html.ToString());
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="output"></param>
+        /// <returns></returns>
         protected virtual List<BreadcrumbItem> InitilizeFormGroupContentsContext(TagHelperContext context, TagHelperOutput output)
         {
-            var items = new List<BreadcrumbItem>();
-            context.Items[BreadcrumbItemsContent] = items;
-            return items;
+            return context.InitValue<List<BreadcrumbItem>>(BreadcrumbItemsContent);
         }
 
         protected virtual void SetLastOneActiveIfThereIsNotAny(TagHelperContext context, TagHelperOutput output, List<BreadcrumbItem> list)

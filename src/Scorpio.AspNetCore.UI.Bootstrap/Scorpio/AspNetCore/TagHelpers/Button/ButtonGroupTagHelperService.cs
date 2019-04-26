@@ -30,15 +30,15 @@ namespace Scorpio.AspNetCore.TagHelpers.Button
         {
             switch (TagHelper.Size)
             {
-                case ButtonGroupSize.Default:
+                case Size.Default:
                     break;
-                case ButtonGroupSize.Small:
+                case Size.Small:
                     output.AddClass("btn-group-sm");
                     break;
-                case ButtonGroupSize.Medium:
+                case Size.Medium:
                     output.AddClass("btn-group-md");
                     break;
-                case ButtonGroupSize.Large:
+                case Size.Large:
                     output.AddClass("btn-group-lg");
                     break;
             }

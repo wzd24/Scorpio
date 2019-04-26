@@ -3,6 +3,10 @@ using System;
 
 namespace Scorpio.AspNetCore.TagHelpers.Button
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TTagHelper"></typeparam>
     public abstract class ButtonTagHelperServiceBase<TTagHelper> : TagHelperService<TTagHelper>
         where TTagHelper : TagHelper, IButtonTagHelperBase
     {
@@ -15,11 +19,21 @@ namespace Scorpio.AspNetCore.TagHelpers.Button
             AddDisabled(context, output);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="output"></param>
         protected virtual void NormalizeTagMode(TagHelperContext context, TagHelperOutput output)
         {
             output.TagMode = TagMode.StartTagAndEndTag;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="output"></param>
         protected virtual void AddClasses(TagHelperContext context, TagHelperOutput output)
         {
             output.AddClass("btn");
@@ -29,12 +43,22 @@ namespace Scorpio.AspNetCore.TagHelpers.Button
                 output.AddClass($"btn-{(TagHelper.OutLine&&TagHelper.ButtonType!= ButtonType.Link?"outline-":"")}{ TagHelper.ButtonType.ToClassName()}");
             }
 
-            if (TagHelper.Size != ButtonSize.Default)
+            if (TagHelper.Size != Size.Default)
             {
                 output.AddClass(TagHelper.Size.ToClassName());
             }
+            if (TagHelper.Block)
+            {
+                output.AddClass("btn-block");
+
+            }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="output"></param>
         protected virtual void AddIcon(TagHelperContext context, TagHelperOutput output)
         {
             if (TagHelper.Icon.IsNullOrWhiteSpace())

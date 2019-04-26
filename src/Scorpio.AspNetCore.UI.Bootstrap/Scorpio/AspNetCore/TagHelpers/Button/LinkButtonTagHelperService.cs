@@ -3,8 +3,16 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Scorpio.AspNetCore.TagHelpers.Button
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class LinkButtonTagHelperService : ButtonTagHelperServiceBase<LinkButtonTagHelper>
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="output"></param>
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             base.Process(context, output);
@@ -12,6 +20,11 @@ namespace Scorpio.AspNetCore.TagHelpers.Button
             AddRole(context, output);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="output"></param>
         protected virtual void AddType(TagHelperContext context, TagHelperOutput output)
         {
             if (!output.Attributes.ContainsName("type") &&
@@ -21,6 +34,11 @@ namespace Scorpio.AspNetCore.TagHelpers.Button
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="output"></param>
         protected virtual void AddRole(TagHelperContext context, TagHelperOutput output)
         {
             if (!output.Attributes.ContainsName("role"))

@@ -2,7 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyTitle>Scorpio core library</AssemblyTitle>
   </PropertyGroup>
+  
   <Import Project="$(SolutionDir)/common.props" />
 
   <ItemGroup>

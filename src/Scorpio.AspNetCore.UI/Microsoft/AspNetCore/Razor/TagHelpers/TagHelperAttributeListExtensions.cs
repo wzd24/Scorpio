@@ -9,6 +9,11 @@ namespace Microsoft.AspNetCore.Razor.TagHelpers
     /// </summary>
     public static class TagHelperAttributeListExtensions
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="output"></param>
+        /// <param name="className"></param>
         public static void AddClass(this TagHelperOutput  output, string className)
         {
             if (string.IsNullOrWhiteSpace(className))
@@ -29,7 +34,6 @@ namespace Microsoft.AspNetCore.Razor.TagHelpers
             {
                 return;
             }
-
             output.RemoveClass(className, NullHtmlEncoder.Default);
         }
 

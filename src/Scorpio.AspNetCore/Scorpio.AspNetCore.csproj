@@ -17,4 +17,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.1.3" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Microsoft\AspNetCore\" />
+  </ItemGroup>
 </Project>

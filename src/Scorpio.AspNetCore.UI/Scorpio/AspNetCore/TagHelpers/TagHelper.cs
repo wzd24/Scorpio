@@ -55,7 +55,13 @@ namespace Scorpio.AspNetCore.TagHelpers
         /// <returns>A <see cref="Task"/> that on completion updates the <paramref name="output"/>.</returns>
         public virtual Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
+            Process(context, output);
             return Task.CompletedTask;
+        }
+
+        public virtual void Process(TagHelperContext context,TagHelperOutput output)
+        {
+
         }
     }
 }

@@ -3,7 +3,6 @@ using Scorpio.Options;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 using System.Linq;
 using Shouldly;

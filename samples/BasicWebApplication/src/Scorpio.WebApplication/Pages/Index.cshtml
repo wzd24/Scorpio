@@ -8,7 +8,14 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
-<alert type="Primary" dismissible="true">
-   <h2>Test</h2>
-    This is a <a alert-link="" href="#">test</a> alert.
-</alert>
+<carousel id="carouseldemo" indicators="true" controls="true" crossfade="true">
+    <carousel-item is-active="true">
+        <img class="d-block w-100" src="~/images/banner1.svg" alt="First slide">
+    </carousel-item>
+    <carousel-item>
+        <img class="d-block w-100" src="~/images/banner2.svg" alt="Second slide">
+    </carousel-item>
+    <carousel-item>
+        <img class="d-block w-100" src="~/images/banner3.svg" alt="Third slide">
+    </carousel-item>
+</carousel>

@@ -54,23 +54,15 @@ Task("Test")
 	.IsDependentOn("Build")
 	.Does(() =>
 {
-	var files=GetFiles("./test/**/*.csproj");
-	foreach (var item in files)
-	{
-		DotNetCoreTest(item.FullPath,new DotNetCoreTestSettings{Configuration=configuration});
-	}
+		DotNetCoreTest(solution,new DotNetCoreTestSettings{Configuration=configuration});
 });
 
 Task("Package")
     .IsDependentOn("Test")
-    .WithCriteria(() => branch == "master" && isRelease)
+    // .WithCriteria(() => branch == "master" && isRelease)
     .Does(()=>
     {
-    	var files=GetFiles("./src/**/*.csproj");
-		foreach (var item in files)
-		{
-			DotNetCorePack(item.FullPath, NUGET_PACK_SETTINGS);
-		}
+			DotNetCorePack(solution, NUGET_PACK_SETTINGS);
     });
 
 	Task("Publish")

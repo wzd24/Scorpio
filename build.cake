@@ -59,7 +59,7 @@ Task("Test")
 
 Task("Package")
     .IsDependentOn("Test")
-    // .WithCriteria(() => branch == "master" && isRelease)
+    .WithCriteria(() => branch == "master" && isRelease)
     .Does(()=>
     {
 			DotNetCorePack(solution, NUGET_PACK_SETTINGS);

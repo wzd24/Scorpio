@@ -4,6 +4,9 @@ using Scorpio.DependencyInjection;
 
 namespace Scorpio.AspNetCore.TagHelpers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface ITagHelperService
     {
 

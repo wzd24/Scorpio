@@ -11,12 +11,10 @@ namespace Scorpio.EventBus.Conventional
 {
     class EventHandlerConventionalAction : ConventionalActionBase
     {
-        private readonly Assembly _assembly;
         private readonly List<Type> _types;
 
         public EventHandlerConventionalAction(IConventionalConfiguration configuration,Assembly assembly) : base(configuration)
         {
-            _assembly = assembly;
             _types = assembly.GetTypes().Where(t => t.IsClass && !t.IsAbstract && !t.IsGenericTypeDefinition).ToList();
         }
 

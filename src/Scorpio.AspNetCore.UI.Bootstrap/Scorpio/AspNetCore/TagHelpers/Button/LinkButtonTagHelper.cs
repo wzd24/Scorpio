@@ -2,6 +2,9 @@
 
 namespace Scorpio.AspNetCore.TagHelpers.Button
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [HtmlTargetElement("a", Attributes = "button", TagStructure = TagStructure.NormalOrSelfClosing)]
     [HtmlTargetElement("input", Attributes = "button", TagStructure = TagStructure.WithoutEndTag)]
     public class LinkButtonTagHelper : TagHelper<LinkButtonTagHelper, LinkButtonTagHelperService>, IButtonTagHelperBase

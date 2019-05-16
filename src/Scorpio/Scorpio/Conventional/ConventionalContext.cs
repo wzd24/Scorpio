@@ -12,7 +12,7 @@ namespace Scorpio.Conventional
 
         public Expression<Predicate<Type>> TypePredicate { get; private set; }
 
-        private Dictionary<string, object> _items = new Dictionary<string, object>();
+        private readonly Dictionary<string, object> _items = new Dictionary<string, object>();
 
         public ConventionalContext(IServiceCollection services)
         {

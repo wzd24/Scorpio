@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Scorpio.Authorization.Permissions
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class PermissionNotFondException : ScorpioException
     {
         /// <summary>

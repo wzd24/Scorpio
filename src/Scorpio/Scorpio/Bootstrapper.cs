@@ -23,6 +23,9 @@ namespace Scorpio
         /// <summary>
         /// 
         /// </summary>
+        /// <localize>
+        /// 
+        /// </localize>
         public Type StartupModuleType { get; }
 
         private readonly BootstrapperCreationOptions _options;
@@ -198,7 +201,7 @@ namespace Scorpio
 
 
         #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
+        private bool _disposedValue = false; // To detect redundant calls
 
         /// <summary>
         /// 
@@ -206,7 +209,7 @@ namespace Scorpio
         /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!_disposedValue)
             {
                 if (disposing)
                 {
@@ -217,7 +220,7 @@ namespace Scorpio
                 // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
                 // TODO: set large fields to null.
 
-                disposedValue = true;
+                _disposedValue = true;
             }
         }
 

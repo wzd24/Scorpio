@@ -59,6 +59,11 @@ namespace Scorpio.AspNetCore.TagHelpers
             return Task.CompletedTask;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="output"></param>
         public virtual void Process(TagHelperContext context,TagHelperOutput output)
         {
 

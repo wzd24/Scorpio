@@ -63,7 +63,7 @@ namespace Scorpio.DependencyInjection.Conventional
         /// <returns></returns>
         public static IConventionalContext AsDefault(this IConventionalContext context)
         {
-            context.As(new DefaultInterfaceSelector((context as ConventionalContext).Services));
+            context.As(new DefaultInterfaceSelector());
             return context;
         }
 

@@ -35,8 +35,7 @@ namespace Scorpio.Domain.Repositories
         public static IEfCoreRepository<TEntity, TKey> ToEfCoreRepository<TEntity, TKey>(this IBasicRepository<TEntity, TKey> repository)
             where TEntity : class, IEntity<TKey>
         {
-            var efCoreRepository = repository as IEfCoreRepository<TEntity, TKey>;
-            if (efCoreRepository == null)
+            if (!(repository is IEfCoreRepository<TEntity, TKey> efCoreRepository))
             {
                 throw new ArgumentException("Given repository does not implement " + typeof(IEfCoreRepository<TEntity, TKey>).AssemblyQualifiedName, nameof(repository));
             }

@@ -14,11 +14,17 @@ namespace Scorpio.Auditing
     [DependsOn(typeof(TimingModule))]
     public sealed class AuditingModule: ScorpioModule
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
         public override void PreConfigureServices(ConfigureServicesContext context)
         {
             context.Services.AddOptions<AuditingOptions>();
             base.PreConfigureServices(context);
-        }       /// <summary>
+        }  
+        
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="context"></param>

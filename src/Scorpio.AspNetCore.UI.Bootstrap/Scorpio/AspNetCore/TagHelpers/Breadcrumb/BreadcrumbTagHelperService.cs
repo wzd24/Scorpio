@@ -38,12 +38,23 @@ namespace Scorpio.AspNetCore.TagHelpers.Breadcrumb
             SetInnerList(context, output, list);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="output"></param>
         protected virtual void SetInnerOlTag(TagHelperContext context, TagHelperOutput output)
         {
             output.PreContent.SetHtmlContent("<ol class=\"breadcrumb\">");
             output.PostContent.SetHtmlContent("</ol>");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="output"></param>
+        /// <param name="list"></param>
         protected virtual void SetInnerList(TagHelperContext context, TagHelperOutput output, List<BreadcrumbItem> list)
         {
             SetLastOneActiveIfThereIsNotAny(context, output, list);
@@ -71,6 +82,12 @@ namespace Scorpio.AspNetCore.TagHelpers.Breadcrumb
             return context.InitValue<List<BreadcrumbItem>>(BreadcrumbItemsContent);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="output"></param>
+        /// <param name="list"></param>
         protected virtual void SetLastOneActiveIfThereIsNotAny(TagHelperContext context, TagHelperOutput output, List<BreadcrumbItem> list)
         {
             if (list.Count > 0 && !list.Any(bc => bc.Active))

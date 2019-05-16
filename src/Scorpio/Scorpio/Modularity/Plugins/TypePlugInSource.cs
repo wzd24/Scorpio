@@ -6,7 +6,7 @@ namespace Scorpio.Modularity.Plugins
 {
     internal class TypePlugInSource : IPlugInSource
     {
-        private Type[] _moduleTypes;
+        private readonly Type[] _moduleTypes;
 
         public TypePlugInSource(params Type[] moduleTypes)
         {

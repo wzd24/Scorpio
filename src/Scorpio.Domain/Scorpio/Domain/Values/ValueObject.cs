@@ -79,11 +79,11 @@ namespace Scorpio.Domain.Values
                 if (value == null)
                 {
                     //support {"a",null,null,"a"} != {null,"a","a",null}
-                    hashCode = hashCode ^ (index * 13);
+                    hashCode ^= (index * 13);
                     continue;
                 }
 
-                hashCode = hashCode * (changeMultiplier ? 59 : 114) + value.GetHashCode();
+                hashCode = (hashCode * (changeMultiplier ? 59 : 114)) + value.GetHashCode();
                 changeMultiplier = !changeMultiplier;
             }
 

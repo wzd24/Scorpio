@@ -11,11 +11,9 @@ namespace Scorpio.DependencyInjection.Conventional
     class DefaultInterfaceSelector : IRegisterAssemblyServiceSelector
     {
         public static ICollection<Predicate<Type>> ExcludeServicePredicates { get; } = new HashSet<Predicate<Type>>();
-        private IServiceCollection _services;
 
-        public DefaultInterfaceSelector(IServiceCollection services)
+        public DefaultInterfaceSelector()
         {
-            this._services = services;
         }
 
         public IEnumerable<Type> Select(Type componentType)

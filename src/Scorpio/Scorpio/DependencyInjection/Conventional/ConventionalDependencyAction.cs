@@ -11,13 +11,11 @@ namespace Scorpio.DependencyInjection.Conventional
 {
     class ConventionalDependencyAction : ConventionalActionBase
     {
-        private readonly Assembly _assembly;
         private readonly List<Type> _types;
 
         
         public ConventionalDependencyAction(IConventionalConfiguration configuration, Assembly assembly) : base(configuration)
         {
-            _assembly = assembly;
             _types = assembly.GetTypes().Where(t => t.IsClass && !t.IsAbstract && !t.IsGenericTypeDefinition).ToList();
         }
 

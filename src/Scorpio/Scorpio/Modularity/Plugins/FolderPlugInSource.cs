@@ -10,8 +10,8 @@ namespace Scorpio.Modularity.Plugins
 {
     internal class FolderPlugInSource : IPlugInSource
     {
-        private string _path;
-        private SearchOption _searchOption;
+        private readonly string _path;
+        private readonly SearchOption _searchOption;
 
         public Func<string, bool> Filter { get; set; }
 

@@ -7,11 +7,11 @@ namespace Scorpio.Modularity.Plugins
 {
     internal class FilePlugInSource : IPlugInSource
     {
-        private string[] _filePaths;
+        private readonly string[] _filePaths;
 
         public FilePlugInSource(params string[] filePaths)
         {
-            this._filePaths = filePaths;
+            _filePaths = filePaths;
         }
 
         public Type[] GetModules()

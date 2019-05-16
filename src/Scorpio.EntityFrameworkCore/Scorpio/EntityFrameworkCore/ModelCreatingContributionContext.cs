@@ -25,6 +25,7 @@ namespace Scorpio.EntityFrameworkCore
         /// 
         /// </summary>
         /// <param name="modelBuilder"></param>
+        /// <param name="entityType"></param>
         public ModelCreatingContributionContext(ModelBuilder modelBuilder, IMutableEntityType entityType)
         {
             ModelBuilder = modelBuilder;

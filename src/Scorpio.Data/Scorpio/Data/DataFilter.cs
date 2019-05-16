@@ -20,7 +20,7 @@ namespace Scorpio.Data
 
         private readonly IServiceProvider _serviceProvider;
 
-        private static MethodInfo _isEnabledMethodInfo = typeof(DataFilter).GetMethods().Single(m => m.Name == nameof(IsEnabled) && m.IsGenericMethodDefinition);
+        private static readonly MethodInfo _isEnabledMethodInfo = typeof(DataFilter).GetMethods().Single(m => m.Name == nameof(IsEnabled) && m.IsGenericMethodDefinition);
         /// <summary>
         /// 
         /// </summary>

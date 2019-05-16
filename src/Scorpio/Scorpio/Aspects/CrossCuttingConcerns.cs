@@ -38,8 +38,7 @@ namespace Scorpio.Aspects
                 throw new ArgumentNullException(nameof(concerns), $"{nameof(concerns)} should be provided!");
             }
 
-            var crossCuttingEnabledObj = obj as IAvoidDuplicateCrossCuttingConcerns;
-            if (crossCuttingEnabledObj == null)
+            if (!(obj is IAvoidDuplicateCrossCuttingConcerns crossCuttingEnabledObj))
             {
                 return;
             }
@@ -93,8 +92,7 @@ namespace Scorpio.Aspects
         /// <returns></returns>
         public static string[] GetApplieds(object obj)
         {
-            var crossCuttingEnabledObj = obj as IAvoidDuplicateCrossCuttingConcerns;
-            if (crossCuttingEnabledObj == null)
+            if (!(obj is IAvoidDuplicateCrossCuttingConcerns crossCuttingEnabledObj))
             {
                 return new string[0];
             }

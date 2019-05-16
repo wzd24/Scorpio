@@ -21,7 +21,7 @@ namespace Scorpio.AspNetCore.TagHelpers
         {
             if (!context.Items.ContainsKey(key))
             {
-                return default(T);
+                return default;
             }
 
             return (T)context.Items[key];

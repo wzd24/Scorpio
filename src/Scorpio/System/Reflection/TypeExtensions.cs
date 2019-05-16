@@ -19,8 +19,15 @@ namespace System.Reflection
         /// or one of its sub-namespaces; otherwise, false.</returns>
         public static bool IsInNamespace(this Type @this, string @namespace)
         {
-            if (@this == null) throw new ArgumentNullException(nameof(@this));
-            if (@namespace == null) throw new ArgumentNullException(nameof(@namespace));
+            if (@this == null)
+            {
+                throw new ArgumentNullException(nameof(@this));
+            }
+
+            if (@namespace == null)
+            {
+                throw new ArgumentNullException(nameof(@namespace));
+            }
 
             return @this.Namespace != null &&
                 (@this.Namespace == @namespace || @this.Namespace.StartsWith(@namespace + ".", StringComparison.Ordinal));
@@ -35,7 +42,10 @@ namespace System.Reflection
         /// or one of its sub-namespaces; otherwise, false.</returns>
         public static bool IsInNamespaceOf<T>(this Type @this)
         {
-            if (@this == null) throw new ArgumentNullException(nameof(@this));
+            if (@this == null)
+            {
+                throw new ArgumentNullException(nameof(@this));
+            }
 
             return IsInNamespace(@this, typeof(T).Namespace);
         }
@@ -62,7 +72,10 @@ namespace System.Reflection
         /// <returns>True if this type is assignable to references of type</returns>
         public static bool IsAssignableTo(this Type @this, Type type)
         {
-            if (@this == null) throw new ArgumentNullException(nameof(@this));
+            if (@this == null)
+            {
+                throw new ArgumentNullException(nameof(@this));
+            }
 
             return type.GetTypeInfo().IsAssignableFrom(@this.GetTypeInfo());
         }

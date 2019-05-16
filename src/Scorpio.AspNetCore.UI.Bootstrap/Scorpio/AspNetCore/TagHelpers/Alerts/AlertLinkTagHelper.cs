@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Scorpio.AspNetCore.TagHelpers.Alerts
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [HtmlTargetElement("a", Attributes = "alert-link", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class AlertLinkTagHelper:TagHelper
     {

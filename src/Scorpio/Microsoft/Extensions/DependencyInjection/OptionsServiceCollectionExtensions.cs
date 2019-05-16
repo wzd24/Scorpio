@@ -8,7 +8,7 @@ namespace Microsoft.Extensions.DependencyInjection
     /// <summary>
     /// 
     /// </summary>
-    public static class OptionsServiceCollectionExtensions
+    public static class ScorpioOptionsServiceCollectionExtensions
     {
         /// <summary>
         /// Gets an options builder that forwards Configure calls for the same <typeparamref name="TOptions"/> to the underlying service collection.
@@ -40,7 +40,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
         /// <summary>
         /// Registers an action used to initialize a particular type of options.
-        /// Note: These are run after all <seealso cref="Configure{TOptions}(IServiceCollection, Action{TOptions})"/>.
+        /// Note: These are run after all <seealso cref="OptionsServiceCollectionExtensions.Configure{TOptions}(IServiceCollection, Action{TOptions})"/>.
         /// </summary>
         /// <typeparam name="TOptions">The options type to be configured.</typeparam>
         /// <param name="services">The <see cref="IServiceCollection"/> to add the services to.</param>
@@ -51,7 +51,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
         /// <summary>
         /// Registers an action used to configure a particular type of options.
-        /// Note: These are run after all <seealso cref="Configure{TOptions}(IServiceCollection, Action{TOptions})"/>.
+        /// Note: These are run after all <seealso cref="OptionsServiceCollectionExtensions.Configure{TOptions}(IServiceCollection, Action{TOptions})"/>.
         /// </summary>
         /// <typeparam name="TOptions">The options type to be configure.</typeparam>
         /// <param name="services">The <see cref="IServiceCollection"/> to add the services to.</param>
@@ -78,7 +78,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
         /// <summary>
         /// Registers an action used to post configure all instances of a particular type of options.
-        /// Note: These are run after all <seealso cref="Configure{TOptions}(IServiceCollection, Action{TOptions})"/>.
+        /// Note: These are run after all <seealso cref="OptionsServiceCollectionExtensions.Configure{TOptions}(IServiceCollection, Action{TOptions})"/>.
         /// </summary>
         /// <typeparam name="TOptions">The options type to be configured.</typeparam>
         /// <param name="services">The <see cref="IServiceCollection"/> to add the services to.</param>

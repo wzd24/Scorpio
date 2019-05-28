@@ -19,21 +19,25 @@ namespace Scorpio.EFConsoleApplication
     {
         public override void ConfigureServices(ConfigureServicesContext context)
         {
-            context.Services.AddScorpioDbContext<DemoDbContext>(b =>
+            context.Services.AddScorpioDbContext<DemoDbContext>(opt=>
             {
+                opt.AddSaveChangeHandler<DemoOnSaveChangeHandler>();
             });
             context.Services.Configure<ScorpioDbContextOptions>(o =>
             {
                 o.Configure(c => c.UseSqlServer());
             });
-            context.Services.AddLogging(l=>l.AddConsole());
-            context.Services.AddSaveChangeHandler<DemoOnSaveChangeHandler>();
-            context.Services.Configure<DbConnectionOptions>(options =>
+            context.Services.Configure<DataFilterOptions>(opts =>
             {
-                options.ConnectionStrings.Default = @"Data Source=(localdb)\ProjectsV13;Initial Catalog=Demo;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+                opts.Configure<ISoftDelete>(c => c.IsEnabled = true);
             });
+            context.Services.AddLogging(l=>l.AddConsole());
             context.Services.RegisterAssemblyByConvention();
-            base.ConfigureServices(context);
         }
+    }
+
+    class SoftDelete : ISoftDelete
+    {
+        public bool IsDeleted { get; set; } = false;
     }
 }

@@ -5,13 +5,15 @@ using Scorpio.EventBus;
 using Scorpio.Modularity;
 using Scorpio.DependencyInjection.Conventional;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Scorpio.EntityFrameworkCore.DependencyInjection;
 namespace Scorpio.EntityFrameworkCore.EventBus
 {
     /// <summary>
     /// 
     /// </summary>
-    [DependsOn(typeof(EventBusModule),typeof(EntityFrameworkCoreModule))]
-    public class EFEventBusModule: ScorpioModule
+    [DependsOn(typeof(EventBusModule), typeof(EntityFrameworkCoreModule))]
+    public class EFEventBusModule : ScorpioModule
     {
         /// <summary>
         /// 
@@ -19,8 +21,11 @@ namespace Scorpio.EntityFrameworkCore.EventBus
         /// <param name="context"></param>
         public override void ConfigureServices(ConfigureServicesContext context)
         {
-            context.Services.RegisterAssemblyByConventionOfType<EFEventBusModule>();
-            context.Services.AddSaveChangeHandler<EventBusSaveChangeHandler>();
+            context.Services.RegisterAssemblyByConvention();
+            context.Services.ScorpioDbContext(b =>
+            {
+                b.AddSaveChangeHandler<EventBusSaveChangeHandler>();
+            });
             base.ConfigureServices(context);
         }
     }

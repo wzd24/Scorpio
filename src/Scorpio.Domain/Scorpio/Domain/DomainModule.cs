@@ -12,7 +12,6 @@ namespace Scorpio.Domain
     /// 
     /// </summary>
     [DependsOn(typeof(UnitOfWorkModule))]
-    [DependsOn(typeof(ThreadingModule))]
     public sealed class DomainModule:ScorpioModule
     {
 

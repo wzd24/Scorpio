@@ -83,6 +83,17 @@ namespace System.Linq.Expressions
             return Expression.Lambda<Func<T, bool>>(Expression.Equal(left, right), parameter);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public static PredicateTranslation<TSource> Translate<TSource>(this Expression<Func<TSource,bool>> predicate)
+        {
+            return new PredicateTranslation<TSource>(predicate);
+        }
+
         class ReplaceExpressionVisitor : ExpressionVisitor
         {
             private readonly Expression _oldValue;
@@ -94,17 +105,95 @@ namespace System.Linq.Expressions
                 _newValue = newValue;
             }
 
-            public override Expression Visit(Expression node)
+            protected override Expression VisitParameter(ParameterExpression node)
             {
                 if (node == _oldValue)
                 {
                     return _newValue;
                 }
+                return base.VisitParameter(node);
+            }
 
-                return base.Visit(node);
+            protected override Expression VisitInvocation(InvocationExpression node)
+            {
+                if (node.Expression==_oldValue && _newValue is LambdaExpression lambda)
+                {
+                    var buiders = lambda.Parameters.Zip(node.Arguments, (p, a) => new ReplaceExpressionVisitor(p, a));
+                    return buiders.Aggregate(lambda.Body, (e, b) => b.Visit(e));
+                }
+                return base.VisitInvocation(node);
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        public sealed class PredicateTranslation<TSource>
+        {
+            private readonly Expression<Func<TSource, bool>> _predicate;
 
+            internal PredicateTranslation(Expression<Func<TSource,bool>> predicate)
+            {
+                this._predicate = predicate;
+            }
+
+            /// <summary>
+            /// Translates a given predicate for a given subtype.
+            /// </summary>
+            /// <typeparam name="TTranslatedSource">The type of the translated predicate's parameter.</typeparam>
+            /// <returns>A translated predicate expression.</returns>
+            public Expression<Func<TTranslatedSource, bool>> To<TTranslatedSource>()
+            {
+                var s = _predicate.Parameters[0];
+                var t = Expression.Parameter(typeof(TTranslatedSource), s.Name);
+
+                var binder = new ReplaceExpressionVisitor(s, t);
+
+                return Expression.Lambda<Func<TTranslatedSource, bool>>(
+                    binder.Visit(_predicate.Body), t);
+            }
+
+            /// <summary>
+            /// Translates a given predicate for a given related type.
+            /// </summary>
+            /// <typeparam name="TTranslatedSource">The type of the translated predicate's parameter.</typeparam>
+            /// <param name="path">The path from the desired type to the given type.</param>
+            /// <returns>A translated predicate expression.</returns>
+            public Expression<Func<TTranslatedSource, bool>> To<TTranslatedSource>(Expression<Func<TTranslatedSource, TSource>> path)
+            {
+                if (path == null)
+                    throw new ArgumentNullException(nameof(path));
+
+                var s = _predicate.Parameters[0];
+                var t = path.Parameters[0];
+
+                var binder = new ReplaceExpressionVisitor(s, path.Body);
+
+                return Expression.Lambda<Func<TTranslatedSource, bool>>(
+                    binder.Visit(_predicate.Body), t);
+            }
+
+            /// <summary>
+            /// Translates a given predicate for a given related type.
+            /// </summary>
+            /// <typeparam name="TTranslatedSource">The type of the translated predicate's parameter.</typeparam>
+            /// <param name="translation">The translation from the desired type to the given type,
+            /// using the initially given predicate to be injected into a new predicate.</param>
+            /// <returns>A translated predicate expression.</returns>
+            public Expression<Func<TTranslatedSource, bool>> To<TTranslatedSource>(Expression<Func<TTranslatedSource, Func<TSource, bool>, bool>> translation)
+            {
+                if (translation == null)
+                    throw new ArgumentNullException(nameof(translation));
+
+                var t = translation.Parameters[0];
+                var s = translation.Parameters[1];
+
+                var binder = new ReplaceExpressionVisitor(s, _predicate);
+
+                return Expression.Lambda<Func<TTranslatedSource, bool>>(
+                    binder.Visit(translation.Body), t);
+            }
+        }
     }
 }

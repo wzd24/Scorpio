@@ -8,7 +8,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Scorpio.Auditing\Scorpio.Auditing.csproj" />
     <ProjectReference Include="..\Scorpio.Authorization\Scorpio.Authorization.csproj" />
-    <ProjectReference Include="..\Scorpio.Security\Scorpio.Security.csproj" />
     <ProjectReference Include="..\Scorpio.Threading\Scorpio.Threading.csproj" />
     <ProjectReference Include="..\Scorpio.Uow\Scorpio.Uow.csproj" />
     <ProjectReference Include="..\Scorpio\Scorpio.csproj" />

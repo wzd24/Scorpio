@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+
 using Scorpio.Domain.Entities;
 using Scorpio.Domain.Repositories;
 using System;

@@ -1,4 +1,5 @@
-﻿using Scorpio.Domain.Entities;
+﻿
+using Scorpio.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;

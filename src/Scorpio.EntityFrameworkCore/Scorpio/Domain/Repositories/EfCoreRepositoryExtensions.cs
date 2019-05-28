@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+
 using Scorpio.Domain.Entities;
 using Scorpio.Domain.Repositories.EntityFrameworkCore;
 using System;

@@ -63,7 +63,6 @@ namespace Scorpio.Uow
             var options = new UnitOfWorkOptions();
             _defaultOptions.Normalize(options);
             _optionsAttribute?.Normalize(options);
-            options.IsTransactional = options.IsTransactional ?? !context.ImplementationMethod.Name.StartsWith("Get", StringComparison.InvariantCultureIgnoreCase);
             return options;
         }
     }

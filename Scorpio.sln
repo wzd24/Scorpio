@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{C57152EE-7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Tests", "test\Scorpio.Tests\Scorpio.Tests.csproj", "{1D88283C-6332-461E-8DBA-B083996FF56E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B1896A57-F552-433A-9ADC-056685517601}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{79CB1E28-1468-4DE5-831E-1C09E014CE37}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
@@ -20,6 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		build.ps1 = build.ps1
 		common.props = common.props
 		Directory.Build.props = Directory.Build.props
+		test\Directory.Build.props = test\Directory.Build.props
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
@@ -104,8 +105,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.WebApplication", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Authorization", "src\Scorpio.Authorization\Scorpio.Authorization.csproj", "{E301E546-2D11-4310-90BD-3AAB788E15EC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Security", "src\Scorpio.Security\Scorpio.Security.csproj", "{4E792029-BDB9-47D8-829F-E7F62F482EC4}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.ObjectMapping", "src\Scorpio.ObjectMapping\Scorpio.ObjectMapping.csproj", "{DAC64C2A-478B-45ED-BF14-0E78889C0ABD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Settings", "src\Scorpio.Settings\Scorpio.Settings.csproj", "{EFCC4875-484A-40F4-9199-0B452303F711}"
@@ -122,7 +121,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.AspNetCore.UI.Boots
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{79CB1E28-1468-4DE5-831E-1C09E014CE37}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		appveyor.yml = appveyor.yml
+		build.cake = build.cake
+		build.ps1 = build.ps1
+		common.props = common.props
+		Directory.Build.props = Directory.Build.props
 		test\Directory.Build.props = test\Directory.Build.props
+		LICENSE = LICENSE
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global
@@ -531,18 +539,6 @@ Global
 		{E301E546-2D11-4310-90BD-3AAB788E15EC}.Release|x64.Build.0 = Release|Any CPU
 		{E301E546-2D11-4310-90BD-3AAB788E15EC}.Release|x86.ActiveCfg = Release|Any CPU
 		{E301E546-2D11-4310-90BD-3AAB788E15EC}.Release|x86.Build.0 = Release|Any CPU
-		{4E792029-BDB9-47D8-829F-E7F62F482EC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E792029-BDB9-47D8-829F-E7F62F482EC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4E792029-BDB9-47D8-829F-E7F62F482EC4}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{4E792029-BDB9-47D8-829F-E7F62F482EC4}.Debug|x64.Build.0 = Debug|Any CPU
-		{4E792029-BDB9-47D8-829F-E7F62F482EC4}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{4E792029-BDB9-47D8-829F-E7F62F482EC4}.Debug|x86.Build.0 = Debug|Any CPU
-		{4E792029-BDB9-47D8-829F-E7F62F482EC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4E792029-BDB9-47D8-829F-E7F62F482EC4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4E792029-BDB9-47D8-829F-E7F62F482EC4}.Release|x64.ActiveCfg = Release|Any CPU
-		{4E792029-BDB9-47D8-829F-E7F62F482EC4}.Release|x64.Build.0 = Release|Any CPU
-		{4E792029-BDB9-47D8-829F-E7F62F482EC4}.Release|x86.ActiveCfg = Release|Any CPU
-		{4E792029-BDB9-47D8-829F-E7F62F482EC4}.Release|x86.Build.0 = Release|Any CPU
 		{DAC64C2A-478B-45ED-BF14-0E78889C0ABD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DAC64C2A-478B-45ED-BF14-0E78889C0ABD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAC64C2A-478B-45ED-BF14-0E78889C0ABD}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -673,7 +669,6 @@ Global
 		{DF1358A2-C3D0-4095-8EE7-D569BFFF70AF} = {8B65864F-AA6D-41C7-A898-9481DEE14175}
 		{E5B035C9-F7B5-4399-B73A-0C1357989A12} = {DF1358A2-C3D0-4095-8EE7-D569BFFF70AF}
 		{E301E546-2D11-4310-90BD-3AAB788E15EC} = {E1A4E891-22ED-4AB6-B1E7-3B1CC4D5BB35}
-		{4E792029-BDB9-47D8-829F-E7F62F482EC4} = {E1A4E891-22ED-4AB6-B1E7-3B1CC4D5BB35}
 		{DAC64C2A-478B-45ED-BF14-0E78889C0ABD} = {E1A4E891-22ED-4AB6-B1E7-3B1CC4D5BB35}
 		{EFCC4875-484A-40F4-9199-0B452303F711} = {E1A4E891-22ED-4AB6-B1E7-3B1CC4D5BB35}
 		{DA32A8A6-FB50-47AB-A375-1847E4CF785D} = {E1A4E891-22ED-4AB6-B1E7-3B1CC4D5BB35}

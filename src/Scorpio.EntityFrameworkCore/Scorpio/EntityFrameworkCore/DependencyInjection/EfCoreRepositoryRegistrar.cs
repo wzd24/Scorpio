@@ -1,4 +1,5 @@
-﻿using Scorpio.Domain.Entities;
+﻿
+using Scorpio.Domain.Entities;
 using Scorpio.Domain.Repositories.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

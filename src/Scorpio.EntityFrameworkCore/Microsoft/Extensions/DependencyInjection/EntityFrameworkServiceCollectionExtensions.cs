@@ -16,6 +16,17 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <summary>
         /// 
         /// </summary>
+        /// <typeparam name="TDbContext"></typeparam>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddScorpioDbContext<TDbContext>(this IServiceCollection services)
+            where TDbContext : ScorpioDbContext<TDbContext>
+        {
+            return services.AddScorpioDbContext<TDbContext>(b => { });
+        }
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="services"></param>
         /// <param name="builderAction"></param>
         /// <returns></returns>
@@ -36,14 +47,16 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <summary>
         /// 
         /// </summary>
-        /// <typeparam name="THandler"></typeparam>
         /// <param name="services"></param>
+        /// <param name="builderAction"></param>
         /// <returns></returns>
-        public static IServiceCollection AddSaveChangeHandler<THandler>(this IServiceCollection services)
-            where THandler : class, IOnSaveChangeHandler
+        public static IServiceCollection ScorpioDbContext(this IServiceCollection services,
+            Action<IScorpioDbContextOptionsBuilder> builderAction)
         {
-            services.TryAddEnumerable(ServiceDescriptor.Transient<IOnSaveChangeHandler, THandler>());
+            var options = new ScorpioDbContextOptionsBuilder(services);
+            builderAction?.Invoke(options);
             return services;
         }
+
     }
 }

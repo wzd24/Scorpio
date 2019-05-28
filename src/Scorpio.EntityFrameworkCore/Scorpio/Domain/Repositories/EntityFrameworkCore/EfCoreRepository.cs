@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+
 using Scorpio.Domain.Entities;
 using Scorpio.EntityFrameworkCore;
 using System;

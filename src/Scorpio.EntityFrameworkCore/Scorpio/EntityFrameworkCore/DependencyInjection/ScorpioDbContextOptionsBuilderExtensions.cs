@@ -6,6 +6,8 @@ using Scorpio.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Scorpio.EntityFrameworkCore.DependencyInjection
 {
@@ -20,8 +22,8 @@ namespace Scorpio.EntityFrameworkCore.DependencyInjection
         /// <typeparam name="TDbContext"></typeparam>
         /// <param name="optionsBuilder"></param>
         /// <param name="defaultRepositoryType"></param>
-        public static IScorpioDbContextOptionsBuilder<TDbContext> SetDefaultRepository<TDbContext> (this IScorpioDbContextOptionsBuilder<TDbContext> optionsBuilder,Type defaultRepositoryType)
-            where TDbContext:ScorpioDbContext<TDbContext>
+        public static IScorpioDbContextOptionsBuilder<TDbContext> SetDefaultRepository<TDbContext>(this IScorpioDbContextOptionsBuilder<TDbContext> optionsBuilder, Type defaultRepositoryType)
+            where TDbContext : ScorpioDbContext<TDbContext>
         {
             if (!defaultRepositoryType.IsAssignableTo(typeof(IRepository<>)))
             {
@@ -41,7 +43,7 @@ namespace Scorpio.EntityFrameworkCore.DependencyInjection
         /// <param name="optionsBuilder"></param>
         /// <param name="optionsAction"></param>
         /// <returns></returns>
-        public static IScorpioDbContextOptionsBuilder<TDbContext> UseOptions<TDbContext>(this IScorpioDbContextOptionsBuilder<TDbContext>  optionsBuilder,Action<DbContextOptionsBuilder<TDbContext>> optionsAction)
+        public static IScorpioDbContextOptionsBuilder<TDbContext> UseOptions<TDbContext>(this IScorpioDbContextOptionsBuilder<TDbContext> optionsBuilder, Action<DbContextOptionsBuilder<TDbContext>> optionsAction)
                where TDbContext : ScorpioDbContext<TDbContext>
         {
             if (optionsBuilder is ScorpioDbContextOptionsBuilder<TDbContext> builder)
@@ -71,10 +73,26 @@ namespace Scorpio.EntityFrameworkCore.DependencyInjection
         /// <param name="optionsBuilder"></param>
         /// <param name="memoryCache"></param>
         /// <returns></returns>
-        public static IScorpioDbContextOptionsBuilder<TDbContext> UseMemoryCache<TDbContext>(this IScorpioDbContextOptionsBuilder<TDbContext> optionsBuilder, IMemoryCache  memoryCache)
+        public static IScorpioDbContextOptionsBuilder<TDbContext> UseMemoryCache<TDbContext>(this IScorpioDbContextOptionsBuilder<TDbContext> optionsBuilder, IMemoryCache memoryCache)
        where TDbContext : ScorpioDbContext<TDbContext>
         {
             return optionsBuilder.UseOptions(b => b.UseMemoryCache(memoryCache));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="THandler"></typeparam>
+        /// <param name="optionsBuilder"></param>
+        /// <returns></returns>
+        public static IScorpioDbContextOptionsBuilder AddSaveChangeHandler<THandler>(this IScorpioDbContextOptionsBuilder optionsBuilder)
+                        where THandler : class, IOnSaveChangeHandler
+        {
+            if (optionsBuilder is ScorpioDbContextOptionsBuilder builder)
+            {
+                builder.Services.TryAddEnumerable(ServiceDescriptor.Transient<IOnSaveChangeHandler, THandler>());
+            }
+            return optionsBuilder;
         }
     }
 }

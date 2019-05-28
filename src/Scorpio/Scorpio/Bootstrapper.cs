@@ -71,12 +71,18 @@ namespace Scorpio
         protected Bootstrapper(Type startupModuleType, IServiceCollection services, IConfiguration configuration, Action<BootstrapperCreationOptions> optionsAction)
         {
             Services = services;
-            Configuration = configuration;
             StartupModuleType = startupModuleType;
             Properties = new Dictionary<string, object>();
             _options = new BootstrapperCreationOptions(services);
             ModuleLoader = new ModuleLoader();
             optionsAction(_options);
+            var configBuilder = new ConfigurationBuilder();
+            if (configuration != null)
+            {
+                configBuilder.AddConfiguration(configuration);
+            }
+            _options.ConfigurationActions.ForEach(a => a(configBuilder));
+            this.Configuration = configBuilder.Build();
             ConfigureCoreService(services);
             Modules = LoadModules();
             ConfigureServices();
@@ -174,7 +180,9 @@ namespace Scorpio
                 throw new ArgumentException($"{nameof(startupModuleType)} should be derived from {typeof(IScorpioModule)}");
             }
             var services = new ServiceCollection();
-            var bootstrapper = new InternalBootstrapper(startupModuleType, services, null, optionsAction);
+            var configBuilder = new ConfigurationBuilder();
+            var config = configBuilder.Build();
+            var bootstrapper = new InternalBootstrapper(startupModuleType, services, config, optionsAction);
             bootstrapper.SetServiceProvider(services.BuildAspectInjectorProvider());
             return bootstrapper;
         }
@@ -186,7 +194,7 @@ namespace Scorpio
         /// <returns></returns>
         public static IBootstrapper Create(Type startupModuleType)
         {
-            return Create(startupModuleType, o => { });
+            return Create(startupModuleType, o => {});
         }
 
         /// <summary>

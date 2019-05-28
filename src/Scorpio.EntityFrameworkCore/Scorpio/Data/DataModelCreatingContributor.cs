@@ -36,7 +36,7 @@ namespace Scorpio.Data
             {
                 context.ModelBuilder.Entity<TEntity>(e =>
                 {
-                    e.Property(x => ((ISoftDelete)x).IsDeleted).IsRequired().HasColumnName(nameof(ISoftDelete.IsDeleted));
+                    e.Property(x => ((ISoftDelete)x).IsDeleted).IsRequired().HasColumnName(nameof(ISoftDelete.IsDeleted)).HasDefaultValue(false);
                 });
             }
         }

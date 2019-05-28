@@ -8,7 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Scorpio.Uow;
 using Scorpio.Data;
-
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 namespace Scorpio.EntityFrameworkCore
 {
     /// <summary>
@@ -31,6 +32,7 @@ namespace Scorpio.EntityFrameworkCore
                     warnings => warnings.Ignore(CoreEventId.LazyLoadOnDisposedContextWarning)
                     ));
             });
+            context.Services.Configure<DbConnectionOptions>(context.Configuration);
         }
         /// <summary>
         /// 
@@ -42,7 +44,7 @@ namespace Scorpio.EntityFrameworkCore
             context.Services.AddTransient<IOnSaveChangeHandlersFactory, OnSaveChangeHandlersFactory>();
             context.Services.AddTransient<IEfTransactionStrategy, UnitOfWorkEfTransactionStrategy>();
             context.Services.AddTransient(typeof(IDbContextProvider<>), typeof(UnitOfWorkDbContextProvider<>));
-            context.Services.RegisterAssemblyByConventionOfType<EntityFrameworkCoreModule>();
+            context.Services.RegisterAssemblyByConvention();
             base.ConfigureServices(context);
         }
     }

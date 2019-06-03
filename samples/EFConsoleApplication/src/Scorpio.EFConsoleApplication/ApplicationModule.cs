@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging.Console;
 namespace Scorpio.EFConsoleApplication
 {
     [DependsOn(typeof(EntityFrameworkCoreModule))]
+    [DependsOn(typeof(Application.ApplicationModule))]
     public sealed class ApplicationModule: ScorpioModule
     {
         public override void ConfigureServices(ConfigureServicesContext context)
@@ -26,6 +27,10 @@ namespace Scorpio.EFConsoleApplication
             context.Services.Configure<ScorpioDbContextOptions>(o =>
             {
                 o.Configure(c => c.UseSqlServer());
+            });
+            context.Services.Configure<DbConnectionOptions>(opt =>
+            {
+                opt.ConnectionStrings.Default = "Data Source=(localdb)\\ProjectsV13;Initial Catalog=Demo;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             });
             context.Services.Configure<DataFilterOptions>(opts =>
             {

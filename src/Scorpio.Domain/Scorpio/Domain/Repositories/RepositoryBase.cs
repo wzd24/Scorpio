@@ -39,7 +39,7 @@ namespace Scorpio.Domain.Repositories
         {
             return GetQueryable();
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -96,6 +96,35 @@ namespace Scorpio.Domain.Repositories
             return Task.CompletedTask;
         }
 
+        public virtual void Update(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TEntity>> updateExpression, bool autoSave = false)
+        {
+            foreach (var entity in GetQueryable().Where(predicate).ToList())
+            {
+                SetValue(entity, updateExpression);
+                Update(entity, autoSave);
+            }
+        }
+
+        private void SetValue(TEntity entity, Expression<Func<TEntity, TEntity>> updateExpression)
+        {
+            var body = updateExpression.Body as MemberInitExpression;
+            var members = body.Bindings.Cast<MemberAssignment>().Select(a => new
+            {
+                a.Member.Name,
+                Value=Expression.Lambda(a.Expression).Compile().DynamicInvoke()
+            });
+            var type = typeof(TEntity);
+            members.ForEach(m =>
+            {
+                type.GetProperty(m.Name).SetValue(entity, m.Value);
+            });
+        }
+
+        public virtual Task UpdateAsync(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TEntity>> updateExpression, bool autoSave = false, CancellationToken cancellationToken = default)
+        {
+            Update(predicate, updateExpression);
+            return Task.CompletedTask;
+        }
     }
 
     /// <summary>
@@ -115,7 +144,7 @@ namespace Scorpio.Domain.Repositories
         public virtual TEntity Find(TKey id, bool includeDetails = true)
         {
             return includeDetails
-                ? WithDetails().FirstOrDefault( EntityHelper.CreateEqualityExpressionForId<TEntity, TKey>(id))
+                ? WithDetails().FirstOrDefault(EntityHelper.CreateEqualityExpressionForId<TEntity, TKey>(id))
                 : GetQueryable().FirstOrDefault(EntityHelper.CreateEqualityExpressionForId<TEntity, TKey>(id));
         }
 

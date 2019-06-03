@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Scorpio.Data;
 using Microsoft.Extensions.Configuration;
+using Scorpio.Application.Dtos;
+
 namespace Scorpio.EFConsoleApplication
 {
     class Program
@@ -19,63 +21,22 @@ namespace Scorpio.EFConsoleApplication
             }))
             {
                 bootstrapper.Initialize();
-                var uowm = bootstrapper.ServiceProvider.GetService<Uow.IUnitOfWorkManager>();
-                using (var uow = uowm.Begin())
+                var service = bootstrapper.ServiceProvider.GetRequiredService<IUserService>();
+                //service.Create(new UserDto
+                //{
+                //    Name = "宋八",
+                //    Age = 34,
+                //});
+
+                service.Delete(u=>u.Id==5);
+                var request = new ListRequest<UserDto>().Sort("ID desc").Where("ID<@0",7);
+                using (bootstrapper.ServiceProvider.GetRequiredService<IDataFilter<ISoftDelete>>().Disable())
                 {
-                    var repo = bootstrapper.ServiceProvider.GetService<Domain.Repositories.IRepository<User>>();
-                    foreach (var item in repo)
+                    foreach (var item in service.GetList(request))
                     {
-                        Console.WriteLine(item.Name);
+                        Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(item));
                     }
-                    foreach (var item in repo)
-                    {
-                        Console.WriteLine(item.Name);
-                    }
-                    //    using (var uow2 = uowm.Begin(System.Transactions.TransactionScopeOption.RequiresNew))
-                    //    {
-                    //    //    repo.Insert(new User
-                    //    //    {
-                    //    //        Name = "李四",
-                    //    //        Age = 48,
-                    //    //    });
-                    //    //    uow2.Complete();
-                    //    //}
-                    //    //using (var uow2 = uowm.Begin(System.Transactions.TransactionScopeOption.RequiresNew))
-                    //    //{
-                    //    //    repo.Insert(new User
-                    //    //    {
-                    //    //        Name = "王五",
-                    //    //        Age = 24,
-                    //    //    });
-                    //    //}
-                    //    //repo.Insert(new User
-                    //    //{
-                    //    //    Name = "张三",
-                    //    //    Age = 22,
-                    //    //});
-                    //    //uow.Complete();
-
-                    //    //Console.WriteLine(repo.GetCount());
-                    //    //using (var dis = bootstrapper.ServiceProvider.GetService<Data.IDataFilter>().Disable<Data.ISoftDelete>())
-                    //    //{
-                    //    //    Console.WriteLine(repo.GetCount());
-                    //    //    //Console.WriteLine(repo.GetList().FirstOrDefault()?.Name);
-                    //    //    //Console.WriteLine(repo.GetList().LastOrDefault()?.Name);
-
-                    //    //}
-                    //repo.Insert(new User
-                    //{
-                    //    Name = "张三",
-                    //    Age = 48,
-                    //    IsDeleted = true,
-                    //});
-                    //    //Console.WriteLine(repo.GetCount());
-                    //    //Console.WriteLine(repo.GetList().FirstOrDefault()?.Name);
-                    //    //Console.WriteLine(repo.GetList().LastOrDefault()?.Name);
-                    uow.Complete();
                 }
-                //bootstrapper.ServiceProvider.GetRequiredService<ILogger<Program>>().LogInformation($"record(s) count:{repo.GetCount()}");
-                //}
             }
         }
     }

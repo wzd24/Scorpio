@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyTitle>Scorpio application library</AssemblyTitle>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)/common.props" />
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.1.0" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.15" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Scorpio.Domain\Scorpio.Domain.csproj" />
+    <ProjectReference Include="..\Scorpio\Scorpio.csproj" />
+  </ItemGroup>
+
+</Project>

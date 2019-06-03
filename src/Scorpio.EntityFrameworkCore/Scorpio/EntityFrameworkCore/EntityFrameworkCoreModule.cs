@@ -10,6 +10,9 @@ using Scorpio.Uow;
 using Scorpio.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using Scorpio.Linq;
+using Scorpio.Guids;
+using Scorpio.EntityFrameworkCore.DependencyInjection;
 namespace Scorpio.EntityFrameworkCore
 {
     /// <summary>
@@ -17,6 +20,7 @@ namespace Scorpio.EntityFrameworkCore
     /// </summary>
     [DependsOn(typeof(DomainModule))]
     [DependsOn(typeof(DataModule))]
+    [DependsOn(typeof(GuidsModule))]
     public sealed class EntityFrameworkCoreModule : ScorpioModule
     {
         /// <summary>
@@ -40,10 +44,15 @@ namespace Scorpio.EntityFrameworkCore
         /// <param name="context"></param>
         public override void ConfigureServices(ConfigureServicesContext context)
         {
+            context.Services.ScorpioDbContext(builder =>
+            {
+                builder.AddSaveChangeHandler<SoftDeleteSaveChangeHandler>();
+            });
             context.Services.ReplaceTransient<IUnitOfWork, EfUnitOfWork>();
             context.Services.AddTransient<IOnSaveChangeHandlersFactory, OnSaveChangeHandlersFactory>();
             context.Services.AddTransient<IEfTransactionStrategy, UnitOfWorkEfTransactionStrategy>();
             context.Services.AddTransient(typeof(IDbContextProvider<>), typeof(UnitOfWorkDbContextProvider<>));
+            context.Services.ReplaceSingleton<IAsyncQueryableExecuter, EntityFrameworkCoreAsyncQueryableExecuter>();
             context.Services.RegisterAssemblyByConvention();
             base.ConfigureServices(context);
         }

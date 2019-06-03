@@ -18,24 +18,10 @@ namespace Scorpio.Linq
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="queryable"></param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<int> CountAsync<T>(IQueryable<T> queryable);
+        Task<int> CountAsync<T>(IQueryable<T> queryable,CancellationToken cancellationToken= default);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="queryable"></param>
-        /// <returns></returns>
-        Task<List<T>> ToListAsync<T>(IQueryable<T> queryable);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="queryable"></param>
-        /// <returns></returns>
-        Task<T> FirstOrDefaultAsync<T>(IQueryable<T> queryable);
 
         /// <summary>
         /// 
@@ -44,6 +30,24 @@ namespace Scorpio.Linq
         /// <param name="queryable"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<T> FirstOrDefaultAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken);
+        Task<List<T>> ToListAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="queryable"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<T> FirstOrDefaultAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <param name="sources"></param>
+        /// <returns></returns>
+        IAsyncEnumerable<TSource> AsAsyncEnumerable<TSource>(IQueryable<TSource> sources);
+
     }
 }

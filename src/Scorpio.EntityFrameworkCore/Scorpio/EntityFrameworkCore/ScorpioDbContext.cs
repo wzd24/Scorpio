@@ -36,7 +36,6 @@ namespace Scorpio.EntityFrameworkCore
         protected ScorpioDbContext(IServiceProvider serviceProvider, DbContextOptions<TDbContext> contextOptions, IOptions<DataFilterOptions> filterOptions)
             : base(serviceProvider, contextOptions, filterOptions)
         {
-
         }
     }
     /// <summary>

@@ -50,6 +50,36 @@ namespace Scorpio.Domain.Repositories
         /// </param>
         /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
         Task DeleteAsync( Expression<Func<TEntity, bool>> predicate, bool autoSave = false, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Update many entities by function.
+        /// Notice that: All entities fits to given predicate are retrieved and updated.
+        /// This may cause major performance problems if there are too many entities with
+        /// given predicate.
+        /// </summary>
+        /// <param name="predicate">A condition to filter entities</param>
+        /// <param name="updateExpression"></param>
+        /// <param name="autoSave">
+        /// Set true to automatically save changes to database.
+        /// This is useful for ORMs / database APIs those only save changes with an explicit method call, but you need to immediately save changes to the database.
+        /// </param>
+        void Update(Expression<Func<TEntity, bool>> predicate,Expression<Func<TEntity,TEntity>> updateExpression, bool autoSave = false );
+
+        /// <summary>
+        /// Updates many entities by function.
+        /// Notice that: All entities fits to given predicate are retrieved and updated.
+        /// This may cause major performance problems if there are too many entities with
+        /// given predicate.
+        /// </summary>
+        /// <param name="predicate">A condition to filter entities</param>
+        /// <param name="updateExpression"></param>
+        /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
+        /// <param name="autoSave">
+        /// Set true to automatically save changes to database.
+        /// This is useful for ORMs / database APIs those only save changes with an explicit method call, but you need to immediately save changes to the database.
+        /// </param>
+        Task UpdateAsync(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TEntity>> updateExpression, bool autoSave = false, CancellationToken cancellationToken = default);
+
     }
 
     /// <summary>

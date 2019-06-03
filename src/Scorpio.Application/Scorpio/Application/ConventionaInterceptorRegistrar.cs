@@ -5,14 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Scorpio.Domain
+namespace Scorpio.Application
 {
     class ConventionaInterceptorRegistrar : IConventionaInterceptorRegistrar
     {
         public void Register(IConventionaInterceptorContext context)
         {
-            context.Add<IRepository,Uow.UnitOfWorkInterceptor>();
-            context.Add<IDomainService, Uow.UnitOfWorkInterceptor>();
+            context.Add<Services.IApplicationService,Uow.UnitOfWorkInterceptor>();
         }
     }
 }

@@ -29,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\src\Scorpio.Application\Scorpio.Application.csproj" />
     <ProjectReference Include="..\..\..\..\src\Scorpio.EntityFrameworkCore\Scorpio.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\..\..\..\src\Scorpio.EntityFrameworkCore.SqlServer\Scorpio.EntityFrameworkCore.SqlServer.csproj" />
   </ItemGroup>

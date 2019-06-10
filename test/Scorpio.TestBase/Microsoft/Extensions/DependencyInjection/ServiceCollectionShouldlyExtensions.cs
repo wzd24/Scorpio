@@ -10,7 +10,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static ServiceDescriptor ShouldContainTransient(this IServiceCollection services, Type serviceType, Type implementationType = null)
         {
-            var serviceDescriptor = services.SingleOrDefault(s => s.ServiceType == serviceType);
+            var serviceDescriptor = services.SingleOrDefault(s => s.ServiceType == serviceType && s.GetImplementationType()==(implementationType??serviceType));
 
             serviceDescriptor.ShouldNotBeNull();
             serviceDescriptor.GetImplementationType().ShouldBe(implementationType ?? serviceType);
@@ -20,7 +20,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public static ServiceDescriptor ShouldContainSingleton(this IServiceCollection services, Type serviceType, Type implementationType = null)
         {
-            var serviceDescriptor = services.SingleOrDefault(s => s.ServiceType == serviceType);
+            var serviceDescriptor = services.SingleOrDefault(s => s.ServiceType == serviceType && s.GetImplementationType() == (implementationType ?? serviceType));
 
             serviceDescriptor.ShouldNotBeNull();
             serviceDescriptor.GetImplementationType().ShouldBe(implementationType ?? serviceType);
@@ -30,7 +30,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public static void ShouldContainScoped(this IServiceCollection services, Type serviceType, Type implementationType = null)
         {
-            var serviceDescriptor = services.SingleOrDefault(s => s.ServiceType == serviceType);
+            var serviceDescriptor = services.SingleOrDefault(s => s.ServiceType == serviceType && s.GetImplementationType() == (implementationType ?? serviceType));
 
             serviceDescriptor.ShouldNotBeNull();
             serviceDescriptor.GetImplementationType().ShouldBe(implementationType ?? serviceType);
@@ -39,7 +39,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public static void ShouldContain(this IServiceCollection services, Type serviceType, Type implementationType, ServiceLifetime lifetime)
         {
-            var serviceDescriptor = services.SingleOrDefault(s => s.ServiceType == serviceType);
+            var serviceDescriptor = services.SingleOrDefault(s => s.ServiceType == serviceType && s.GetImplementationType() == (implementationType ?? serviceType));
 
             serviceDescriptor.ShouldNotBeNull();
             serviceDescriptor.GetImplementationType().ShouldBe(implementationType);

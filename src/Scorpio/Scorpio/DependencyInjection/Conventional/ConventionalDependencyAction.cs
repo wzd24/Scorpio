@@ -25,7 +25,7 @@ namespace Scorpio.DependencyInjection.Conventional
             _types.FindAll(context.GetTypePredicate().Compile()).ForEach(
                 t => context.Get<ICollection<IRegisterAssemblyServiceSelector>>("Service").ForEach(
                     selector => selector.Select(t).ForEach(
-                    s => context.Services.Add(ServiceDescriptor.Describe(s, t, context.GetOrAdd<IRegisterAssemblyLifetimeSelector>("Lifetime", new LifetimeSelector(ServiceLifetime.Transient)).Select(t))))));
+                    s => context.Services.ReplaceOrAdd(ServiceDescriptor.Describe(s, t, context.GetOrAdd<IRegisterAssemblyLifetimeSelector>("Lifetime", new LifetimeSelector(ServiceLifetime.Transient)).Select(t))))));
         }
     }
 }

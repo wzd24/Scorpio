@@ -34,11 +34,11 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="assembly"></param>
         /// <param name="configureAction"></param>
         /// <returns></returns>
-        public static IServiceCollection DoConventionalAction<TAction>(this IServiceCollection services, Assembly assembly, Action<IConventionalConfiguration> configureAction) where TAction:ConventionalActionBase
+        public static IServiceCollection DoConventionalAction<TAction>(this IServiceCollection services, Assembly assembly, Action<IConventionalConfiguration> configureAction) where TAction : ConventionalActionBase
         {
             var config = new ConventionalConfiguration(services);
             configureAction(config);
-            var action= Activator.CreateInstance(typeof(TAction), config, assembly) as TAction;
+            var action = Activator.CreateInstance(typeof(TAction), config, assembly) as TAction;
             action.Action();
             return services;
         }
@@ -145,6 +145,61 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.Remove(old);
             }
             return services;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="serviceDescriptor"></param>
+        /// <returns></returns>
+        public static IServiceCollection ReplaceEnumerable(this IServiceCollection services, ServiceDescriptor serviceDescriptor)
+        {
+            return services.ReplaceEnumerable(ServiceDescriptor.Transient(serviceDescriptor.ServiceType,serviceDescriptor.GetImplementationType()), serviceDescriptor);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="serviceDescriptor"></param>
+        /// <returns></returns>
+        public static IServiceCollection ReplaceOrAdd(this IServiceCollection services, ServiceDescriptor serviceDescriptor)
+        {
+            if (services == null)
+            {
+                throw new ArgumentNullException(nameof(services));
+            }
+
+            if (serviceDescriptor == null)
+            {
+                throw new ArgumentNullException(nameof(serviceDescriptor));
+            }
+
+            var implementationType = serviceDescriptor.GetImplementationType();
+
+            var registeredServiceDescriptor = services.FirstOrDefault(s => s.ServiceType == serviceDescriptor.ServiceType &&
+                              s.GetImplementationType() == implementationType);
+            if (registeredServiceDescriptor != null)
+            {
+                services.Remove(registeredServiceDescriptor);
+            }
+
+            services.Add(serviceDescriptor);
+            return services;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TService"></typeparam>
+        /// <typeparam name="TImplementation"></typeparam>
+        /// <param name="services"></param>
+        /// <param name="serviceDescriptor"></param>
+        /// <returns></returns>
+        public static IServiceCollection ReplaceEnumerable<TService, TImplementation>(this IServiceCollection services, ServiceDescriptor serviceDescriptor)
+           where TService : class where TImplementation : class, TService
+        {
+            return services.ReplaceEnumerable(ServiceDescriptor.Transient<TService, TImplementation>(), serviceDescriptor);
         }
 
         /// <summary>

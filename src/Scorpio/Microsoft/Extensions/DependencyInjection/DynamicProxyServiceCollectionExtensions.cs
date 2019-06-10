@@ -39,7 +39,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection RegisterConventionalInterceptor(this IServiceCollection services)
+        internal static IServiceCollection RegisterConventionalInterceptor(this IServiceCollection services)
         {
             InterceptorHelper.RegisterConventionalInterceptor(services);
             return services;

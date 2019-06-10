@@ -2,26 +2,20 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Scorpio
+namespace Scorpio.AspNetCore.TagHelpers.Collapse
 {
     /// <summary>
     /// 
     /// </summary>
-    public interface IScorpioLifetime
+    public enum CollapseType
     {
         /// <summary>
         /// 
         /// </summary>
-        void OnStopping();
-
+        Collapse,
         /// <summary>
         /// 
         /// </summary>
-        void OnStopped();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        void OnStarted();
+        Show
     }
 }

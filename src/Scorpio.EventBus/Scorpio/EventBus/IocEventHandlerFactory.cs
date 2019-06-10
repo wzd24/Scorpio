@@ -22,7 +22,7 @@ namespace Scorpio.EventBus
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="serviceProvider"></param>
+        /// <param name="serviceScopeFactory"></param>
         /// <param name="handlerType"></param>
         public IocEventHandlerFactory(IHybridServiceScopeFactory  serviceScopeFactory, Type handlerType)
         {

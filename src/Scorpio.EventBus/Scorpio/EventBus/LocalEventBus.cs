@@ -64,14 +64,12 @@ namespace Scorpio.EventBus
                               factories.RemoveAll(
                                   factory =>
                                   {
-                                      var singleInstanceFactory = factory as SingleInstanceHandlerFactory;
-                                      if (singleInstanceFactory == null)
+                                      if (!(factory is SingleInstanceHandlerFactory singleInstanceFactory))
                                       {
                                           return false;
                                       }
 
-                                      var actionHandler = singleInstanceFactory.HandlerInstance as ActionEventHandler<TEvent>;
-                                      if (actionHandler == null)
+                                      if (!(singleInstanceFactory.HandlerInstance is ActionEventHandler<TEvent> actionHandler))
                                       {
                                           return false;
                                       }

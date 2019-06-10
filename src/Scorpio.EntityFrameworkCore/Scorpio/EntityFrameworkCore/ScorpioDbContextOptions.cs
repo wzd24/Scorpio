@@ -25,9 +25,9 @@ namespace Scorpio.EntityFrameworkCore
         internal IEnumerable<IModelCreatingContributor> GetModelCreatingContributors(Type dbcontextType)
               => _commonModelCreatingContributors.Concat(_modelCreatingContributors.GetOrDefault(dbcontextType)??new List<IModelCreatingContributor>());
 
-        private Dictionary<Type, List<IModelCreatingContributor>> _modelCreatingContributors;
+        private readonly Dictionary<Type, List<IModelCreatingContributor>> _modelCreatingContributors;
 
-        private List<IModelCreatingContributor> _commonModelCreatingContributors;
+        private readonly List<IModelCreatingContributor> _commonModelCreatingContributors;
 
         /// <summary>
         /// 

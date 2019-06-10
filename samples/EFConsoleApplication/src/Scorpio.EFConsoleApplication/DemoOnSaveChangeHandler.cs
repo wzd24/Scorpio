@@ -22,13 +22,13 @@ namespace Scorpio.EFConsoleApplication
         /// </summary>
         /// <param name="entries"></param>
         /// <returns></returns>
-        public async Task PostSaveChangeAsync(IEnumerable<EntityEntry> entries)
+        public  Task PostSaveChangeAsync(IEnumerable<EntityEntry> entries)
         {
             foreach (var item in entries)
             {
                 Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(item.Entity));
             }
-
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -36,13 +36,13 @@ namespace Scorpio.EFConsoleApplication
         /// </summary>
         /// <param name="entries"></param>
         /// <returns></returns>
-        public async Task PreSaveChangeAsync(IEnumerable<EntityEntry> entries)
+        public  Task PreSaveChangeAsync(IEnumerable<EntityEntry> entries)
         {
             foreach (var item in entries)
             {
                 Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(item.Entity));
             }
-
+            return Task.CompletedTask;
         }
     }
 }

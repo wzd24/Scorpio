@@ -39,7 +39,7 @@ namespace Scorpio.AspNetCore.Hosting
             var hostingEnvironment = app.ApplicationServices.GetRequiredService<IHostingEnvironment>();
             var instance = app.ApplicationServices.GetRequiredService(_startuModuleType);
             var action = FindConfigureDelegate(_startuModuleType, hostingEnvironment.EnvironmentName).Build(instance);
-            action(app);
+            action?.Invoke(app);
 
         }
 
@@ -50,7 +50,7 @@ namespace Scorpio.AspNetCore.Hosting
 
         private static ConfigureBuilder FindConfigureDelegate(Type startupModuleType, string environmentName)
         {
-            var configureMethod = FindMethod(startupModuleType, "Configure{0}", environmentName, typeof(void), required: true);
+            var configureMethod = FindMethod(startupModuleType, "Configure{0}", environmentName, typeof(void), required: false);
             return new ConfigureBuilder(configureMethod);
         }
 

@@ -20,7 +20,7 @@ namespace Scorpio.EventBus
         /// </summary>
         /// <param name="activationType"></param>
         /// <param name="handlerType"></param>
-        public EventHandlerDescriptor(Type handlerType,EventHandlerActivationType activationType)
+        public EventHandlerDescriptor(Type handlerType, EventHandlerActivationType activationType)
         {
             ActivationType = activationType;
             HandlerType = handlerType;
@@ -42,13 +42,13 @@ namespace Scorpio.EventBus
         /// <param name="handlerType"></param>
         /// <param name="activationType"></param>
         /// <returns></returns>
-        public static EventHandlerDescriptor Describe(Type handlerType,EventHandlerActivationType activationType)
+        public static EventHandlerDescriptor Describe(Type handlerType, EventHandlerActivationType activationType)
         {
             if (!handlerType.IsAssignableTo<IEventHandler>())
             {
-                throw new ArgumentException($"{nameof(handlerType)} should be derived from {typeof(IEventHandler)}",nameof(handlerType));
+                throw new ArgumentException($"{nameof(handlerType)} should be derived from {typeof(IEventHandler)}", nameof(handlerType));
             }
-            return new EventHandlerDescriptor( handlerType,activationType);
+            return new EventHandlerDescriptor(handlerType, activationType);
         }
 
         /// <summary>
@@ -57,9 +57,9 @@ namespace Scorpio.EventBus
         /// <typeparam name="TEventHandler"></typeparam>
         /// <param name="activationType"></param>
         /// <returns></returns>
-        public static EventHandlerDescriptor Describe<TEventHandler>(EventHandlerActivationType activationType) where  TEventHandler:class,IEventHandler
+        public static EventHandlerDescriptor Describe<TEventHandler>(EventHandlerActivationType activationType) where TEventHandler : class, IEventHandler
         {
-            return Describe(typeof(TEventHandler), activationType);   
+            return Describe(typeof(TEventHandler), activationType);
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace Scorpio.EventBus
         /// <returns></returns>
         public IEventHandlerFactory GetEventHandlerFactory(IHybridServiceScopeFactory serviceProvider)
         {
-            return _factory ?? CreateFactory(serviceProvider);
+            return _factory ?? (_factory = CreateFactory(serviceProvider));
         }
 
         private IEventHandlerFactory CreateFactory(IHybridServiceScopeFactory serviceProvider)
@@ -136,6 +136,6 @@ namespace Scorpio.EventBus
         /// <summary>
         /// 
         /// </summary>
-        Transient ,
+        Transient,
     }
 }

@@ -1,14 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Scorpio.Data;
 using Scorpio.Domain.Entities;
 using Scorpio.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Z.EntityFramework.Plus;
+using System.Linq.Expressions;
 
 namespace Scorpio.Domain.Repositories.EntityFrameworkCore
 {
@@ -146,7 +150,7 @@ namespace Scorpio.Domain.Repositories.EntityFrameworkCore
             DbSet.Remove(entity);
             if (autoSave)
             {
-               await DbContext.SaveChangesAsync(cancellationToken);
+                await DbContext.SaveChangesAsync(cancellationToken);
             }
         }
 
@@ -157,16 +161,14 @@ namespace Scorpio.Domain.Repositories.EntityFrameworkCore
         /// <param name="autoSave"></param>
         public override void Delete(Expression<Func<TEntity, bool>> predicate, bool autoSave = false)
         {
-            var entities =  GetQueryable().Where(predicate).ToList();
-            foreach (var entity in entities)
+            var query = GetQueryable().IgnoreQueryFilters().Where(predicate);
+            if (typeof(TEntity).IsAssignableTo<ISoftDelete>())
             {
-                DbSet.Remove(entity);
+                Expression<Func<SoftDelete, SoftDelete>> updator = d => new SoftDelete { IsDeleted = true };
+                 query.Update(updator.Translate().To<TEntity>());
+                return;
             }
-
-            if (autoSave)
-            {
-                 DbContext.SaveChanges();
-            }
+             query.Delete();
         }
 
         /// <summary>
@@ -178,16 +180,38 @@ namespace Scorpio.Domain.Repositories.EntityFrameworkCore
         /// <returns></returns>
         public override async Task DeleteAsync(Expression<Func<TEntity, bool>> predicate, bool autoSave = false, CancellationToken cancellationToken = default)
         {
-            var entities = await GetQueryable().Where(predicate).ToListAsync(GetCancellationToken(cancellationToken));
-            foreach (var entity in entities)
+            var query = GetQueryable().IgnoreQueryFilters().Where(predicate);
+            if (typeof(TEntity).IsAssignableTo<ISoftDelete>())
             {
-                DbSet.Remove(entity);
+                Expression<Func<SoftDelete, SoftDelete>> updator = d => new SoftDelete { IsDeleted = true };
+                await query.UpdateAsync(updator.Translate().To<TEntity>(),cancellationToken);
+                return;
             }
+            await query.DeleteAsync(cancellationToken);
+        }
 
-            if (autoSave)
-            {
-                await DbContext.SaveChangesAsync(cancellationToken);
-            }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <param name="updateExpression"></param>
+        /// <param name="autoSave"></param>
+        public override void Update(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TEntity>> updateExpression, bool autoSave = false)
+        {
+            GetQueryable().IgnoreQueryFilters().Where(predicate).Update(updateExpression);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <param name="updateExpression"></param>
+        /// <param name="autoSave"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public override async Task UpdateAsync(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TEntity>> updateExpression, bool autoSave = false, CancellationToken cancellationToken = default)
+        {
+            await GetQueryable().IgnoreQueryFilters().Where(predicate).UpdateAsync(updateExpression, cancellationToken);
         }
 
         /// <summary>
@@ -225,7 +249,7 @@ namespace Scorpio.Domain.Repositories.EntityFrameworkCore
         /// <returns></returns>
         public override IEnumerable<TEntity> GetList(bool includeDetails = false)
         {
-            return includeDetails?WithDetails().ToList(): DbSet.ToList();
+            return includeDetails ? WithDetails().ToList() : DbSet.ToList();
         }
 
         /// <summary>

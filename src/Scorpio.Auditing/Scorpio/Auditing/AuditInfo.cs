@@ -101,14 +101,14 @@ namespace Scorpio.Auditing
             var sb = new StringBuilder();
 
             sb.AppendLine($"AUDIT LOG:");
-            sb.AppendLine($"- User                 : {CurrentUser} ");
-            sb.AppendLine($"- ExecutionDuration      : {ExecutionDuration}");
+            sb.AppendLine($"- {"User",-20}: {CurrentUser} ");
+            sb.AppendLine($"- {"ExecutionDuration",-20}: {ExecutionDuration}");
 
             if (ExtraProperties.Any())
             {
                 foreach (var property in ExtraProperties)
                 {
-                    sb.AppendLine($"- {property.Key}      : {property.Value}");
+                    sb.AppendLine($"- {property.Key,-20}: {property.Value}");
                 }
             }
             if (Actions.Any())

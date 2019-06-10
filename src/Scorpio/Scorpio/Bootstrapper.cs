@@ -23,6 +23,9 @@ namespace Scorpio
         /// <summary>
         /// 
         /// </summary>
+        /// <localize>
+        /// 
+        /// </localize>
         public Type StartupModuleType { get; }
 
         private readonly BootstrapperCreationOptions _options;
@@ -68,12 +71,18 @@ namespace Scorpio
         protected Bootstrapper(Type startupModuleType, IServiceCollection services, IConfiguration configuration, Action<BootstrapperCreationOptions> optionsAction)
         {
             Services = services;
-            Configuration = configuration;
             StartupModuleType = startupModuleType;
             Properties = new Dictionary<string, object>();
             _options = new BootstrapperCreationOptions(services);
             ModuleLoader = new ModuleLoader();
             optionsAction(_options);
+            var configBuilder = new ConfigurationBuilder();
+            if (configuration != null)
+            {
+                configBuilder.AddConfiguration(configuration);
+            }
+            _options.ConfigurationActions.ForEach(a => a(configBuilder));
+            this.Configuration = configBuilder.Build();
             ConfigureCoreService(services);
             Modules = LoadModules();
             ConfigureServices();
@@ -171,7 +180,9 @@ namespace Scorpio
                 throw new ArgumentException($"{nameof(startupModuleType)} should be derived from {typeof(IScorpioModule)}");
             }
             var services = new ServiceCollection();
-            var bootstrapper = new InternalBootstrapper(startupModuleType, services, null, optionsAction);
+            var configBuilder = new ConfigurationBuilder();
+            var config = configBuilder.Build();
+            var bootstrapper = new InternalBootstrapper(startupModuleType, services, config, optionsAction);
             bootstrapper.SetServiceProvider(services.BuildAspectInjectorProvider());
             return bootstrapper;
         }
@@ -183,7 +194,7 @@ namespace Scorpio
         /// <returns></returns>
         public static IBootstrapper Create(Type startupModuleType)
         {
-            return Create(startupModuleType, o => { });
+            return Create(startupModuleType, o => {});
         }
 
         /// <summary>
@@ -198,7 +209,7 @@ namespace Scorpio
 
 
         #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
+        private bool _disposedValue = false; // To detect redundant calls
 
         /// <summary>
         /// 
@@ -206,7 +217,7 @@ namespace Scorpio
         /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!_disposedValue)
             {
                 if (disposing)
                 {
@@ -217,7 +228,7 @@ namespace Scorpio
                 // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
                 // TODO: set large fields to null.
 
-                disposedValue = true;
+                _disposedValue = true;
             }
         }
 

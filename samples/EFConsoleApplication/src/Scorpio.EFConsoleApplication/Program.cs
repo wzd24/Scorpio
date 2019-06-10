@@ -3,6 +3,8 @@ using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Scorpio.Data;
+using Microsoft.Extensions.Configuration;
+using Scorpio.Application.Dtos;
 
 namespace Scorpio.EFConsoleApplication
 {
@@ -10,58 +12,31 @@ namespace Scorpio.EFConsoleApplication
     {
         static void Main(string[] args)
         {
-            using (var bootstrapper = Bootstrapper.Create<ApplicationModule>())
+            using (var bootstrapper = Bootstrapper.Create<ApplicationModule>(opt=>
+            {
+                opt.Configuration(cb =>
+                {
+                    cb.AddJsonFile("appsettings.json");
+                });
+            }))
             {
                 bootstrapper.Initialize();
-                var uowm = bootstrapper.ServiceProvider.GetService<Uow.IUnitOfWorkManager>();
-                //using (var uow = uowm.Begin())
+                var service = bootstrapper.ServiceProvider.GetRequiredService<IUserService>();
+                //service.Create(new UserDto
                 //{
-                    var repo = bootstrapper.ServiceProvider.GetService<Domain.Repositories.IRepository<User>>();
-                //    using (var uow2 = uowm.Begin(System.Transactions.TransactionScopeOption.RequiresNew))
-                //    {
-                //    //    repo.Insert(new User
-                //    //    {
-                //    //        Name = "李四",
-                //    //        Age = 48,
-                //    //    });
-                //    //    uow2.Complete();
-                //    //}
-                //    //using (var uow2 = uowm.Begin(System.Transactions.TransactionScopeOption.RequiresNew))
-                //    //{
-                //    //    repo.Insert(new User
-                //    //    {
-                //    //        Name = "王五",
-                //    //        Age = 24,
-                //    //    });
-                //    //}
-                //    //repo.Insert(new User
-                //    //{
-                //    //    Name = "张三",
-                //    //    Age = 22,
-                //    //});
-                //    //uow.Complete();
+                //    Name = "宋八",
+                //    Age = 34,
+                //});
 
-                //    //Console.WriteLine(repo.GetCount());
-                //    //using (var dis = bootstrapper.ServiceProvider.GetService<Data.IDataFilter>().Disable<Data.ISoftDelete>())
-                //    //{
-                //    //    Console.WriteLine(repo.GetCount());
-                //    //    //Console.WriteLine(repo.GetList().FirstOrDefault()?.Name);
-                //    //    //Console.WriteLine(repo.GetList().LastOrDefault()?.Name);
-
-                //    //}
-                repo.Insert(new User
+                service.Delete(u=>u.Id==5);
+                var request = new ListRequest<UserDto>().Sort("ID desc").Where("ID<@0",7);
+                using (bootstrapper.ServiceProvider.GetRequiredService<IDataFilter<ISoftDelete>>().Disable())
                 {
-                    Name = "李四",
-                    Age = 48,
-                    IsDeleted = false,
-                });
-                //    //Console.WriteLine(repo.GetCount());
-                //    //Console.WriteLine(repo.GetList().FirstOrDefault()?.Name);
-                //    //Console.WriteLine(repo.GetList().LastOrDefault()?.Name);
-                //    //uow.Complete();
-                //}
-                bootstrapper.ServiceProvider.GetRequiredService<ILogger<Program>>().LogInformation($"record(s) count:{repo.GetCount()}");
-                //}
+                    foreach (var item in service.GetList(request))
+                    {
+                        Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(item));
+                    }
+                }
             }
         }
     }

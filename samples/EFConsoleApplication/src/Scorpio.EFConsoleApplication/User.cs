@@ -1,4 +1,5 @@
 ﻿using Scorpio.Data;
+using Scorpio.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace Scorpio.EFConsoleApplication
 {
-    public class User : Domain.Entities.Entity<int>, ISoftDelete, IHasExtraProperties
+    public class User :Entity<int>, ISoftDelete, IHasExtraProperties
     {
         [MaxLength(30)]
         

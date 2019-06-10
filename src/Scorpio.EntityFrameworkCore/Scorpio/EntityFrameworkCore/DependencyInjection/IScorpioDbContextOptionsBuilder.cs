@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+
 using Scorpio.Domain.Entities;
 using Scorpio.Domain.Repositories;
 using System;
@@ -10,7 +11,7 @@ namespace Scorpio.EntityFrameworkCore.DependencyInjection
     /// <summary>
     /// 
     /// </summary>
-    public interface IScorpioDbContextOptionsBuilder<TDbContext>
+    public interface IScorpioDbContextOptionsBuilder<TDbContext> : IScorpioDbContextOptionsBuilder
         where TDbContext : ScorpioDbContext<TDbContext>
     {
         /// <summary>
@@ -28,6 +29,13 @@ namespace Scorpio.EntityFrameworkCore.DependencyInjection
         /// <param name="entityType"></param>
         /// <param name="repositoryType"></param>
         void AddRepository(Type entityType, Type repositoryType);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface IScorpioDbContextOptionsBuilder
+    {
 
     }
 }

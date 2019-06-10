@@ -12,7 +12,6 @@ namespace Scorpio.Authorization
     /// <summary>
     /// 
     /// </summary>
-    [DependsOn(typeof(SecurityModule))]
     public sealed class AuthorizationModule: ScorpioModule
     {
         /// <summary>

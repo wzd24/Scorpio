@@ -37,5 +37,19 @@ namespace Microsoft.AspNetCore.Razor.TagHelpers
             output.RemoveClass(className, NullHtmlEncoder.Default);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="output"></param>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        public static void AddAttribute(this TagHelperOutput output, string name,string value)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                return;
+            }
+            output.Attributes.Add(name,value);
+        }
     }
 }

@@ -5,13 +5,13 @@ namespace Scorpio.AspNetCore.TagHelpers.Button
     /// <summary>
     /// 
     /// </summary>
-    [HtmlTargetElement("button", TagStructure = TagStructure.NormalOrSelfClosing)]
+    [HtmlTargetElement("button", Attributes ="button-type", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class ButtonTagHelper : TagHelper<ButtonTagHelper, ButtonTagHelperService>, IButtonTagHelperBase
     {
         /// <summary>
         /// 
         /// </summary>
-        public ButtonType ButtonType { get; set; } = ButtonType.Default;
+        public ButtonType ButtonType { get; set; }
 
         /// <summary>
         /// 

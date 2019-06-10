@@ -12,7 +12,7 @@ namespace Scorpio.EntityFrameworkCore.EventBus
     /// <summary>
     /// 
     /// </summary>
-    class EntityChangeEventHelper : IEntityChangeEventHelper, ITransientDependency
+    class EntityChangeEventHelper : IEntityChangeEventHelper,ITransientDependency
     {
         private readonly IEventBus _eventBus;
         protected IUnitOfWorkManager UnitOfWorkManager { get; }

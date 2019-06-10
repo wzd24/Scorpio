@@ -14,41 +14,24 @@ namespace Scorpio.Data
         /// </summary>
         /// <typeparam name="TFilter"></typeparam>
         /// <param name="options"></param>
-        /// <param name="descriptor"></param>
         /// <returns></returns>
-        public static void RegiesterFilter<TFilter>(this DataFilterOptions options, DataFilterDescriptor<TFilter> descriptor)
+        public static DataFilterDescriptor<TFilter> Filter<TFilter>(this DataFilterOptions options) where TFilter : class
         {
-            options.Descriptors[typeof(TFilter)] = descriptor;
+            return options.Descriptors.GetOrAdd(typeof(TFilter), t => new DataFilterDescriptor<TFilter>()) as DataFilterDescriptor<TFilter>;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <typeparam name="TFilter"></typeparam>
-        /// <typeparam name="TFilterDescriptor"></typeparam>
         /// <param name="options"></param>
+        /// <param name="descriptAction"></param>
         /// <returns></returns>
-        public static void RegiesterFilter<TFilter, TFilterDescriptor>(this DataFilterOptions options)
-            where TFilterDescriptor : DataFilterDescriptor<TFilter>
+        public static DataFilterOptions Configure<TFilter>(this DataFilterOptions options, Action<DataFilterDescriptor<TFilter>> descriptAction) where TFilter : class
         {
-             RegiesterFilter(options, Activator.CreateInstance<TFilterDescriptor>());
-        }
-
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="TFilter"></typeparam>
-        /// <param name="options"></param>
-        /// <param name="configureAction"></param>
-        /// <returns></returns>
-        public static DataFilterOptions ConfigureFilter<TFilter>(this DataFilterOptions options, Action<DataFilterDescriptor<TFilter>> configureAction)
-        {
-            var descriptor = options.Descriptors.GetOrDefault(typeof(TFilter)) as DataFilterDescriptor<TFilter>;
-            configureAction(descriptor);
+            var descriptor = options.Filter<TFilter>();
+            descriptAction(descriptor);
             return options;
         }
-
     }
 }

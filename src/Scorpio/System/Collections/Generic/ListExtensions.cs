@@ -158,7 +158,7 @@ namespace System.Collections.Generic
         /// <param name="itemFactory"></param>
         public static void ReplaceOne<T>(this IList<T> source, Predicate<T> selector, Func<T, T> itemFactory)
         {
-            for (int i = 0; i < source.Count; i++)
+            for (var i = 0; i < source.Count; i++)
             {
                 var item = source[i];
                 if (selector(item))
@@ -178,7 +178,7 @@ namespace System.Collections.Generic
         /// <param name="replaceWith"></param>
         public static void ReplaceOne<T>(this IList<T> source, T item, T replaceWith)
         {
-            for (int i = 0; i < source.Count; i++)
+            for (var i = 0; i < source.Count; i++)
             {
                 if (Comparer<T>.Default.Compare(source[i], item) == 0)
                 {
@@ -271,8 +271,7 @@ namespace System.Collections.Generic
         /// <param name="visited">Dictionary with the visited items</param>
         private static void SortByDependenciesVisit<T>(T item, Func<T, IEnumerable<T>> getDependencies, List<T> sorted, Dictionary<T, bool> visited)
         {
-            bool inProcess;
-            var alreadyVisited = visited.TryGetValue(item, out inProcess);
+            var alreadyVisited = visited.TryGetValue(item, out var inProcess);
 
             if (alreadyVisited)
             {

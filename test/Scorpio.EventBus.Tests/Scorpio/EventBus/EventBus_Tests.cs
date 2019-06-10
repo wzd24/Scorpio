@@ -13,7 +13,7 @@ namespace Scorpio.EventBus
 {
     public class EventBus_Tests : TestBase.IntegratedTest<ServicedEventHandlerModule>
     {
-        private IEventBus _eventBus;
+        private readonly IEventBus _eventBus;
 
         public EventBus_Tests()
         {
@@ -71,15 +71,15 @@ namespace Scorpio.EventBus
         [Fact]
         public void UnRegisterAction()
         {
-            Func<string, Task> action = s => Task.Run(() => Console.WriteLine(s));
+            Task action(string s) => Task.Run(() => Console.WriteLine(s));
             _eventBus.ShouldBeOfType<LocalEventBus>().HandlerFactories.Clear();
-            _eventBus.Subscribe(action);
+            _eventBus.Subscribe((Func<string, Task>)action);
             _eventBus.ShouldBeOfType<LocalEventBus>().HandlerFactories.ShouldContainKey(typeof(string));
             _eventBus.ShouldBeOfType<LocalEventBus>()
                 .HandlerFactories[typeof(string)].ShouldHaveSingleItem()
                 .ShouldBeOfType<SingleInstanceHandlerFactory>().HandlerInstance
                 .ShouldBeOfType<ActionEventHandler<string>>();
-            _eventBus.Unsubscribe(action);
+            _eventBus.Unsubscribe((Func<string, Task>)action);
             _eventBus.ShouldBeOfType<LocalEventBus>()
                 .HandlerFactories[typeof(string)].ShouldBeEmpty();
         }

@@ -20,6 +20,10 @@ namespace Scorpio.Data
         /// </summary>
         public Type FilterType { get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public IFilterContext FilterContext { get; private set; }
 
         /// <summary>
         /// 
@@ -44,8 +48,9 @@ namespace Scorpio.Data
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
-        internal Expression<Func<TEntity, bool>> BuildFilterExpression<TEntity>(IDataFilter dataFilter,IFilterContext context) where TEntity : class
+        internal Expression<Func<TEntity, bool>> BuildFilterExpression<TEntity>(IDataFilter dataFilter, IFilterContext context) where TEntity : class
         {
+            FilterContext = context;
             var filterexpression = BuildFilterExpression<TEntity>(context);
             var expression = filterexpression.Or(filterexpression.Equal(expr2 => dataFilter.IsEnabled(FilterType)));
             return expression;
@@ -56,57 +61,38 @@ namespace Scorpio.Data
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
-        internal Expression<Func<TEntity, bool>> BuildFilterExpression<TEntity>(IFilterContext context) where TEntity : class
-        {
-            var filterexpression = BuildFilterExpressionCore<TEntity>(context);
-            return filterexpression;
-        }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="TEntity"></typeparam>
-        /// <returns></returns>
-        protected abstract Expression<Func<TEntity, bool>> BuildFilterExpressionCore<TEntity>(IFilterContext context) where TEntity : class;
+        internal abstract Expression<Func<TEntity, bool>> BuildFilterExpression<TEntity>(IFilterContext context) where TEntity : class;
     }
 
     /// <summary>
     /// 
     /// </summary>
     /// <typeparam name="TFilter"></typeparam>
-    public abstract class DataFilterDescriptor<TFilter> : DataFilterDescriptor
+    public sealed class DataFilterDescriptor<TFilter> : DataFilterDescriptor where TFilter:class
     {
         /// <summary>
         /// 
         /// </summary>
-        protected DataFilterDescriptor() : base(typeof(TFilter))
+        internal DataFilterDescriptor() : base(typeof(TFilter))
         {
             IsEnabled = true;
         }
-    }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public Expression<Func<TFilter, bool>> FilterExpression { get; internal set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    internal sealed class SoftDeleteDataFilterDescriptor : DataFilterDescriptor<ISoftDelete>
-    {
         /// <summary>
         /// 
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
-        protected override Expression<Func<TEntity, bool>> BuildFilterExpressionCore<TEntity>(IFilterContext context)
+        internal override Expression<Func<TEntity, bool>> BuildFilterExpression<TEntity>(IFilterContext context)
         {
-            return e => ((ISoftDelete)e).IsDeleted== false;
-            //return GetExpression(context.GetPropertyExpression<TEntity,bool>("IsDeleted"));
+            var filterexpression =  FilterExpression.Translate().To<TEntity>();
+            return filterexpression;
         }
-
-        //private Expression<Func<TEntity,bool>> GetExpression<TEntity,TProperty>(Expression<Func<TEntity,TProperty>> expression)
-        //{
-        //    var right = Expression.Constant(false);
-        //    return Expression.Lambda<Func<TEntity,bool>>( Expression.Equal(expression.Body, right),expression.Parameters[0]);
-        //}
     }
+
 }

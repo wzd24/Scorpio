@@ -18,9 +18,9 @@ namespace Scorpio.Data
         /// <param name="context"></param>
         public override void ConfigureServices(ConfigureServicesContext context)
         {
-            context.Services.Configure<DataFilterOptions>(options =>
+            context.Services.PreConfigure<DataFilterOptions>(options =>
             {
-                options.RegiesterFilter<ISoftDelete, SoftDeleteDataFilterDescriptor>();
+                options.Configure<ISoftDelete>(f=>f.Expression(d=>d.IsDeleted==false));
             });
             context.Services.AddSingleton(typeof(IDataFilter<>), typeof(DataFilter<>));
             context.Services.RegisterAssemblyByConventionOfType<DataModule>();

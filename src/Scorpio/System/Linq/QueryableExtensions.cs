@@ -10,7 +10,7 @@ namespace System.Linq
     /// <summary>
     /// Some useful extension methods for <see cref="IQueryable{T}"/>.
     /// </summary>
-    public static class AbpQueryableExtensions
+    public static class QueryableExtensions
     {
         /// <summary>
         /// Used for paging. Can be used as an alternative to Skip(...).Take(...) chaining.

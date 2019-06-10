@@ -16,6 +16,8 @@ namespace Scorpio.Conventional
         /// <returns></returns>
         public static IConventionalRegistrationContext Action(this IConventionalRegistrationContext context,Action<IConventionalConfiguration> configAction)
         {
+            var config = new ConventionalConfiguration(context.Services);
+            configAction(config);
             return context;
         }
     }

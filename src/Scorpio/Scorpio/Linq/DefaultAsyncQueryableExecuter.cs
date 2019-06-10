@@ -11,24 +11,24 @@ namespace Scorpio.Linq
     {
         public static DefaultAsyncQueryableExecuter Instance { get; } = new DefaultAsyncQueryableExecuter();
 
-        public Task<int> CountAsync<T>(IQueryable<T> queryable)
+        public Task<int> CountAsync<T>(IQueryable<T> queryable,CancellationToken cancellationToken=default)
         {
             return Task.FromResult(queryable.Count());
         }
 
-        public Task<List<T>> ToListAsync<T>(IQueryable<T> queryable)
+        public Task<List<T>> ToListAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default)
         {
             return Task.FromResult(queryable.ToList());
         }
 
-        public Task<T> FirstOrDefaultAsync<T>(IQueryable<T> queryable)
+        public Task<T> FirstOrDefaultAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default)
         {
             return Task.FromResult(queryable.FirstOrDefault());
         }
 
-        public Task<T> FirstOrDefaultAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken)
+        public IAsyncEnumerable<TSource> AsAsyncEnumerable<TSource>(IQueryable<TSource> sources)
         {
-            return Task.FromResult(queryable.FirstOrDefault());
+            return sources.ToAsyncEnumerable();
         }
     }
 }

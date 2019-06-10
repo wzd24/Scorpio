@@ -50,7 +50,7 @@ namespace System.Reflection
             Check.NotNull(@object, nameof(@object));
             Check.NotNull(propertyExpression, nameof(propertyExpression));
             MemberInfo member = (((dynamic)propertyExpression).Body).Member;
-            return member.GetDescription();
+            return member.GetDescription(inherit);
         }
 
 

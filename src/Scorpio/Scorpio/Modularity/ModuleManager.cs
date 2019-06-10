@@ -14,8 +14,7 @@ namespace Scorpio.Modularity
 
         public ModuleManager(
             IModuleContainer moduleContainer,
-            ILogger<ModuleManager> logger,
-            IServiceProvider serviceProvider)
+            ILogger<ModuleManager> logger)
         {
             _moduleContainer = moduleContainer;
             _logger = logger;

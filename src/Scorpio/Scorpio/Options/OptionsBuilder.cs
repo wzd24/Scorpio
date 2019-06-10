@@ -21,7 +21,7 @@ namespace Scorpio.Options
 
         /// <summary>
         /// Registers an action used to configure a particular type of options.
-        /// Note: These are run after all <seealso cref="Configure(Action{TOptions})"/>.
+        /// Note: These are run after all <seealso cref="Microsoft.Extensions.Options.OptionsBuilder{TOptions}.Configure(Action{TOptions})"/>
         /// </summary>
         /// <param name="configureOptions">The action used to configure the options.</param>
         public virtual OptionsBuilder<TOptions> PreConfigure(Action<TOptions> configureOptions)
@@ -37,7 +37,7 @@ namespace Scorpio.Options
 
         /// <summary>
         /// Registers an action used to post configure a particular type of options.
-        /// Note: These are run before after <seealso cref="Configure(Action{TOptions})"/>.
+        /// Note: These are run before after <seealso cref="Microsoft.Extensions.Options.OptionsBuilder{TOptions}.Configure(Action{TOptions})"/>.
         /// </summary>
         /// <typeparam name="TDep">The dependency used by the action.</typeparam>
         /// <param name="configureOptions">The action used to configure the options.</param>
@@ -57,7 +57,7 @@ namespace Scorpio.Options
 
         /// <summary>
         /// Registers an action used to post configure a particular type of options.
-        /// Note: These are run before after <seealso cref="Configure(Action{TOptions})"/>.
+        /// Note: These are run before after <seealso cref="Microsoft.Extensions.Options.OptionsBuilder{TOptions}.Configure(Action{TOptions})"/>.
         /// </summary>
         /// <typeparam name="TDep1">The first dependency used by the action.</typeparam>
         /// <typeparam name="TDep2">The second dependency used by the action.</typeparam>
@@ -79,7 +79,7 @@ namespace Scorpio.Options
 
         /// <summary>
         /// Registers an action used to post configure a particular type of options.
-        /// Note: These are run before after <seealso cref="Configure(Action{TOptions})"/>.
+        /// Note: These are run before after <seealso cref="Microsoft.Extensions.Options.OptionsBuilder{TOptions}.Configure(Action{TOptions})"/>.
         /// </summary>
         /// <typeparam name="TDep1">The first dependency used by the action.</typeparam>
         /// <typeparam name="TDep2">The second dependency used by the action.</typeparam>
@@ -108,7 +108,7 @@ namespace Scorpio.Options
 
         /// <summary>
         /// Registers an action used to post configure a particular type of options.
-        /// Note: These are run before after <seealso cref="Configure(Action{TOptions})"/>.
+        /// Note: These are run before after <seealso cref="Microsoft.Extensions.Options.OptionsBuilder{TOptions}.Configure(Action{TOptions})"/>.
         /// </summary>
         /// <typeparam name="TDep1">The first dependency used by the action.</typeparam>
         /// <typeparam name="TDep2">The second dependency used by the action.</typeparam>
@@ -140,7 +140,7 @@ namespace Scorpio.Options
 
         /// <summary>
         /// Registers an action used to post configure a particular type of options.
-        /// Note: These are run before after <seealso cref="Configure(Action{TOptions})"/>.
+        /// Note: These are run before after <seealso cref="Microsoft.Extensions.Options.OptionsBuilder{TOptions}.Configure(Action{TOptions})"/>.
         /// </summary>
         /// <typeparam name="TDep1">The first dependency used by the action.</typeparam>
         /// <typeparam name="TDep2">The second dependency used by the action.</typeparam>

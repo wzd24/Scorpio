@@ -13,7 +13,7 @@ namespace Scorpio.Data
         {
             context.Services.Configure<DataFilterOptions>(options =>
             {
-                options.ConfigureFilter<ISoftDelete>(c => c.Enable());
+                options.Configure<ISoftDelete>(c => c.Enable());
             });
             base.ConfigureServices(context);
         }
@@ -25,7 +25,7 @@ namespace Scorpio.Data
         {
             context.Services.Configure<DataFilterOptions>(options =>
             {
-                options.ConfigureFilter<ISoftDelete>(c => c.Disable());
+                options.Configure<ISoftDelete>(c => c.Disable());
             });
             base.ConfigureServices(context);
         }

@@ -17,6 +17,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+
 namespace Scorpio.EntityFrameworkCore
 {
     /// <summary>
@@ -35,7 +36,6 @@ namespace Scorpio.EntityFrameworkCore
         protected ScorpioDbContext(IServiceProvider serviceProvider, DbContextOptions<TDbContext> contextOptions, IOptions<DataFilterOptions> filterOptions)
             : base(serviceProvider, contextOptions, filterOptions)
         {
-
         }
     }
     /// <summary>

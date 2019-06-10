@@ -79,8 +79,19 @@ namespace Scorpio.EventBus
             return Subscribe(typeof(TEvent), factory);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="eventType"></param>
+        /// <param name="factory"></param>
+        /// <returns></returns>
         public abstract IDisposable Subscribe(Type eventType, IEventHandlerFactory factory);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TEvent"></typeparam>
+        /// <param name="action"></param>
         public abstract void Unsubscribe<TEvent>(Func<TEvent, Task> action) where TEvent : class;
 
         /// <inheritdoc/>
@@ -89,6 +100,11 @@ namespace Scorpio.EventBus
             Unsubscribe(typeof(TEvent), handler);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="eventType"></param>
+        /// <param name="handler"></param>
         public abstract void Unsubscribe(Type eventType, IEventHandler handler);
 
         /// <inheritdoc/>
@@ -97,6 +113,11 @@ namespace Scorpio.EventBus
             Unsubscribe(typeof(TEvent), factory);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="eventType"></param>
+        /// <param name="factory"></param>
         public abstract void Unsubscribe(Type eventType, IEventHandlerFactory factory);
 
         /// <inheritdoc/>
@@ -117,6 +138,12 @@ namespace Scorpio.EventBus
         /// <inheritdoc/>
         public abstract Task PublishAsync(Type eventType, object eventData);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="eventType"></param>
+        /// <param name="eventData"></param>
+        /// <returns></returns>
         public virtual async Task TriggerHandlersAsync(Type eventType, object eventData)
         {
             var exceptions = new List<Exception>();
@@ -244,12 +271,26 @@ namespace Scorpio.EventBus
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected class EventTypeWithEventHandlerFactories
         {
+            /// <summary>
+            /// 
+            /// </summary>
             public Type EventType { get; }
 
+            /// <summary>
+            /// 
+            /// </summary>
             public List<IEventHandlerFactory> EventHandlerFactories { get; }
 
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="eventType"></param>
+            /// <param name="eventHandlerFactories"></param>
             public EventTypeWithEventHandlerFactories(Type eventType, List<IEventHandlerFactory> eventHandlerFactories)
             {
                 EventType = eventType;
@@ -257,15 +298,25 @@ namespace Scorpio.EventBus
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         // Reference from
         // https://blogs.msdn.microsoft.com/benwilli/2017/02/09/an-alternative-to-configureawaitfalse-everywhere/
         protected struct SynchronizationContextRemover : INotifyCompletion
         {
+            /// <summary>
+            /// 
+            /// </summary>
             public bool IsCompleted
             {
                 get { return SynchronizationContext.Current == null; }
             }
 
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="continuation"></param>
             public void OnCompleted(Action continuation)
             {
                 var prevContext = SynchronizationContext.Current;
@@ -280,11 +331,18 @@ namespace Scorpio.EventBus
                 }
             }
 
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
             public SynchronizationContextRemover GetAwaiter()
             {
                 return this;
             }
 
+            /// <summary>
+            /// 
+            /// </summary>
             public void GetResult()
             {
             }

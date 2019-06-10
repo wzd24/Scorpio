@@ -92,11 +92,13 @@ namespace Scorpio.AspNetCore.Auditing
 
         protected virtual string BuildUrl(HttpContext httpContext)
         {
-            var uriBuilder = new UriBuilder();
-            uriBuilder.Scheme = httpContext.Request.Scheme;
-            uriBuilder.Host = httpContext.Request.Host.Host;
-            uriBuilder.Path = httpContext.Request.Path.ToString();
-            uriBuilder.Query = httpContext.Request.QueryString.ToString();
+            var uriBuilder = new UriBuilder
+            {
+                Scheme = httpContext.Request.Scheme,
+                Host = httpContext.Request.Host.Host,
+                Path = httpContext.Request.Path.ToString(),
+                Query = httpContext.Request.QueryString.ToString()
+            };
             return uriBuilder.Uri.AbsoluteUri;
         }
 

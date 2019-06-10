@@ -22,7 +22,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddConventionalRegistrar(this IServiceCollection services, IConventionalRegistrar registrar)
         {
-            GetOrCreateRegistrarList(services).Add(registrar);
+            GetOrCreateRegistrarList().Add(registrar);
             return services;
         }
 
@@ -46,7 +46,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection RegisterAssemblyByConvention(this IServiceCollection services, Assembly assembly)
         {
             var context = new ConventionalRegistrationContext(assembly, services);
-            GetOrCreateRegistrarList(services).ToImmutableList().ForEach(registrar => registrar.Register(context));
+            GetOrCreateRegistrarList().ToImmutableList().ForEach(registrar => registrar.Register(context));
             return services;
         }
 
@@ -109,9 +109,8 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="services"></param>
         /// <returns></returns>
-        private static ConventionalRegistrarList GetOrCreateRegistrarList(IServiceCollection services)
+        private static ConventionalRegistrarList GetOrCreateRegistrarList()
         {
             return ConventionalRegistrarList.Registrars;
         }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace Scorpio.Domain.Values
+namespace Scorpio.Data.Values
 {
     //Inspired from https://blogs.msdn.microsoft.com/cesardelatorre/2011/06/06/implementing-a-value-object-base-class-supertype-patternddd-patterns-related/
 
@@ -79,11 +79,11 @@ namespace Scorpio.Domain.Values
                 if (value == null)
                 {
                     //support {"a",null,null,"a"} != {null,"a","a",null}
-                    hashCode = hashCode ^ (index * 13);
+                    hashCode ^= (index * 13);
                     continue;
                 }
 
-                hashCode = hashCode * (changeMultiplier ? 59 : 114) + value.GetHashCode();
+                hashCode = (hashCode * (changeMultiplier ? 59 : 114)) + value.GetHashCode();
                 changeMultiplier = !changeMultiplier;
             }
 

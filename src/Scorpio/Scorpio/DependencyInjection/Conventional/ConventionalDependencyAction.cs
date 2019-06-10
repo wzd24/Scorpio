@@ -11,13 +11,11 @@ namespace Scorpio.DependencyInjection.Conventional
 {
     class ConventionalDependencyAction : ConventionalActionBase
     {
-        private readonly Assembly _assembly;
         private readonly List<Type> _types;
 
         
         public ConventionalDependencyAction(IConventionalConfiguration configuration, Assembly assembly) : base(configuration)
         {
-            _assembly = assembly;
             _types = assembly.GetTypes().Where(t => t.IsClass && !t.IsAbstract && !t.IsGenericTypeDefinition).ToList();
         }
 
@@ -27,7 +25,7 @@ namespace Scorpio.DependencyInjection.Conventional
             _types.FindAll(context.GetTypePredicate().Compile()).ForEach(
                 t => context.Get<ICollection<IRegisterAssemblyServiceSelector>>("Service").ForEach(
                     selector => selector.Select(t).ForEach(
-                    s => context.Services.Replace(ServiceDescriptor.Describe(s, t, context.GetOrAdd<IRegisterAssemblyLifetimeSelector>("Lifetime", new LifetimeSelector(ServiceLifetime.Transient)).Select(t))))));
+                    s => context.Services.Add(ServiceDescriptor.Describe(s, t, context.GetOrAdd<IRegisterAssemblyLifetimeSelector>("Lifetime", new LifetimeSelector(ServiceLifetime.Transient)).Select(t))))));
         }
     }
 }

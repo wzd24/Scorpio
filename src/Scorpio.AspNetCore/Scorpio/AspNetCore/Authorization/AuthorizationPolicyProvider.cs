@@ -14,18 +14,13 @@ namespace Scorpio.AspNetCore.Authorization
     /// </summary>
     public class AuthorizationPolicyProvider : DefaultAuthorizationPolicyProvider, ITransientDependency
     {
-        private readonly AuthorizationOptions _options;
-        private readonly IPermissionDefinitionManager _permissionDefinitionManager;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="options"></param>
-        /// <param name="permissionDefinitionManager"></param>
-        public AuthorizationPolicyProvider(IOptions<AuthorizationOptions> options, IPermissionDefinitionManager permissionDefinitionManager) : base(options)
+        public AuthorizationPolicyProvider(IOptions<AuthorizationOptions> options) : base(options)
         {
-            _options = options.Value;
-            _permissionDefinitionManager = permissionDefinitionManager;
         }
 
         /// <summary>

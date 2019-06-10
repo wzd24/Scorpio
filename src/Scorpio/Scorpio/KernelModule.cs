@@ -10,6 +10,7 @@ using Scorpio.Conventional;
 using Scorpio.DependencyInjection.Conventional;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
+using Scorpio.Threading;
 
 namespace Scorpio
 {
@@ -34,6 +35,7 @@ namespace Scorpio
         /// <param name="context"></param>
         public override void ConfigureServices(ConfigureServicesContext context)
         {
+            context.Services.TryAddSingleton<ICancellationTokenProvider>(NullCancellationTokenProvider.Instance);
             context.Services.RegisterAssemblyByConventionOfType<KernelModule>();
         }
 

@@ -37,7 +37,7 @@ namespace System
         /// <param name="args"></param>
         public void Trigger(object sender,TArgs args)
         {
-            _delegateList.ForEach(d => { if (d.TryGetTarget(out var target)) target.Invoke(sender, args); });
+            _delegateList.ForEach(d => { if (d.TryGetTarget(out var target)) { target.Invoke(sender, args); } });
         }
     }
 }

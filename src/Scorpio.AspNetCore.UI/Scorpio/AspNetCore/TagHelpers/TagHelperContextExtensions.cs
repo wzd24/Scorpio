@@ -21,12 +21,23 @@ namespace Scorpio.AspNetCore.TagHelpers
         {
             if (!context.Items.ContainsKey(key))
             {
-                return default(T);
+                return default;
             }
 
             return (T)context.Items[key];
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static T GetValue<T>(this TagHelperContext context )
+        {
+            var key = typeof(T).FullName;
+            return GetValue<T>(context, key);
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -42,6 +53,16 @@ namespace Scorpio.AspNetCore.TagHelpers
         /// 
         /// </summary>
         /// <param name="context"></param>
+        /// <param name="value"></param>
+        public static void SetValue<T>(this TagHelperContext context,  T value)
+        {
+            var key = typeof(T).FullName;
+            context.SetValue(key, value);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
         /// <param name="key"></param>
         public static T InitValue<T>(this TagHelperContext context, string key)
             where T : class
@@ -49,6 +70,18 @@ namespace Scorpio.AspNetCore.TagHelpers
             var value = Activator.CreateInstance<T>();
             context.SetValue(key, value);
             return value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="key"></param>
+        public static T InitValue<T>(this TagHelperContext context)
+            where T : class
+        {
+            var key = typeof(T).FullName;
+            return context.InitValue<T>(key);
         }
     }
 }

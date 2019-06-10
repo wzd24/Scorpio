@@ -30,7 +30,9 @@ namespace Scorpio.EFConsoleApplication.Migrations
                         .HasColumnName("ExtraProperties");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnName("IsDeleted");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("IsDeleted")
+                        .HasDefaultValue(false);
 
                     b.Property<string>("Name")
                         .HasMaxLength(30);

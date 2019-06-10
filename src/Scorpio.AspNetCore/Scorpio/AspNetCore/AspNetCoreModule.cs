@@ -20,7 +20,6 @@ namespace Scorpio.AspNetCore
     /// <summary>
     /// 
     /// </summary>
-    [DependsOn(typeof(SecurityModule))]
     [DependsOn(typeof(UnitOfWorkModule))]
     [DependsOn(typeof(ThreadingModule))]
     [DependsOn(typeof(AuditingModule))]

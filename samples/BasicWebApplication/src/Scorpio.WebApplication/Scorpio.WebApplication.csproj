@@ -3,10 +3,15 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile />
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.App"/>
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="1.0.172" />
   </ItemGroup>
 
@@ -15,7 +20,5 @@
     <ProjectReference Include="..\..\..\..\src\Scorpio.AspNetCore.Mvc\Scorpio.AspNetCore.Mvc.csproj" />
     <ProjectReference Include="..\..\..\..\src\Scorpio.AspNetCore.UI.Bootstrap\Scorpio.AspNetCore.UI.Bootstrap.csproj" />
   </ItemGroup>
-
-
 
 </Project>

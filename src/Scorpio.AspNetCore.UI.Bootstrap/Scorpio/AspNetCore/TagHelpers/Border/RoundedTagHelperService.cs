@@ -21,7 +21,7 @@ namespace Scorpio.AspNetCore.TagHelpers.Border
 
             if (TagHelper.Rounded != RoundedType.Default)
             {
-                roundedClass += "-" + TagHelper.Rounded.ToString().ToLowerInvariant().Replace("_", "");
+                roundedClass += "-" + TagHelper.Rounded.ToClassName();
             }
 
             output.AddClass(roundedClass);

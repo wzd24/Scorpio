@@ -20,7 +20,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		build.ps1 = build.ps1
 		common.props = common.props
 		Directory.Build.props = Directory.Build.props
-		test\Directory.Build.props = test\Directory.Build.props
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
@@ -117,21 +116,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.AspNetCore.UI", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.AspNetCore.UI.Bootstrap", "src\Scorpio.AspNetCore.UI.Bootstrap\Scorpio.AspNetCore.UI.Bootstrap.csproj", "{337AED01-D76F-4068-A94A-5D9558CD49AD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9926D52F-A290-4048-93F1-3FDAC658E199}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-		.gitignore = .gitignore
-		appveyor.yml = appveyor.yml
-		build.cake = build.cake
-		build.ps1 = build.ps1
-		common.props = common.props
-		Directory.Build.props = Directory.Build.props
-		test\Directory.Build.props = test\Directory.Build.props
-		LICENSE = LICENSE
-		README.md = README.md
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scorpio.Application", "src\Scorpio.Application\Scorpio.Application.csproj", "{752E3EA3-99B0-4784-8D32-868D273D849C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C17A1A21-ED19-4648-9635-C15BFBB5F382}"
+	ProjectSection(SolutionItems) = preProject
+		test\Directory.Build.props = test\Directory.Build.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -630,7 +620,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{27EB2F67-0434-401D-AB23-336C56A66EAC} = {E1A4E891-22ED-4AB6-B1E7-3B1CC4D5BB35}
 		{1D88283C-6332-461E-8DBA-B083996FF56E} = {C57152EE-7CEB-4FD2-A26B-9B8852795752}
-		{79CB1E28-1468-4DE5-831E-1C09E014CE37} = {C57152EE-7CEB-4FD2-A26B-9B8852795752}
 		{D9B79816-60E7-4C6F-AF71-55925689F61B} = {C57152EE-7CEB-4FD2-A26B-9B8852795752}
 		{1DC06CE8-BD3A-4090-9DB3-B229CA56C593} = {E1A4E891-22ED-4AB6-B1E7-3B1CC4D5BB35}
 		{9B43A67D-98AF-48F5-A38F-990DC0EA3472} = {E1A4E891-22ED-4AB6-B1E7-3B1CC4D5BB35}
@@ -677,6 +666,7 @@ Global
 		{A7B4E1DA-F9E3-41EB-9321-EB6BAF0FD4FD} = {E1A4E891-22ED-4AB6-B1E7-3B1CC4D5BB35}
 		{337AED01-D76F-4068-A94A-5D9558CD49AD} = {E1A4E891-22ED-4AB6-B1E7-3B1CC4D5BB35}
 		{752E3EA3-99B0-4784-8D32-868D273D849C} = {E1A4E891-22ED-4AB6-B1E7-3B1CC4D5BB35}
+		{C17A1A21-ED19-4648-9635-C15BFBB5F382} = {C57152EE-7CEB-4FD2-A26B-9B8852795752}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D2AFD460-8F30-4611-A635-17D59DE0DE4B}

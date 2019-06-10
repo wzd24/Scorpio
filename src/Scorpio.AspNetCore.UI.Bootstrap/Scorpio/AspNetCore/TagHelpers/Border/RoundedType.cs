@@ -1,4 +1,6 @@
-﻿namespace Scorpio.AspNetCore.TagHelpers.Border
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+
+namespace Scorpio.AspNetCore.TagHelpers.Border
 {
     /// <summary>
     /// 
@@ -12,7 +14,8 @@
         /// <summary>
         /// 
         /// </summary>
-        _0,
+        [ClassName("0")]
+        None,
         /// <summary>
         /// 
         /// </summary>
@@ -28,6 +31,10 @@
         /// <summary>
         /// 
         /// </summary>
-        Bottom
+        Bottom,
+        /// <summary>
+        /// 
+        /// </summary>
+        Circle
     }
 }

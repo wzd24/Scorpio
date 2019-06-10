@@ -19,3 +19,81 @@
         <img class="d-block w-100" src="~/images/banner3.svg" alt="Third slide">
     </carousel-item>
 </carousel>
+
+<p>
+    <button button-type="Primary" collapse-target="#multiCollapseExample1" text="Toggle first element" />
+    <button button-type="Primary" collapse-target="#multiCollapseExample2" text="Toggle second element" />
+    <button button-type="Primary" collapse-target=".multi-collapse" text="Toggle both element" />
+</p>
+<div class="row">
+    <div class="col">
+        <collapse class="multi-collapse" id="multiCollapseExample1">
+            <div class="card card-body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+            </div>
+        </collapse>
+    </div>
+    <div class="col">
+        <collapse class="multi-collapse" id="multiCollapseExample2">
+            <div class="card card-body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+            </div>
+        </collapse>
+    </div>
+</div>
+
+<accordion>
+    <item active="true" title="测试1">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+    </item>
+    <item title="测试2">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+    </item>
+    <item title="测试3">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+    </item>
+</accordion>
+<dropdown direction="Down">
+    <button button-type="Primary" dropdown-button-type="Split">测试</button>
+    <dropdown-menu>
+        <a href="#">Action</a>
+        <a href="#">Another action</a>
+        <a href="#">Something else here</a>
+        <button button-type="Primary">测试</button>
+    </dropdown-menu>
+</dropdown>
+<dropdown direction="Down">
+    <button button-type="Primary">测试</button>
+    <dropdown-menu>
+        <a href="#">Action</a>
+        <a href="#">Another action</a>
+        <a href="#">Something else here</a>
+        <button button-type="Primary">测试</button>
+    </dropdown-menu>
+</dropdown>
+<nav class="nav nav-tabs">
+    <a class="nav-link active" href="#">Active</a>
+    <a class="nav-link" href="#">Link</a>
+    <a class="nav-link" href="#">Link</a>
+    <div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown button
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+    </div>
+    <dropdown class="nav-item" direction="Down">
+        <a class="nav-link" href="#">测试</a>
+        <dropdown-menu>
+            <a href="#">Action</a>
+            <a href="#">Another action</a>
+            <a href="#">Something else here</a>
+            <button button-type="Primary">测试</button>
+        </dropdown-menu>
+    </dropdown>
+
+    <a class="nav-link disabled" href="#">Disabled</a>
+</nav>

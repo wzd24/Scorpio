@@ -2,9 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyTitle>Scorpio aspnet core library</AssemblyTitle>
+    <RootNamespace />
   </PropertyGroup>
 
-  <Import Project="$(SolutionDir)/common.props" />
 
   <ItemGroup>
     <ProjectReference Include="..\Scorpio.Auditing\Scorpio.Auditing.csproj" />

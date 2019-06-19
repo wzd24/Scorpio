@@ -66,7 +66,7 @@ namespace Scorpio.EntityFrameworkCore.DependencyInjection
             else
             {
                 throw new ScorpioException(
-                    $"No configuration found for {typeof(DbContext).AssemblyQualifiedName}! Use services.Configure<AbpDbContextOptions>(...) to configure it.");
+                    $"No configuration found for {typeof(DbContext).AssemblyQualifiedName}! Use services.Configure<ScorpioDbContextOptions>(...) to configure it.");
             }
         }
 

@@ -56,18 +56,21 @@
 <dropdown direction="Down">
     <button button-type="Primary" dropdown-button-type="Split">测试</button>
     <dropdown-menu>
-        <a href="#">Action</a>
+        <a href="#" status="Active">Action</a>
         <a href="#">Another action</a>
         <a href="#">Something else here</a>
+        <divider></divider>
         <button button-type="Primary">测试</button>
     </dropdown-menu>
 </dropdown>
 <dropdown direction="Down">
     <button button-type="Primary">测试</button>
     <dropdown-menu>
-        <a href="#">Action</a>
+        <menu-header>头部</menu-header>
+        <a href="#" status="Disabled">Action</a>
         <a href="#">Another action</a>
         <a href="#">Something else here</a>
+        <divider></divider>
         <button button-type="Primary">测试</button>
     </dropdown-menu>
 </dropdown>
@@ -90,6 +93,7 @@
         <dropdown-menu>
             <a href="#">Action</a>
             <a href="#">Another action</a>
+            <divider></divider>
             <a href="#">Something else here</a>
             <button button-type="Primary">测试</button>
         </dropdown-menu>
@@ -97,3 +101,6 @@
 
     <a class="nav-link disabled" href="#">Disabled</a>
 </nav>
+<form>
+    <input id="ipt-test"  type="checkbox" name="Test"  text="可用"  size="Small"  placeholder="姓名是必填的" orientation="Horizontal" title="测试" />
+</form>

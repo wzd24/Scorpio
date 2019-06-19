@@ -25,7 +25,7 @@ namespace Scorpio.EntityFrameworkCore.EventBus
         public async Task PreSaveChangeAsync(IEnumerable<EntityEntry> entries) =>
             await Task.Run(() =>
             {
-                _entityChangeReport = ApplyAbpConcepts(entries);
+                _entityChangeReport = ApplyConcepts(entries);
                 _changeEventHelper.TriggerChangingEventsAsync(_entityChangeReport);
             });
 
@@ -34,40 +34,40 @@ namespace Scorpio.EntityFrameworkCore.EventBus
             await _changeEventHelper.TriggerChangedEventsAsync(_entityChangeReport);
         }
 
-        protected virtual EntityChangeReport ApplyAbpConcepts(IEnumerable<EntityEntry> entries)
+        protected virtual EntityChangeReport ApplyConcepts(IEnumerable<EntityEntry> entries)
         {
             var changeReport = new EntityChangeReport();
 
             foreach (var entry in entries)
             {
-                ApplyAbpConcepts(entry, changeReport);
+                ApplyConcepts(entry, changeReport);
             }
             return changeReport;
         }
 
-        protected virtual void ApplyAbpConcepts(EntityEntry entry, EntityChangeReport changeReport)
+        protected virtual void ApplyConcepts(EntityEntry entry, EntityChangeReport changeReport)
         {
             switch (entry.State)
             {
                 case EntityState.Added:
-                    ApplyAbpConceptsForAddedEntity(entry, changeReport);
+                    ApplyConceptsForAddedEntity(entry, changeReport);
                     break;
                 case EntityState.Modified:
-                    ApplyAbpConceptsForModifiedEntity(entry, changeReport);
+                    ApplyConceptsForModifiedEntity(entry, changeReport);
                     break;
                 case EntityState.Deleted:
-                    ApplyAbpConceptsForDeletedEntity(entry, changeReport);
+                    ApplyConceptsForDeletedEntity(entry, changeReport);
                     break;
             }
             AddDomainEvents(changeReport, entry.Entity);
         }
 
-        protected virtual void ApplyAbpConceptsForAddedEntity(EntityEntry entry, EntityChangeReport changeReport)
+        protected virtual void ApplyConceptsForAddedEntity(EntityEntry entry, EntityChangeReport changeReport)
         {
             changeReport.ChangedEntities.Add(new EntityChangeEntry(entry.Entity, EntityChangeType.Created));
         }
 
-        protected virtual void ApplyAbpConceptsForModifiedEntity(EntityEntry entry, EntityChangeReport changeReport)
+        protected virtual void ApplyConceptsForModifiedEntity(EntityEntry entry, EntityChangeReport changeReport)
         {
             if (entry.Entity is ISoftDelete softDelete && softDelete.IsDeleted)
             {
@@ -79,7 +79,7 @@ namespace Scorpio.EntityFrameworkCore.EventBus
             }
         }
 
-        protected virtual void ApplyAbpConceptsForDeletedEntity(EntityEntry entry, EntityChangeReport changeReport)
+        protected virtual void ApplyConceptsForDeletedEntity(EntityEntry entry, EntityChangeReport changeReport)
         {
             changeReport.ChangedEntities.Add(new EntityChangeEntry(entry.Entity, EntityChangeType.Deleted));
         }

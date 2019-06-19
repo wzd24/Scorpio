@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyTitle>Scorpio event bus of entity framework core library</AssemblyTitle>
+    <RootNamespace />
+
   </PropertyGroup>
-  <Import Project="$(SolutionDir)/common.props"/>
-
-
   <ItemGroup>
     <ProjectReference Include="..\Scorpio.EntityFrameworkCore\Scorpio.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\Scorpio.EventBus\Scorpio.EventBus.csproj" />

@@ -5,8 +5,7 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <RootNamespace />
     <Build>$([System.DateTime]::op_Subtraction($([System.DateTime]::get_Now().get_Date()),$([System.DateTime]::new(2019,4,9))).get_TotalDays())</Build>
-    <Revision>$([MSBuild]::Divide($([System.DateTime]::get_Now().get_TimeOfDay().get_TotalSeconds()), 2).ToString('F0'))</Revision>
-    <AssemblyVersion>0.1.$(Build).$(Revision)</AssemblyVersion>
+    <AssemblyVersion>0.1.0.$(Build)</AssemblyVersion>
     <Version>0.1.0-alpha.3</Version>
     <Authors>Zidan.Wang</Authors>
     <Company>Pluto Studio</Company>

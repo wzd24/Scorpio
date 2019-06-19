@@ -2,8 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyTitle>Scorpio entity framework core sql server provider library</AssemblyTitle>
+    <RootNamespace />
+
   </PropertyGroup>
-  <Import Project="$(SolutionDir)/common.props"/>
 
   <ItemGroup>
     <ProjectReference Include="..\Scorpio.EntityFrameworkCore\Scorpio.EntityFrameworkCore.csproj" />

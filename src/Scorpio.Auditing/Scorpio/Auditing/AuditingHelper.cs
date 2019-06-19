@@ -143,8 +143,6 @@ namespace Scorpio.Auditing
             var auditInfo = new AuditInfo
             {
                 CurrentUser=_principalAccessor.Principal?.Identity?.Name,
-                //ImpersonatorUserId = AbpSession.ImpersonatorUserId, //TODO: Impersonation system is not available yet!
-                //ImpersonatorTenantId = AbpSession.ImpersonatorTenantId,
                 ExecutionTime = Clock.Now
             };
 

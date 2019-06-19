@@ -2,8 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyTitle>Scorpio guids library</AssemblyTitle>
+    <RootNamespace />
   </PropertyGroup>
-  <Import Project="$(SolutionDir)/common.props"/>
 
   <ItemGroup>
     <ProjectReference Include="../Scorpio/Scorpio.csproj" />
